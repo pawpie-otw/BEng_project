@@ -15,7 +15,7 @@ def custom_number(min_val: int = -sys.maxsize - 1,
         min_val (int, optional): lowest lim of number range. Defaults min allowed number.
         max_val (int, optional): max lim of number range. Defaults to max allowed number.
         range_chance (List[int], optional): divide a range to n:=len(change_chance) subranges and give then a chance to be drawn. 
-        Defaults to [100] - the same chance for every number in full range.
+        Defaults to [100] - the same chance for every number in all given range.
         round_ (int, optional): round a returned value to passed decimals as parameter. Defaults to None (not round).
 
     Returns:

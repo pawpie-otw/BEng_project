@@ -1,10 +1,8 @@
-import json
-import random as rd
-from enum import Enum, auto
-from typing import List
+from enum import Enum
+import pandas as pd
 
 
-class sex_enum(Enum):
+class gender_enum(Enum):
     FEMALE = "female"
     MALE = "male"
 
@@ -15,18 +13,17 @@ class pop_sum_enum(Enum):
     TOTAL_POP = 38265013
 
 
-class pop_chance_enum(Enum):
+class gender_chance_enum(Enum):
     FEMALE = 0.5164710645727469
     MALE = 0.4835289354272531
 
 
-class population:
-    def draw_sex(self, symbols):
-        pass
+class Population:
 
-    def chance_for_sex(self, age_low_lim: int = 0,
-                       age_up_lim: int = 100, chances=List[float]
-                       ) -> float:
+    @staticmethod
+    def gender_chance_by_age(gender: gender_enum,
+                             age_dataset: pd.DataFrame,
+                             age: int) -> float:
         """Return chance to draw a sex based on amount of each sex group in given age range
 
         Args:
@@ -38,15 +35,29 @@ class population:
         Returns:
             float: chance for draw representant of [group] (value: .0 - 1.)
         """
+        a = 100 if age > 100 else 0 if age < 0 else age
 
-        return requested_group_amount/total_group_amount
+        return age_dataset[gender.value].iloc[a]/age_dataset.total.iloc[a]
 
-    def chance_for_age(self, group: sex_enum,
-                       age_low_lim: int = 0,
-                       age_up_lim: int = 100) -> float:
-        pass
+    @staticmethod
+    def gender_chance_by_age_between(gender: gender_enum,
+                                     age_dataset: pd.DataFrame,
+                                     age_low_lim: int = 0,
+                                     age_up_lim: int = 100):
+
+        ll = 0 if age_low_lim < 0 else age_low_lim
+        ul = 100 if age_up_lim > 100 else age_up_lim
+        return age_dataset[gender.value].iloc[ll:ul+1].sum()/age_dataset.total.iloc[ll:ul+1].sum()
+
+    @staticmethod
+    def draw_age(gender: gender_enum, age_low_lim: int = 0, age_up_lim: int = 100):
+        ll = 0 if age_low_lim < 0 else age_low_lim
+        ul = 100 if age_up_lim > 100 else age_up_lim
 
 
 if __name__ == '__main__':
-    pop = population()
-    print(pop.chance_for(20, 50, "total"))
+
+    for i in range(10, 80):
+        print(Population.gender_chance_by_age(gender_enum.FEMALE, i))
+        print(Population.gender_chance_by_age_between(gender_enum.MALE, i, i+5))
+        print('-'*50)
