@@ -44,31 +44,10 @@ class Person:
             #     (names_ds[0].name), (names_ds[1].amount))
 
             # drawing age
-            age = random.choices(range(101), pop_age[gender_.value])[0]
+            age: int = random.choices(range(101), pop_age[gender_.value])[0]
 
             result.append((gender_.value[0], age, *names_ds))
         return result
-
-    @ staticmethod
-    def draw_from_df(*args: Tuple[Tuple], k: int = 1):
-        """Return list of name
-
-        Args:
-            k (int, optional): [description]. Defaults to 1.
-
-        Returns:
-            [type]: [description]
-        """
-        col_names = [df.columns for df in args]
-
-        # if k is greater then 1, then return list of lists
-        if k > 1:
-            return tuple(tuple(random.choices(d_set[cols[0]], d_set[cols[1]], k=k))
-                         for d_set, cols in zip(args, col_names))
-        # else: return list
-        else:
-            return tuple(random.choices(d_set[cols[0]], d_set[cols[1]])[0]
-                         for d_set, cols in zip(args, col_names))
 
     @ staticmethod
     def __draw_gender(gender: Tuple[Any] = tuple(gen for gen in gender_enum),
