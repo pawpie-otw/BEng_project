@@ -3,9 +3,10 @@ from typing import Any, Optional, Tuple
 from data.population import gender_enum
 import pandas as pd
 from data import population as pop
+from common_functions.custom_draws import draw_from_df
 
 
-class Person:
+class People:
     """class to generate a dataset
 
     Returns:
@@ -24,23 +25,23 @@ class Person:
 
         # load all datasets using in generate people dataset
         f_fname_df = pd.read_csv(__class__.path_dict['f_fname'])
-        f_lname_df = pd.read_csv(People.path_dict["f_lname"])
-        m_fname_df = pd.read_csv(People.path_dict["m_fname"])
-        m_lname_df = pd.read_csv(People.path_dict["m_lname"])
-        pop_age = pd.read_json(People.path_dict['age'])
+        f_lname_df = pd.read_csv(__class__.path_dict["f_lname"])
+        m_fname_df = pd.read_csv(__class__.path_dict["m_fname"])
+        m_lname_df = pd.read_csv(__class__.path_dict["m_lname"])
+        pop_age = pd.read_json(__class__.path_dict['age'])
 
         result = []
 
         for _ in range(n):
             # drawing gender and fitting datasets to it
             if (gender_ := __class__.__draw_gender()) == gender_enum.FEMALE:
-                names_ds = __class__.draw_from_df(f_fname_df, f_lname_df)
+                names_ds = draw_from_df(f_fname_df, f_lname_df)
 
             elif gender_ == gender_enum.MALE:
-                names_ds = __class__.draw_from_df(m_fname_df, m_lname_df)
+                names_ds = draw_from_df(m_fname_df, m_lname_df)
 
             # drawing names
-            # names = __class__.draw_from_df(
+            # names = draw_from_df(
             #     (names_ds[0].name), (names_ds[1].amount))
 
             # drawing age
