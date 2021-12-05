@@ -16,8 +16,22 @@ class ValueTooHigh(Exception):
         super().__init__(message)
 
 
-class InccorectLimits(Exception):
+class IncorrectLimits(Exception):
     """Raised when lower limit is heigher than upper limit"""
+
+    def __init__(self, message):
+        super().__init__(self, message)
+
+
+class IncorrectType(Exception):
+    """Raised when argument has wrong type"""
+
+    def __init__(self, message):
+        super().__init__(self, message)
+
+
+class IncorrectLen(Exception):
+    """Raised when argument has wrong len"""
 
     def __init__(self, message):
         super().__init__(self, message)
