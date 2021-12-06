@@ -32,6 +32,7 @@ def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: 
             (val0_from_df0),
             (val0_from_df1, val1_from_df1),
             (val0_from_df2, val1_from_df2, val2_from_df2))
+            
     """
 
 
