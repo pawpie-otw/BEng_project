@@ -47,17 +47,17 @@ def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: 
 
     if equal_weight:
         if any(i>1 for i in k):
-            return tuple(tuple(choices(d_set[cols[0]], k=k))
-                         for d_set, cols in zip(df_s, col_names))
+            return tuple(choices(d_set[cols[0]], k=_k)
+                         for d_set, cols,_k in zip(df_s, col_names, k))
     # else: return list
         else:
             return tuple(choice(d_set[cols[0]])
                          for d_set, cols in zip(df_s, col_names))
     # if k is greater then 1, then return tuple of tuples
     if any(i>1 for i in k):
-        return tuple(tuple(choices(d_set[cols[0]], d_set[cols[1]], k=k))
-                     for d_set, cols in zip(df_s, col_names))
+        return tuple(choices(d_set[cols[0]], d_set[cols[1]], k=_k) 
+                     for d_set, cols, _k in zip(df_s, col_names, k))
     # else: return list
     else:
         return tuple(choices(d_set[cols[0]], d_set[cols[1]])[0]
-                     for d_set, cols in zip(df_s, col_names))
+                     for d_set, cols  in zip(df_s, col_names))
