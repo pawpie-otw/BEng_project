@@ -1,6 +1,6 @@
 from typing import Optional
 from fastapi import FastAPI, Query
-from person import Person
+from people import People
 
 import uvicorn
 
@@ -12,14 +12,14 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}", disable_extra_fields=True)
+@app.get("/items/{item_id}")
 def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
 
 @app.get("/person/")
 def person():
-    return {"sex": Person.draw_sex()}
+    return {"sex": People.generate_dataset()}
 
 
 @app.get("/query")

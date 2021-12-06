@@ -2,7 +2,7 @@ import enum as Enum
 from enum import Enum
 import pandas as pd
 from typing import Optional
-import custom_exceptions as c_exc
+import common_functions.custom_exceptions as c_exc
 import random
 
 

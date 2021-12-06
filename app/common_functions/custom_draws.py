@@ -1,13 +1,12 @@
 from pandas import DataFrame
 from random import choices, choice
 from typing import Union, Tuple, Any
-from custom_exceptions import IncorrectLen
+from common_functions.custom_exceptions import IncorrectLen
 
 
-def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: bool = False) \
-        -> Union[Tuple[Any], Tuple[Tuple[Any]]]:
-    """This method draw values from given DFs considering the popular of name as weight.
-
+def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: bool = False) -> Union[Tuple[Any], Tuple[Tuple[Any]]]:
+    
+    """ This method draw values from given DFs considering the popular of name as weight.
     Args:
         df_s (DataFrame| List[DataFrame]): data to draw from.
         First col have to contains values and if equal_weights is False, second - weights.
@@ -35,6 +34,7 @@ def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: 
             (val0_from_df2, val1_from_df2, val2_from_df2))
     """
 
+
     col_names = [df.columns for df in df_s]
 
     if isinstance(k, int):
@@ -45,7 +45,7 @@ def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: 
         raise IncorrectLen("Length of k should be equal to number of df_s.")
 
     if equal_weight:
-        if k > 1:
+        if any(i>1 for i in k):
             return tuple(tuple(choices(d_set[cols[0]], k=k))
                          for d_set, cols in zip(df_s, col_names))
     # else: return list
@@ -53,7 +53,7 @@ def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: 
             return tuple(choice(d_set[cols[0]])
                          for d_set, cols in zip(df_s, col_names))
     # if k is greater then 1, then return tuple of tuples
-    if k > 1:
+    if any(i>1 for i in k):
         return tuple(tuple(choices(d_set[cols[0]], d_set[cols[1]], k=k))
                      for d_set, cols in zip(df_s, col_names))
     # else: return list
