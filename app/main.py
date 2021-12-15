@@ -1,7 +1,7 @@
 from typing import Optional
 from fastapi import FastAPI, Query
 from people import People
-
+import pandas as pd
 import uvicorn
 
 app = FastAPI()
@@ -17,9 +17,28 @@ def read_item(item_id: int, q: Optional[str] = None):
     return {"item_id": item_id, "q": q}
 
 
-@app.get("/person/")
-def person():
-    return {"sex": People.generate_dataset()}
+@app.get("/people/{n}")
+async def person(n: int = Query(1, description="number of returned records, >=1", ge=1),
+                 age_low_lim: int = Query(None,
+                                          description="lowest limit of drawing age, have to be lower or equal to upper limit", ge=0, le=100),
+                 age_up_lim: int = Query(None,
+                                         description="upper limit of drawing age, have to be upper or equal to lower limit", ge=0, le=100),
+                 only_males: bool = Query(False),
+                 only_females: bool = Query(False),
+                 number_of_fnames: int = Query(1,
+                                               description="number of first names", ge=1, le=3),
+                 unregular_number_of_names: bool = Query(
+        False, description="if number of names is >1, then you can set this param to true and some of people will have less then number_of_fnames names"),
+        double_surnames: bool = Query(
+            False, description="If true, there is a chance to draw double surname in records"),
+        orient: str = Query('split',
+                            description="orient of returned json (‘split’, ‘records’, ‘index’, ‘table’), for more look at pandas to_json docs")):
+    print(res := People.generate_dataset(n=n,
+                                         age_low_lim=age_low_lim,
+                                         age_up_lim=age_up_lim,
+                                         only_males=only_males,
+                                         only_females=only_females).to_json(orient=orient))
+    return res
 
 
 @app.get("/query")
