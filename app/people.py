@@ -5,7 +5,7 @@ from pandas.core.frame import DataFrame
 from data.population import gender_enum
 import pandas as pd
 from data import population as pop
-from common_functions.custom_draws import draw_from_df, draw_voivodship
+from common_functions.custom_draws import draw_from_df
 
 
 class People:
@@ -88,8 +88,10 @@ class People:
             lambda x: choices(range(101), pop_age[x.gender])[0], axis=1)
 
         result['voivodship'] = result.apply(
-            lambda x: draw_voivodship(x.age, voivodship[str(x.gender)+"s"])
+            lambda x: __class__.__draw_voivodship(
+                x.age, voivodship[str(x.gender)+"s"]), axis=1
         )
+
         # result["height"] +=
         # result["weight"] +=
 
@@ -120,10 +122,10 @@ class People:
                      name_separator: Annotated[str, 1] = " ") -> pd.Series:
 
         # usually one is used when u choosed one gender
-        if not second_names_set:
-            if unregular_number_of_names:
-                return df.apply(lambda: name_separator.join(draw_from_df(first_names_set, k=randint(1, number_of_names))[0]))
-            return df.apply(lambda: name_separator.join(draw_from_df(first_names_set, k=number_of_names)[0]), axis=1)
+        if not isinstance(second_names_set, pd.DataFrame):
+            if (unregular_number_of_names is None):
+                return df.apply(lambda _: name_separator.join(draw_from_df(first_names_set, k=randint(1, number_of_names))[0]))
+            return df.apply(lambda _: name_separator.join(draw_from_df(first_names_set, k=number_of_names)[0]), axis=1)
 
         # random (1:number of names) number of names
         if unregular_number_of_names and (number_of_names > 1):
@@ -136,10 +138,42 @@ class People:
                         if x.gender == 'female'
                         else name_separator.join(draw_from_df(second_names_set, k=number_of_names)[0]), axis=1)
 
+    def __draw_voivodship(age: int = None, voivodeship_population_dataset: pd.DataFrame = None, equal_weight: bool = False) -> str:
+        """Draw and return name of polish voivodship based on population (which is equal to weight in drawing) that
+        the ``voivodeship_population_dataset`` arg containts.
+
+        Args:
+            ``age`` (int): Age of person to whom the result will be matched.
+            ``voivodeship_population_dataset`` (pd.DataFrame): df containts population group by age and voivodship.
+            ``equal_weight`` (bool, optional): If true, population doesn't matter - every choice is equal. Defaults to False.
+
+        Returns:
+            (str): Name of voivodship in Poland.
+        """
+        voivodships = ['Dolnośląskie', 'Kujawsko-pomorskie', 'Lubelskie', 'Lubuskie',
+                       'Łódzkie', 'Małopolskie', 'Mazowieckie', 'Opolskie', 'Podkarpackie',
+                       'Podlaskie', 'Pomorskie', 'Śląskie', 'Świętokrzyskie',
+                       'Warmińsko-mazurskie', 'Wielkopolskie', 'Zachodniopomorskie']
+
+        if equal_weight:
+            return choices(voivodships)[0]
+
+        age_ = age if age <= 85 else 85
+        if (age is not None) and (voivodeship_population_dataset is not None):
+            return choices(voivodeship_population_dataset.columns,
+                           voivodeship_population_dataset.iloc[age_])[0]
+
+    def test_voivodship(age: int = None, voivodeship_population_dataset: pd.DataFrame = None, equal_weight: bool = False):
+        return __class__.__draw_voivodship(age=age, voivodeship_population_dataset=voivodeship_population_dataset, equal_weight=equal_weight)
+
     @ staticmethod
     def __single_gender() -> pd.DataFrame:
         pass
 
 
 if __name__ == '__main__':
-    print(People.generate_dataset(n=10))
+    res = People.generate_dataset(n=20)
+    print(res)
+    # voivodship = {"males": pd.read_csv(People.path_dict["voivodship_males"]),
+    #               "females": pd.read_csv(People.path_dict["voivodship_females"])}
+    # print(People.test_voivodship(10, voivodship["male"+"s"]))

@@ -2,7 +2,7 @@ from pandas import DataFrame
 from random import choices, choice
 from typing import Union, Tuple, Any
 from common_functions.custom_exceptions import IncorrectLen
-from pandas import DataFrame
+import pandas as pd
 
 
 def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: bool = False) \
@@ -60,27 +60,3 @@ def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: 
     else:
         return tuple(choices(d_set[cols[0]], d_set[cols[1]])[0]
                      for d_set, cols in zip(df_s, col_names))
-
-
-def draw_voivodship(age: int, voivodeship_population_dataset: DataFrame, equal_weight: bool = False) -> str:
-    """Draw and return name of polish voivodship based on population (which is equal to weight in drawing) that
-    the ``voivodeship_population_dataset`` arg containts.
-
-    Args:
-        ``age`` (int): Age of person to whom the result will be matched.
-        ``voivodeship_population_dataset`` (pd.DataFrame): df containts population group by age and voivodship.
-        ``equal_weight`` (bool, optional): If true, population doesn't matter - every choice is equal. Defaults to False.
-
-    Returns:
-        (str): Name of voivodship in Poland.
-    """
-    voivodships = ['Dolnośląskie', 'Kujawsko-pomorskie', 'Lubelskie', 'Lubuskie',
-                   'Łódzkie', 'Małopolskie', 'Mazowieckie', 'Opolskie', 'Podkarpackie',
-                   'Podlaskie', 'Pomorskie', 'Śląskie', 'Świętokrzyskie',
-                   'Warmińsko-mazurskie', 'Wielkopolskie', 'Zachodniopomorskie']
-
-    if equal_weight:
-        return choices(voivodships)[0]
-
-    return choices(voivodeship_population_dataset.columns,
-                   voivodeship_population_dataset.iloc[age])[0]
