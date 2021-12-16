@@ -1,6 +1,7 @@
 from typing import Optional
 from fastapi import FastAPI, Query
 from people import People
+from athletes import Athletes
 
 import uvicorn
 
@@ -21,6 +22,9 @@ def read_item(item_id: int, q: Optional[str] = None):
 def person():
     return {"sex": People.generate_dataset()}
 
+@app.get("/athlete/")
+def athlete():
+    return {"0": Athletes.generate_dataset()}
 
 @app.get("/query")
 async def query(q=Query(None)):

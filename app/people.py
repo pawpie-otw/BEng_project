@@ -1,8 +1,8 @@
 import random
 from typing import Any, Optional, Tuple
-from data.population import gender_enum
+from data.people.population import gender_enum
 import pandas as pd
-from data import population as pop
+from data.people import population as pop
 from common_functions.custom_draws import draw_from_df
 
 
@@ -13,11 +13,11 @@ class People:
         [type]: [description]
     """
     path_dict = {
-        "f_fname": r"data/first_name_female_living_10k.csv",
-        "f_lname": r'data/last_name_female_living_2020_10k.csv',
-        "m_fname": r"data/first_name_male_living_10k.csv",
-        "m_lname": r"data/last_name_male_living_10k.csv",
-        "age": r"data/population.json"
+        "f_fname": r"data/people/first_name_female_living_10k.csv",
+        "f_lname": r'data/people/last_name_female_living_2020_10k.csv',
+        "m_fname": r"data/people/first_name_male_living_10k.csv",
+        "m_lname": r"data/people/last_name_male_living_10k.csv",
+        "age": r"data/people/population.json"
     }
 
     @staticmethod
