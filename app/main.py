@@ -12,11 +12,6 @@ def read_root():
     return {"Hello": "World"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
-
-
 @app.get("/people/{n}")
 async def person(n: int = Query(1, description="number of returned records, >=1", ge=1),
                  age_low_lim: int = Query(None,
@@ -33,17 +28,14 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
             False, description="If true, there is a chance to draw double surname in records"),
         orient: str = Query('split',
                             description="orient of returned json (‘split’, ‘records’, ‘index’, ‘table’), for more look at pandas to_json docs")):
-    print(res := People.generate_dataset(n=n,
-                                         age_low_lim=age_low_lim,
-                                         age_up_lim=age_up_lim,
-                                         only_males=only_males,
-                                         only_females=only_females).to_json(orient=orient))
-    return res
+    res = People.generate_dataset(n=n,
+                                  age_low_lim=age_low_lim,
+                                  age_up_lim=age_up_lim,
+                                  only_males=only_males,
+                                  only_females=only_females)
+    #
 
-
-@app.get("/query")
-async def query(q=Query(None)):
-    return {"q": int(q)}
+    return res.to_json(orient=orient)
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")
