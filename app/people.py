@@ -4,7 +4,7 @@ from typing import Any, Optional, Tuple, Annotated
 from pandas.core.frame import DataFrame
 from data.population import gender_enum
 import pandas as pd
-from data import population as pop
+from data.people import population as pop
 from common_functions.custom_draws import draw_from_df
 
 
