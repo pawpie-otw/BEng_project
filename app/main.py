@@ -1,12 +1,7 @@
 from typing import Optional
 from fastapi import FastAPI, Query
 from people import People
-<<<<<<< HEAD
 import pandas as pd
-=======
-from athletes import Athletes
-
->>>>>>> sports
 import uvicorn
 
 app = FastAPI()
@@ -17,7 +12,6 @@ def read_root():
     return {"Hello": "World"}
 
 
-<<<<<<< HEAD
 @app.get("/people/{n}")
 async def person(n: int = Query(1, description="number of returned records, >=1", ge=1),
                  age_low_lim: int = Query(None,
@@ -42,24 +36,11 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
     #
 
     return res.to_json(orient=orient)
-=======
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
 
-
-@app.get("/person/")
-def person():
-    return {"sex": People.generate_dataset()}
 
 @app.get("/athlete/")
 def athlete():
     return {"0": Athletes.generate_dataset()}
-
-@app.get("/query")
-async def query(q=Query(None)):
-    return {"q": int(q)}
->>>>>>> sports
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")
