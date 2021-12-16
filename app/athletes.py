@@ -1,6 +1,7 @@
 from pandas.core.frame import DataFrame
 from common_functions.custom_draws import draw_from_df
 from data.athletes.sports_data import Data
+
 import pandas as pd
 
 
@@ -25,12 +26,10 @@ class Athletes:
         return dfs_provinces_dict
         
     @staticmethod
-    def generate_dataset(): 
-        dataset = draw_from_df(__class__.data.calculate_total_athletes(),k=1)
-        res = {}
-        for province in dataset:
-            res[province] = draw_from_df(__class__.create_provinces_dict()[province])
-        return res
+    def generate_dataset(df: DataFrame):
+
+        return pd.Series([draw_from_df(__class__.create_provinces_dict()[voivodship])
+                          for voivodship in df.voivodship])
             
                 
             

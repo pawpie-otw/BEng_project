@@ -1,6 +1,10 @@
 from typing import Optional
 from fastapi import FastAPI, Query
 from people import People
+from athletes import Athletes
+from pandas.core.frame import DataFrame
+from common_functions.custom_draws import draw_from_df
+from data.athletes.sports_data import Data
 import pandas as pd
 import uvicorn
 
@@ -35,7 +39,8 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
                                   only_females=only_females)
     #
 
-    return res.to_json(orient=orient)
+    #return res.to_json(orient=orient)
+    return Athletes.generate_dataset(res)
 
 
 @app.get("/athlete/")
