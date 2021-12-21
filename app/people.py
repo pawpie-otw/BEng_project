@@ -150,10 +150,10 @@ class People:
         Returns:
             (str): Name of voivodship in Poland.
         """
-        voivodships = ['Dolnośląskie', 'Kujawsko-pomorskie', 'Lubelskie', 'Lubuskie',
-                       'Łódzkie', 'Małopolskie', 'Mazowieckie', 'Opolskie', 'Podkarpackie',
-                       'Podlaskie', 'Pomorskie', 'Śląskie', 'Świętokrzyskie',
-                       'Warmińsko-mazurskie', 'Wielkopolskie', 'Zachodniopomorskie']
+        voivodships = ['DOLNOŚLĄSKIE', 'KUJAWSKO-POMORSKIE', 'LUBELSKIE', 'LUBUSKIE',
+                       'ŁÓDZKIE', 'MAŁOPOLSKIE', 'MAZOWIECKIE', 'OPOLSKIE', 'PODKARPACKIE',
+                       'PODLASKIE', 'POMORSKIE', 'ŚLĄSKIE', 'ŚWIĘTOKRZYSKIE',
+                       'WARMIŃSKO-MAZURSKIE', 'WIELKOPOLSKIE', 'ZACHODNIOPOMORSKIE']
 
         if equal_weight:
             return choices(voivodships)[0]
