@@ -44,7 +44,7 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
                             description="orient of returned json (‘split’, ‘records’, ‘index’, ‘table’, 'typical_json_form'), for more look at pandas to_json docs")):
 
     print(unregular_number_of_fnames, type(unregular_number_of_fnames))
-    
+
     people_res = People.generate_dataset(n=n,
                                   age_low_lim=age_low_lim,
                                   age_up_lim=age_up_lim,
@@ -56,7 +56,7 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
     
 
 
-    athlets_res = Athletes.generate_dataset(people_res)
+    athlets_res = Athletes.generate_dataset(people_res) # return series of sport
     
     if orient == "typical_json_form":
         return json_form(people_res)
