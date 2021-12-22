@@ -19,8 +19,8 @@ class People:
         "f_lname": r'data/people/last_name_female_living_2020_10k.csv',
         "m_fname": r"data/people/first_name_male_living_10k.csv",
         "m_lname": r"data/people/last_name_male_living_10k.csv",
-        "voivodship_males": r"data/voivodship_males_by_sexage.csv",
-        "voivodship_females": r"data/voivodship_females_by_sexage.csv",
+        "voivodship_males": r"data/people/voivodship_males_by_sexage.csv",
+        "voivodship_females": r"data/people/voivodship_females_by_sexage.csv",
         "age": r"data/people/population.json"
     }
 

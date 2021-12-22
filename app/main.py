@@ -47,10 +47,9 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
                                   age_up_lim=age_up_lim,
                                   only_males=only_males,
                                   only_females=only_females)
-    #
 
-    # return res.to_json(orient=orient)
-    Athletes.generate_dataset(res)
+
+    # Athletes.generate_dataset(res)
 
     return res.to_json(orient=orient, index=indexed_cols, force_ascii=False)
 
