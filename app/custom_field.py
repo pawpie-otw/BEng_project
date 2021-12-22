@@ -36,8 +36,3 @@ def custom_number(min_val: int = -sys.maxsize - 1,
 
 if __name__ == '__main__':
     pass
-    # dd = defaultdict(int)
-    # for _ in range(1_000_000+1):
-    #     _, choosen_range = custom_int(0, 100, [10, 20, 30, 40, 50])
-    #     dd[choosen_range] += 1
-    # print(dd)

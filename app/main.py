@@ -1,5 +1,6 @@
 from typing import Optional
 from fastapi import FastAPI, Query
+import json
 
 from athletes import Athletes
 from pandas.core.frame import DataFrame
@@ -8,8 +9,8 @@ import uvicorn
 
 
 from common_functions.custom_draws import draw_from_df
-from common_functions.fields import available_field
-
+from common_functions.fields import available_fields
+from common_functions.json_form import json_form
 from people import People
 
 from data.athletes.sports_data import Data
@@ -34,29 +35,38 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
                  only_females: bool = Query(False),
                  number_of_fnames: int = Query(1,
                                                description="number of first names", ge=1, le=3),
-                 unregular_number_of_names: bool = Query(
+                 unregular_number_of_fnames: bool = Query(
         False, description="if number of names is >1, then you can set this param to true and some of people will have less then number_of_fnames names"),
         double_surnames: bool = Query(
             False, description="If true, there is a chance to draw double surname in records"),
         indexed_cols: bool = Query(True),
-        orient: str = Query('index',
-                            description="orient of returned json (‘split’, ‘records’, ‘index’, ‘table’), for more look at pandas to_json docs")):
+        orient: str = Query('typical_json_form',
+                            description="orient of returned json (‘split’, ‘records’, ‘index’, ‘table’, 'typical_json_form'), for more look at pandas to_json docs")):
 
-    res = People.generate_dataset(n=n,
+    print(unregular_number_of_fnames, type(unregular_number_of_fnames))
+    
+    people_res = People.generate_dataset(n=n,
                                   age_low_lim=age_low_lim,
                                   age_up_lim=age_up_lim,
                                   only_males=only_males,
-                                  only_females=only_females)
+                                  only_females=only_females,
+                                  number_of_fnames=number_of_fnames,
+                                  unregular_number_of_fnames=unregular_number_of_fnames)
+
+    
 
 
-    # Athletes.generate_dataset(res)
+    athlets_res = Athletes.generate_dataset(people_res)
+    
+    if orient == "typical_json_form":
+        return json_form(people_res)
 
-    return res.to_json(orient=orient, index=indexed_cols, force_ascii=False)
+    return people_res.to_json(orient=orient, index=indexed_cols, force_ascii=False)
 
 
 @app.get("/fields/")
 def fields():
-    return available_field
+    return available_fields
 
 
 if __name__ == "__main__":

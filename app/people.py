@@ -1,5 +1,5 @@
 from random import randint, choices
-from typing import Any, Optional, Tuple, Annotated
+from typing import Any, Optional, Tuple, Annotated, Union, List
 
 from pandas.core.frame import DataFrame
 from data.people.population import gender_enum
@@ -32,7 +32,7 @@ class People:
                          only_males: bool = False,
                          only_females: bool = False,
                          number_of_fnames: int = 1,
-                         unregular_number_of_names: bool = False,
+                         unregular_number_of_fnames: bool = False,
                          double_surnames: bool = False,
                          unregular_double_surname: bool = False) -> pd.DataFrame:
 
@@ -53,7 +53,7 @@ class People:
                 ['female' for _ in range(n)]).astype("category")
 
             result['first name'] = __class__.__draw_names(
-                result, f_fname_df, None, number_of_fnames, unregular_number_of_names)
+                result, f_fname_df, None, number_of_fnames, unregular_number_of_fnames)
 
             result['last name'] = __class__.__draw_names(
                 result, f_lname_df, None, lnames_num, unregular_double_surname, name_separator="-")
@@ -65,7 +65,7 @@ class People:
             result['gender'] = pd.Series(
                 ['male' for _ in range(n)]).astype("category")
             result['first name'] = __class__.__draw_names(
-                result, m_fname_df, None, number_of_fnames, unregular_number_of_names)
+                result, m_fname_df, None, number_of_fnames, unregular_number_of_fnames)
             result['last name'] = __class__.__draw_names(
                 result, m_lname_df, None, lnames_num, unregular_double_surname, name_separator="-")
             result['']
@@ -78,7 +78,7 @@ class People:
 
         # drawing a first names
         result['first name'] = __class__.__draw_names(
-            result, f_fname_df, m_fname_df, number_of_fnames, unregular_number_of_names)
+            result, f_fname_df, m_fname_df, number_of_fnames, unregular_number_of_fnames)
 
         # drawing a last name
         result['last name'] = __class__.__draw_names(
@@ -124,19 +124,19 @@ class People:
         # usually one is used when u choosed one gender
         if not isinstance(second_names_set, pd.DataFrame):
             if (unregular_number_of_names is None):
-                return df.apply(lambda _: name_separator.join(draw_from_df(first_names_set, k=randint(1, number_of_names))[0]))
-            return df.apply(lambda _: name_separator.join(draw_from_df(first_names_set, k=number_of_names)[0]), axis=1)
+                return df.apply(lambda _: __class__.__concatenate_names(draw_from_df(first_names_set, k=randint(1, number_of_names, sep=name_separator))))
+            return df.apply(lambda _: __class__.__concatenate_names(draw_from_df(first_names_set, k=number_of_names)[0], sep=name_separator), axis=1)
 
         # random (1:number of names) number of names
         if unregular_number_of_names and (number_of_names > 1):
-            return df.apply(lambda x: name_separator.join(draw_from_df(first_names_set, k=randint(1, number_of_names))[0])
+            return df.apply(lambda x: __class__.__concatenate_names(draw_from_df(first_names_set, k=randint(1, number_of_names))[0], sep=name_separator)
                             if x.gender == 'female'
-                            else name_separator.join(draw_from_df(second_names_set, k=randint(1, number_of_names))[0]), axis=1)
+                            else __class__.__concatenate_names(draw_from_df(second_names_set, k=randint(1, number_of_names))[0], sep=name_separator), axis=1)
 
         # constant number of names
-        return df.apply(lambda x: name_separator.join(draw_from_df(first_names_set, k=number_of_names)[0])
+        return df.apply(lambda x: __class__.__concatenate_names(draw_from_df(first_names_set, k=number_of_names)[0], sep=name_separator)
                         if x.gender == 'female'
-                        else name_separator.join(draw_from_df(second_names_set, k=number_of_names)[0]), axis=1)
+                        else __class__.__concatenate_names(draw_from_df(second_names_set, k=number_of_names)[0], sep=name_separator), axis=1)
 
     def __draw_voivodship(age: int = None, voivodeship_population_dataset: pd.DataFrame = None, equal_weight: bool = False) -> str:
         """Draw and return name of polish voivodship based on population (which is equal to weight in drawing) that
@@ -163,17 +163,14 @@ class People:
             return choices(voivodeship_population_dataset.columns,
                            voivodeship_population_dataset.iloc[age_])[0]
 
+    def __concatenate_names(input:Union[str,List[str], Tuple[str]], sep=" ")->str:
+        if isinstance(input, str):
+            return input
+        if isinstance(input, (tuple, list)):
+            return sep.join(input)
+
+
     def test_voivodship(age: int = None, voivodeship_population_dataset: pd.DataFrame = None, equal_weight: bool = False):
         return __class__.__draw_voivodship(age=age, voivodeship_population_dataset=voivodeship_population_dataset, equal_weight=equal_weight)
 
-    @ staticmethod
-    def __single_gender() -> pd.DataFrame:
-        pass
 
-
-if __name__ == '__main__':
-    res = People.generate_dataset(n=20)
-    print(res)
-    # voivodship = {"males": pd.read_csv(People.path_dict["voivodship_males"]),
-    #               "females": pd.read_csv(People.path_dict["voivodship_females"])}
-    # print(People.test_voivodship(10, voivodship["male"+"s"]))

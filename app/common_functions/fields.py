@@ -1,4 +1,4 @@
-available_field = [{
+available_fields = [{
     "name": "gender",
     "description": "Gender. \n Chance for male ~ 49%, for female ~51% (base on population statistics in Poland). \n type: string/text",
     "options":[
