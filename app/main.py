@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Request
 import json
 
 from athletes import Athletes
@@ -14,7 +14,6 @@ from common_functions.json_form import json_form
 from people import People
 
 from data.athletes.sports_data import Data
-
 
 
 app = FastAPI()
@@ -46,27 +45,29 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
     print(unregular_number_of_fnames, type(unregular_number_of_fnames))
 
     people_res = People.generate_dataset(n=n,
-                                  age_low_lim=age_low_lim,
-                                  age_up_lim=age_up_lim,
-                                  only_males=only_males,
-                                  only_females=only_females,
-                                  number_of_fnames=number_of_fnames,
-                                  unregular_number_of_fnames=unregular_number_of_fnames)
+                                         age_low_lim=age_low_lim,
+                                         age_up_lim=age_up_lim,
+                                         only_males=only_males,
+                                         only_females=only_females,
+                                         number_of_fnames=number_of_fnames,
+                                         unregular_number_of_fnames=unregular_number_of_fnames)
 
-    
+    athlets_res = Athletes.generate_dataset(
+        people_res)  # return series of sport
 
-
-    athlets_res = Athletes.generate_dataset(people_res) # return series of sport
-    
     if orient == "typical_json_form":
         return json_form(people_res)
 
     return people_res.to_json(orient=orient, index=indexed_cols, force_ascii=False)
 
 
-@app.get("/fields/")
-def fields():
-    return available_fields
+@app.post("/dummypath")
+async def get_body(request: Request):
+    response = await request.json()
+    request_params = dict(response)
+    print("requested fields:", request_params.keys())
+
+    return response
 
 
 if __name__ == "__main__":
