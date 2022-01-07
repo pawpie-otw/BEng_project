@@ -1,4 +1,8 @@
-available_fields = [{
+available_fields = [
+    {
+
+    },
+{
     "name": "gender",
     "description": "Gender. \n Chance for male ~ 49%, for female ~51% (base on population statistics in Poland). \n type: string/text",
     "options":[
@@ -33,6 +37,30 @@ available_fields = [{
             "description": "Unregular number of first names",
             "input_type": "checkbox",
             "return_type": "bool",
+        }
+    ]
+},
+{
+    "name":"voivodeship",
+    "description":"Polish voivodeships",
+    "options":[
+        {
+            "name": "equal_weight",
+            "description": "Equal chance for every voivodeship, default depends on age and population.",
+            "input_type": "checkbox",
+            "return_type": "bool"
+        }
+    ]
+},
+{
+    "name":"postcode",
+    "description":"Polish postcodes",
+    "options":[
+        {
+            "name": "no_dependence",
+            "description": "postcode depends on voivodeship. Drawn randomly.",
+            "input_type": "checkbox",
+            "return_type": "bool"
         }
     ]
 }]
