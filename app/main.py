@@ -3,7 +3,6 @@ from fastapi import FastAPI, Query, Request
 import json
 
 from athletes import Athletes
-from pandas.core.frame import DataFrame
 import pandas as pd
 import uvicorn
 
@@ -12,7 +11,7 @@ from common_functions.custom_draws import draw_from_df
 from common_functions.fields import available_fields
 from common_functions.json_form import json_form
 from people import People
-
+from areas import Areas
 from data.athletes.sports_data import Data
 
 
@@ -42,8 +41,6 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
         orient: str = Query('typical_json_form',
                             description="orient of returned json (‘split’, ‘records’, ‘index’, ‘table’, 'typical_json_form'), for more look at pandas to_json docs")):
 
-    print(unregular_number_of_fnames, type(unregular_number_of_fnames))
-
     people_res = People.generate_dataset(n=n,
                                          age_low_lim=age_low_lim,
                                          age_up_lim=age_up_lim,
@@ -51,12 +48,20 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
                                          only_females=only_females,
                                          number_of_fnames=number_of_fnames,
                                          unregular_number_of_fnames=unregular_number_of_fnames)
+    
+    areas_res = Areas.generate_dataset(base_df=people_res,
+                                        voivodship=True,
+                                        postcode=True,
+                                        equal_postcode=False,
+                                        equal_voivodeship=False,
+                                        n=n)
+    
+    # athlets_res = Athletes.generate_dataset(people_res)  # return series of sport
 
-    athlets_res = Athletes.generate_dataset(
-        people_res)  # return series of sport
+
 
     if orient == "typical_json_form":
-        return json_form(people_res)
+        return json_form(people_res.merge(areas_res, left_index=True, right_index=True))
 
     return people_res.to_json(orient=orient, index=indexed_cols, force_ascii=False)
 
