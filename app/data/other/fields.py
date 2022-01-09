@@ -103,4 +103,8 @@ available_fields = [
             "return_type": "bool"
         }
     ]
-}]
+},
+{
+    "response_format":"typical_json"
+    }
+]

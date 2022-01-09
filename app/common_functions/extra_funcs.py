@@ -1,9 +1,11 @@
+import collections
+
 from random import choices
 from typing import Union, Any, Callable, Annotated, Sequence
 
-import collections
+from common_functions.log_wrapper import log_to_file_if_exception_raised
 
-
+@log_to_file_if_exception_raised("/extra_funcs.errors")
 def if_not_then_none(expression:Any, method_to_check:Callable=None, *args, **kwargs)->Union[None,Any]:
     """Universal method to test expression. If condition return false, then return None.
 
@@ -22,6 +24,7 @@ def if_not_then_none(expression:Any, method_to_check:Callable=None, *args, **kwa
         return expression
     return None
 
+@log_to_file_if_exception_raised("/extra_funcs.errors")
 def concatenate_strings(expression:Union[str, Sequence[str]], 
                           sep: Annotated[str, 1]=" ")->str:
         """Concatenate given sequence of string into one string separated by sep: char.
@@ -37,11 +40,11 @@ def concatenate_strings(expression:Union[str, Sequence[str]],
         
         if isinstance(expression, collections.Sequence):
             return sep.join(expression)
-        
+            
         elif isinstance(expression, str):
             return expression
         
-        
+@log_to_file_if_exception_raised("/extra_funcs.errors")   
 def fast_choices(population: Annotated[Sequence[Any],2],
                  chance_for_first: Union[int, float])->Any:
     """Pre-prepared random.choices for the project.
@@ -53,4 +56,4 @@ def fast_choices(population: Annotated[Sequence[Any],2],
     Returns:
         Any: 1 of 2 element given as population.
     """
-    return choices(population, (x:=chance_for_first, 100-x))[0]
+    return choices(population, (100-chance_for_first, chance_for_first))[0]

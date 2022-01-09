@@ -1,9 +1,12 @@
-import pandas as pd
+import pandas as pd #type: ignore
+
 from random import choices, choice
 from typing import Union, Tuple, Any, List, Sequence
+
 from common_functions.custom_exceptions import IncorrectLen
+from common_functions.log_wrapper import log_to_file_if_exception_raised
 
-
+@log_to_file_if_exception_raised("../custom_draws.errors")
 def draw_from_df(*df_s: pd.DataFrame, k: Union[int, Tuple[int], List[int]] = 1, equal_weight: bool = False) \
         -> Union[Tuple[Any], Tuple[Tuple[Any]]]:
     """ This method draw values from given DFs considering the popular of name as weight.
@@ -60,10 +63,10 @@ def draw_from_df(*df_s: pd.DataFrame, k: Union[int, Tuple[int], List[int]] = 1, 
         return tuple(choices(d_set[cols[0]], d_set[cols[1]].to_list())[0]
                      for d_set, cols in zip(df_s, col_names))
 
-
+@log_to_file_if_exception_raised("../custom_draws.errors")
 def simple_df_draw(dataset: pd.DataFrame, 
                    k: int = 1,
-                   equal_weight: bool = False) -> Union[Tuple[Any],Any]:
+                   equal_weight: bool = False) -> Union[Sequence[Any],Any]:
     """ This method draw values from given DFs considering the popular of name as weight.
     Args:
         ``df_s`` (DataFrame): data to draw from.
@@ -85,10 +88,8 @@ def simple_df_draw(dataset: pd.DataFrame,
     >>>        draw_from_df(df, k = n) -> 
     ...        (val0_from_df, val1_from_df,..., valn_from_df)
     """
-    
     data, weights = dataset.columns[:2]
-    
-    if k==1 and not equal_weight:
+    if k==1 and equal_weight:
         return choice(dataset[data])
     
     if equal_weight:
@@ -96,4 +97,6 @@ def simple_df_draw(dataset: pd.DataFrame,
         
     # else: return list
     else:
-        return tuple(choices(dataset[data], dataset[weights].to_list(), k=k))
+        return choices(dataset[data].to_list(), dataset[weights].to_list(), k=k)
+        
+        

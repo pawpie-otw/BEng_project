@@ -18,7 +18,7 @@ class Areas:
     @classmethod
     def generate_dataset(cls, 
                          rows: Union[None, int] = 1,
-                         base_df: Union[None, pd.DataFrame, Dict[str, pd.Series]] = None, 
+                         base_df: Union[None, Dict[str, pd.Series]] = None, 
                          voivodeship_params:Union[None, Dict[str,bool]] = None,
                          postcode_params:Union[None, Dict[str,bool]] = None)-> dict[str, pd.Series]:
         """Generate data related to administrative areas in Poland - voivodeship and postcode.
@@ -65,11 +65,11 @@ class Areas:
         if postcode_params:
             
             # if no depends
-            if postcode_params["equal_weight"] or ((base_df is None) and isinstance(rows, int)):
-                result["postcode"] = pd.Series([cls.generate_postcode(postcode_data, equal_weight=True)
+            if postcode_params["independently"] or ((base_df is None) and isinstance(rows, int)):
+                result["postcode"] = pd.Series([cls.generate_postcode(postcode_data, independently=True)
                                                 for _ in range(rows)])    # type: ignore
             # depends on voivodeship
-            elif not postcode_params["equal_weight"] and voivodeship_params is not None:
+            elif not postcode_params["independently"] and voivodeship_params is not None:
                 result["postcode"] = result["voivodeship"].apply(lambda x: cls.generate_postcode(postcode_data, x))
             
             else:
@@ -78,7 +78,9 @@ class Areas:
         return result
 
     @staticmethod
-    def generate_postcode(dataset:dict, dependence:str=None, equal_weight:bool=False)->str:
+    def generate_postcode(dataset:dict,
+                          dependence:str=None,
+                          independently:bool=False)->str:
         """Return postcode which depends on  given voivodeship (if `dependence` not None)
         or randomly (if `no_dependence=True`).
 
@@ -90,7 +92,7 @@ class Areas:
         Returns:
             str: polish post-code
         """
-        if equal_weight:
+        if independently:
             return choice(dataset[choice(tuple(dataset.keys()))])
         return choice(dataset[dependence])
         

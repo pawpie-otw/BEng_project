@@ -1,27 +1,28 @@
-{"rows":20,
-    "response_type":"json",
+{
+    "rows":40,
+    "response_format":"typical_json",
     "gender":{
-        "equal": true
-    },
-    "first_name":{
-        "num_of_fnames": 2,
-        "unregular_num_of_fnames": true
-    },
-    "last_name":{
-        "num_of_fnames":2,
-        "double_lname_chance":15
+        "equal_weight": true
     },
     "age":{
-        "equal_age_chance":true,
-        "age_low_lim":0,
-        "age_up_lim":100
+        "equal_weight":true,
+        "low_lim":0,
+        "up_lim":100
     },
+    "first_name":{
+        "double_name_chance":15,
+        "equal_weight":false
+    },
+    "last_name":{
+        "double_name_chance":15,
+        "equal_weight":false
+        },
     "voivodeship":{
         "equal_weight": false
     },
     "postcode":{
-        "equal_weight": true
-    }
+        "independently": false
+    } 
 }
 
 
