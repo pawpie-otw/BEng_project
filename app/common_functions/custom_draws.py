@@ -1,11 +1,10 @@
-from pandas import DataFrame
-from random import choices, choice
-from typing import Union, Tuple, Any
-from common_functions.custom_exceptions import IncorrectLen
 import pandas as pd
+from random import choices, choice
+from typing import Union, Tuple, Any, List, Sequence
+from common_functions.custom_exceptions import IncorrectLen
 
 
-def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: bool = False) \
+def draw_from_df(*df_s: pd.DataFrame, k: Union[int, Tuple[int], List[int]] = 1, equal_weight: bool = False) \
         -> Union[Tuple[Any], Tuple[Tuple[Any]]]:
     """ This method draw values from given DFs considering the popular of name as weight.
     Args:
@@ -54,9 +53,47 @@ def draw_from_df(*df_s: DataFrame, k: Union[int, Tuple[int]] = 1, equal_weight: 
                          for d_set, cols in zip(df_s, col_names))
     # if k is greater then 1, then return tuple of tuples
     if any(i > 1 for i in k):
-        return tuple(choices(d_set[cols[0]], d_set[cols[1]], k=_k)
+        return tuple(choices(d_set[cols[0]], d_set[cols[1]].to_list(), k=_k)
                      for d_set, cols, _k in zip(df_s, col_names, k))
     # else: return list
     else:
-        return tuple(choices(d_set[cols[0]], d_set[cols[1]])[0]
+        return tuple(choices(d_set[cols[0]], d_set[cols[1]].to_list())[0]
                      for d_set, cols in zip(df_s, col_names))
+
+
+def simple_df_draw(dataset: pd.DataFrame, 
+                   k: int = 1,
+                   equal_weight: bool = False) -> Union[Tuple[Any],Any]:
+    """ This method draw values from given DFs considering the popular of name as weight.
+    Args:
+        ``df_s`` (DataFrame): data to draw from.
+        First col have to contains values and if equal_weights is False, second - weights.
+
+        ``k`` (int, optional): amount of return values 
+        (if int: for every given df, if container of len equal to number of df_s: for each given df from df_s).
+        Defaults to 1 (1 from each df).
+
+        ``equal_weight`` (bool, optional): if True, every value has the same weight.
+        Default to False.
+
+    Returns:
+        (Tuple[Any]): Return Tuples of drawn values.
+
+
+    Example of use:
+    --------
+    >>>        draw_from_df(df, k = n) -> 
+    ...        (val0_from_df, val1_from_df,..., valn_from_df)
+    """
+    
+    data, weights = dataset.columns[:2]
+    
+    if k==1 and not equal_weight:
+        return choice(dataset[data])
+    
+    if equal_weight:
+        return tuple(choices(dataset[data], k=k))
+        
+    # else: return list
+    else:
+        return tuple(choices(dataset[data], dataset[weights].to_list(), k=k))

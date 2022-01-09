@@ -1,19 +1,15 @@
-from typing import Optional
+from typing import Optional, Union
 from fastapi import FastAPI, Query, Request
-import json
 
 from athletes import Athletes
 import pandas as pd
 import uvicorn
 
-
-from common_functions.custom_draws import draw_from_df
-from common_functions.fields import available_fields
-from common_functions.json_form import json_form
+from common_functions import json_form, read_json
 from people import People
 from areas import Areas
 from data.athletes.sports_data import Data
-
+from data.other import fields
 
 app = FastAPI()
 
@@ -49,12 +45,7 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
                                          number_of_fnames=number_of_fnames,
                                          unregular_number_of_fnames=unregular_number_of_fnames)
     
-    areas_res = Areas.generate_dataset(base_df=people_res,
-                                        voivodship=True,
-                                        postcode=True,
-                                        equal_postcode=False,
-                                        equal_voivodeship=False,
-                                        n=n)
+    
     
     # athlets_res = Athletes.generate_dataset(people_res)  # return series of sport
 
@@ -66,14 +57,37 @@ async def person(n: int = Query(1, description="number of returned records, >=1"
     return people_res.to_json(orient=orient, index=indexed_cols, force_ascii=False)
 
 
-@app.post("/dummypath")
+@app.post("/generate_dataset")
 async def get_body(request: Request):
-    response = await request.json()
-    request_params = dict(response)
-    print("requested fields:", request_params.keys())
+    
+    request_json = await request.json()
+    request_dict = dict(request_json)
+    rows = request_dict.get('rows')
+    
+    people_res = People.generate_dataset(rows = rows,
+                                         gender = request_dict["gender"],
+                                         age = request_dict.get("age"),
+                                         first_name = request_dict.get("first_name"),
+                                         last_name = request_dict.get("last_name"))
+    
+    
+    areas_res = Areas.generate_dataset(rows=rows,
+                                        base_df = people_res,
+                                        voivodeship_params=request_dict.get("voivodeship"),
+                                        postcode_params=request_dict.get("postcode"))
+    
+    
+    
+    
 
     return response
 
+@app.get("/available_fields")
+async def available_fields():
+    return fields.available_fields
+
 
 if __name__ == "__main__":
-    uvicorn.run(app, port=8000, host="0.0.0.0")
+    pass
+    # uvicorn.run(app, port=8000, host="0.0.0.0")
+    

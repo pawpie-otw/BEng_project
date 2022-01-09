@@ -1,88 +1,104 @@
-import pandas as pd
+import pandas as pd # type: ignore
 
 from random import choice,choices
 from json import load
+from typing import Union, Any, Dict
 
+from common_functions import custom_exceptions
 
 class Areas:
+    datafolder_path = r"data/areas"
     path_dict = {
-        "voivodship_males": r"data/areas/voivodship_males_by_sexage.csv",
-        "voivodship_females": r"data/areas/voivodship_females_by_sexage.csv",
-        "postcodes": r"data/areas/post_codes.json"
+        "voivodship_males": datafolder_path + r"/voivodship_males_by_sexage.csv",
+        "voivodship_females": datafolder_path + r"/voivodship_females_by_sexage.csv",
+        "postcodes": datafolder_path + r"/post_codes.json"
     }
 
 
     @classmethod
-    def generate_dataset(cls, base_df: pd.DataFrame = None, voivodship:bool = True, postcode:bool = True,
-                        equal_voivodeship:bool = False, equal_postcode:bool = False, n: int = None):
-        """Return data related to areas - voivodeship and postcode.
+    def generate_dataset(cls, 
+                         rows: Union[None, int] = 1,
+                         base_df: Union[None, pd.DataFrame, Dict[str, pd.Series]] = None, 
+                         voivodeship_params:Union[None, Dict[str,bool]] = None,
+                         postcode_params:Union[None, Dict[str,bool]] = None)-> dict[str, pd.Series]:
+        """Generate data related to administrative areas in Poland - voivodeship and postcode.
 
         Args:
-            base_df (pd.DataFrame): DF which contain base data to generate rest of [data]. No needed if n.
-            voivodship (bool, optional): If `True` - generate voivodeship data. Defaults to True.
-            postcode (bool, optional): If `True` - generarate postcode data. Defaults to True.
-            equal_voivodeship (bool, optional): If `True` - no based on `base_df`, draw randomly voivodeship. Defaults to False.
-            equal_postcode (bool, optional): If `True` - no based on `voivodeship` data, draw randomly postcode. Defaults to False.
-            n (int, optional): needed if `base_df` = `None`. Then return randomly drawn `voivodeship` (<=> `equal_voivodeship` = `True`) or
-            randomly drawn `postcode` (<=> `equal_postcode` = `True` if `voivodship` = `False`).
+            `base_df` (pd.DataFrame[['gender'','age']], optional): If given, then possible is to create non-random data, but based on other data. Defaults to None.
+            `n` (int, optional): number of requested fields. It's required if base_df is None. Defaults to None.
+            `voivodeship_params` (dict, optional): If not None - return column `voivodeships`,
+                                                build as {equal_weight:  [bool] val}. Defaults to None.
+            `postcode_params` (dict, optional): If not None - return column `postcode`,
+                                                build as {equal_weight:  [bool] val}. Defaults to None.
 
         Returns:
-            pd.DataFrame: return choosen data with given (or default) options.
+            pd.DataFrame: DataFrame with columns you choosen (by givin the params).
         """
 
         voivodship_data = {"males": pd.read_csv(cls.path_dict["voivodship_males"]),
                     "females": pd.read_csv(cls.path_dict["voivodship_females"])}
-        postcodes_data = dict(load(open(cls.path_dict["postcodes"], encoding="utf8")))
+        postcode_data = dict(load(open(cls.path_dict["postcodes"], encoding="utf8")))
         
         result = dict()
 
-        if (base_df is None) and isinstance(n, int):
-            if n<1:
-                pass # raise exception bad value
-
-            if voivodship:
-                result["voivodeship"] = pd.Series([cls.generate_voivodeship(equal_weight=True)
-                                                for _ in range(n)])
-            if postcode:
-                if not voivodship or equal_postcode:
-                    result["postcode"] = pd.Series([cls.generate_postcode(postcodes_data, no_dependence=True)
-                                                    for _ in range(n)])
-                else:
-                    result["postcode"] = result["voivodeship"].apply(lambda x: cls.generate_postcode(postcodes_data,dependence=x))
-
-        elif voivodship:
-            result["voivodeship"] = base_df.apply(lambda x: cls.generate_voivodeship(x.age, voivodship_data[str(x.gender)+"s"], equal_weight=equal_voivodeship), axis=1)
-            
-            if postcode:
-                result["postcode"] = result["voivodeship"].apply(lambda x: cls.generate_postcode(
-                                                                postcodes_data, x, no_dependence=equal_postcode
-                                                                ))
-        elif postcode :
-            result["postcode"] = base_df.apply(lambda x: cls.generate_postcode(postcodes_data, no_dependence=True))
-
-        return pd.DataFrame(result)
         
+        # if voivodeship_params exist | is not None
+        if voivodeship_params:
+            
+            # if no depends
+            if voivodeship_params["equal_weight"] or ((base_df is None) and isinstance(rows, int)):
+                
+                result["voivodeship"] = pd.Series([cls.generate_voivodeship(equal_weight=True)
+                                                for _ in range(rows)]) # type: ignore
+                
+            #depends on age and population in voivodeship
+            elif not voivodeship_params["equal_weight"] or base_df is not None:
+                
+                result["voivodeship"] = base_df.apply(lambda x: # type: ignore
+                    cls.generate_voivodeship(voivodship_data[str(x.gender)+"s"],
+                                             x.age))
+            
+            else:
+                raise custom_exceptions.UnknownException("Upsss, something was wrong...")
+        
+        # if postcode_params exist | is not None
+        if postcode_params:
+            
+            # if no depends
+            if postcode_params["equal_weight"] or ((base_df is None) and isinstance(rows, int)):
+                result["postcode"] = pd.Series([cls.generate_postcode(postcode_data, equal_weight=True)
+                                                for _ in range(rows)])    # type: ignore
+            # depends on voivodeship
+            elif not postcode_params["equal_weight"] and voivodeship_params is not None:
+                result["postcode"] = result["voivodeship"].apply(lambda x: cls.generate_postcode(postcode_data, x))
+            
+            else:
+                raise custom_exceptions.UnknownException("Upsss, something was wrong...")
+        
+        return result
 
     @staticmethod
-    def generate_postcode(dataset:dict, dependence:str=None, no_dependence:bool=False)->str:
+    def generate_postcode(dataset:dict, dependence:str=None, equal_weight:bool=False)->str:
         """Return postcode which depends on  given voivodeship (if `dependence` not None)
         or randomly (if `no_dependence=True`).
 
         Args:
             dataset (dict): dict build as {voivodeship_name:[postcode0,postcode1 ...],}
             dependence (str, optional): the value (voivodeship name) on which the result depends. 
-            no_dependence (bool, optional): if True, then no needed `dependence` value - result is drawn randomly.
+            equal_weight (bool, optional): if True, then no needed `dependence` value - result is drawn randomly.
 
         Returns:
             str: polish post-code
         """
-        if no_dependence:
+        if equal_weight:
             return choice(dataset[choice(tuple(dataset.keys()))])
         return choice(dataset[dependence])
         
 
     @staticmethod
-    def generate_voivodeship(age: int = None, voivodeship_population_dataset: pd.DataFrame = None, equal_weight: bool = False) -> str:
+    def generate_voivodeship(voivodeship_data: Union[pd.DataFrame,None] = None, 
+                             age: Union[None, int] = None,
+                             equal_weight: bool = False) -> Union[Any, str]:
         """Draw and return name of polish voivodship based on population (which is equal to weight in drawing) that
         the ``voivodeship_population_dataset`` arg containts.
 
@@ -100,9 +116,13 @@ class Areas:
                        'WARMIŃSKO-MAZURSKIE', 'WIELKOPOLSKIE', 'ZACHODNIOPOMORSKIE']
 
         if equal_weight:
-            return choices(voivodships)[0]
-
-        age_ = age if age <= 85 else 85
-        if (age is not None) and (voivodeship_population_dataset is not None):
-            return choices(voivodeship_population_dataset.columns,
-                           voivodeship_population_dataset.iloc[age_])[0]
+            return choice(voivodships)
+        
+        
+        elif (age is not None) and (voivodeship_data is not None):
+            
+            # age veryfication, dataset shows up to 85 yo.
+            age_:int = 85 if age > 85 else 0 if age < 0 else age
+            
+            return choices(voivodeship_data.columns,
+                           voivodeship_data.iloc[age_].to_list())[0]

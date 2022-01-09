@@ -1,7 +1,11 @@
-POST http://localhost:8000/dummypath/ HTTP/1.1
+POST http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
 {
     "gender": {"only_males": true},
     "age": {"up_lim":80, "low_lim":20}
 }
+
+###
+
+GET http://localhost:8000/available_fields/

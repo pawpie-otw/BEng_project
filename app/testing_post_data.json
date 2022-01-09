@@ -1,0 +1,27 @@
+{"rows":20,
+    "response_type":"json",
+    "gender":{
+        "equal": true
+    },
+    "first_name":{
+        "num_of_fnames": 2,
+        "unregular_num_of_fnames": true
+    },
+    "last_name":{
+        "num_of_fnames":2,
+        "double_lname_chance":15
+    },
+    "age":{
+        "equal_age_chance":true,
+        "age_low_lim":0,
+        "age_up_lim":100
+    },
+    "voivodeship":{
+        "equal_weight": false
+    },
+    "postcode":{
+        "equal_weight": true
+    }
+}
+
+
