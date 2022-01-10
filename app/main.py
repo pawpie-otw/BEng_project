@@ -9,6 +9,7 @@ from people import People
 from areas import Areas
 from data.athletes.sports_data import Data
 from data.other import fields
+from data.other import response_forms
 
 app = FastAPI()
 
@@ -64,19 +65,27 @@ async def get_body(request: Request):
     rows = request_dict.get('rows')
     
     people_res = People.generate_dataset(rows = rows,
-                                         gender = request_dict["gender"],
+                                         gender = request_dict.get("gender"),
                                          age = request_dict.get("age"),
                                          first_name = request_dict.get("first_name"),
                                          last_name = request_dict.get("last_name"))
     
-    areas_res = Areas.generate_dataset(rows=rows,
-                                        base_df = people_res,
+    areas_res = Areas.generate_dataset(rows = rows,
+                                        base_df = pd.DataFrame(people_res),
                                         voivodeship_params=request_dict.get("voivodeship"),
                                         postcode_params=request_dict.get("postcode"))
     
+    athletes_res = Athletes.generate_dataset(rows = rows,
+                                             base_df=pd.DataFrame(people_res|areas_res),
+                                             sportstatus=request_dict.get("sportstatus"),
+                                             sportdyscipline=request_dict.get("sportdyscipline"))
+    
+    costam_res = ClassName.generate_dataset(rows =rows,
+                                            )
+    
     response_format = str(request_dict.get("response_format"))
     
-    return response_formatter(pd.DataFrame(people_res|areas_res), response_format)
+    return response_formatter(pd.DataFrame(people_res|areas_res|athletes_res), response_format)
 
 @app.get("/available_fields")
 async def available_fields():
@@ -85,6 +94,9 @@ async def available_fields():
     """
     return fields.available_fields
 
+@app.get("/available_response_forms")
+async def available_response_forms():
+    return response_forms.response_forms
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")

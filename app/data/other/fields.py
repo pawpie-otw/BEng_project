@@ -19,7 +19,7 @@ available_fields = [
         {
             "name": "double_name_chance",
             "description": "Chance to double last name in percent.",
-            "input_type": "slider",
+            "input_type": "range",
             "default": 0,
             "max":100,
             "min":0,
@@ -37,9 +37,9 @@ available_fields = [
     "description": "Polish last names fit to gender. \n type: string/text",
     "options":[
         {
-            "name": "double_lname_chance",
+            "name": "double_name_chance",
             "description": "Chance to double last name in percent.",
-            "input_type": "slider",
+            "input_type": "range",
             "default": 0,
             "max":100,
             "min":0,

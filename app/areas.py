@@ -18,7 +18,7 @@ class Areas:
     @classmethod
     def generate_dataset(cls, 
                          rows: Union[None, int] = 1,
-                         base_df: Union[None, Dict[str, pd.Series]] = None, 
+                         base_df: Union[None, pd.DataFrame] = None, 
                          voivodeship_params:Union[None, Dict[str,bool]] = None,
                          postcode_params:Union[None, Dict[str,bool]] = None)-> dict[str, pd.Series]:
         """Generate data related to administrative areas in Poland - voivodeship and postcode.
@@ -53,11 +53,10 @@ class Areas:
                 
             #depends on age and population in voivodeship
             elif not voivodeship_params["equal_weight"] or base_df is not None:
+                result["voivodeship"] = base_df.apply(lambda x: cls.generate_voivodeship(
+                                                                voivodship_data[str(x.gender)+"s"],x.age
+                                                                ), axis=1)
                 
-                result["voivodeship"] = base_df.apply(lambda x: # type: ignore
-                    cls.generate_voivodeship(voivodship_data[str(x.gender)+"s"],
-                                             x.age))
-            
             else:
                 raise custom_exceptions.UnknownException("Upsss, something was wrong...")
         

@@ -1,11 +1,37 @@
+GET http://localhost:8000/available_fields/
+
+###
+
 POST http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
 {
-    "gender": {"only_males": true},
-    "age": {"up_lim":80, "low_lim":20}
+    "rows":50,
+    "response_format":"typical_json",
+    "gender":{
+        "equal_weight": true
+    },
+    "age":{
+        "equal_weight":true,
+        "low_lim":0,
+        "up_lim":100
+    },
+    "first_name":{
+        "double_name_chance":15,
+        "equal_weight":false
+    },
+    "last_name":{
+        "double_name_chance":15,
+        "equal_weight":false
+        },
+    "voivodeship":{
+        "equal_weight": false
+    },
+    "postcode":{
+        "independently": false
+    }
 }
 
 ###
 
-GET http://localhost:8000/available_fields/
+GET http://localhost:8000/available_response_forms/
