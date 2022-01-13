@@ -29,7 +29,11 @@ content-type: application/json
     },
     "postcode":{
         "independently": false
-    }
+    },
+    "sportstatus":{
+        "random_chance":false
+    },
+    "sportdyscypline":true
 }
 
 ###
