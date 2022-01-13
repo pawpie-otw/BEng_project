@@ -31,30 +31,28 @@ class Athletes:
         
         sportstatus_data = pd.read_csv(cls.path_dict["sportstatus"], index_col='voivodeship')
         
-        result = {}
+        result = pd.DataFrame()
+            
+        result["sportstatus"] = [cls.generate_sportstatus(sportstatus_data,
+                                                        voivodeship,
+                                                        age,                                                          
+                                                        random_chance=sportstatus.get("random_chance"))
+                                for age, voivodeship in zip(base_df.age, base_df.voivodeship)]
         
-        # if sport status 
-        if sportstatus:
-            # but completely random
-            if sportstatus.get("random_chance") or base_df is None:
-                result["sportstatus"] = pd.Series([cls.generate_sportstatus(sportstatus_data, random_chance=True)
-                                                       for _ in range(rows)])
-            # 2 params
-            elif all(["age" in base_df.columns, "voivodeship" in base_df.columns]):
-                result["sportstatus"] = base_df.apply(lambda x: cls.generate_sportstatus(sportstatus_data,
-                                                                                    voivodship=x.voivodeship,
-                                                                                    age=x.age))
-            elif "age" in base_df.columns:
-                result["sportstatus"] = base_df.apply(lambda x: cls.generate_sportstatus(sportstatus_data,
-                                                                                    voivodship=choice(sportstatus_data.index),
-                                                                                    age=x.age))
-            elif "voivodeship" in base_df.columns:
-                result["sportstatus"] = base_df.apply(lambda x: cls.generate_sportstatus(sportstatus_data,
-                                                                                    voivodship=x.voivodeship,
-                                                                                    age=randint(0,100)))
+        
+        result["sport_dyscypline"] = [cls.generate_sportdyscypline()
+                                      if status is not None else None
+                                      for status in result.sportstatus]
+        
         
         return result
       
+    @staticmethod
+    def generate_sportdyscypline()-> str:
+        # miejsce na kod ewy, który zwraca sport w postaci
+        return "jakis sport"
+    
+    
         # elif sportstatus and isinstance(base_df, dict):
             
         #     # verify data
@@ -77,8 +75,8 @@ class Athletes:
             
         # if sport_params:
         #     pass        
-        #     # result["sports_discipline"] = pd.Series([draw_from_df(__class__.create_provinces_dict()[voivodship])
-            #                   for voivodship in base_df.voivodship])
+        #     # result["sports_discipline"] = pd.Series([draw_from_df(__class__.create_provinces_dict()[voivodeship])
+            #                   for voivodeship in base_df.voivodeship])
         
 
     @classmethod
@@ -101,7 +99,7 @@ class Athletes:
                         sportchance_data:pd.DataFrame,
                         voivodeship: str = None,
                         age: int = None,
-                        random_chance:bool = False)->Union[str, None]:
+                        random_chance:bool = False)->pd.DataFrame:
         """Return sportstatus, one of {`None`, `"Junior"`, `"Senior"`}.
         Return depends mainly on sportchance_data, less on `age` and `voivodeship`
         or chance is drawn from `sportchance_data`.
@@ -109,7 +107,7 @@ class Athletes:
         Args:
             `sportchance_data` (pd.DataFrame): df contains chance to get sportstatus 
                             depends on voivodeship and age.
-            `voivodship` (str, optional): One of `voivodeships` in Poland. 
+            `voivodeship` (str, optional): One of `voivodeships` in Poland. 
                                         Required if `random_chance` = `False`.Defaults to None.
             `age` (int, optional): Age of person. Defaults to None.
             `random_chance` (bool, optional): If `True`, `age` and `voivodeship` have no effect
@@ -121,13 +119,11 @@ class Athletes:
         
         # if random or no `age` or no `voivodeship` arg.
         if random_chance or age is None or voivodeship is None:
-            print(sportchance_data.columns)
             return fast_choices([choice(["Junior", "Senior"]), None],
                                 cls.sport_status_chance_by_data(
                                     sportchance_data,
-                                    choice(sportchance_data.columns),
-                                    randint(0,100))
-                                )
+                                    choice(sportchance_data.index),
+                                    randint(0,100)))
             
         # out of accept age range
         elif age < 15 or age > 45:
@@ -166,12 +162,14 @@ class Athletes:
         Returns:
             chance: chance to become a sportman in given voivodeship in given age.
         """
-        print("\n"*4)
-        print(voivodeship, age)
-        if 15 > age or age > 45:
-            return 0
-        elif 39 < age < 46:
-            return df.loc[voivodeship, "senior_chance"]/2
-        elif 18 > age > 14:
-            return df.loc[voivodeship, "junior_chance"]
-        return df.loc[voivodeship, "senior_chance"]
+        if age < 15 or age > 45:
+            return 0.
+        elif age > 39 and age < 46:
+            return df.at[voivodeship, "senior_chance"]/2
+        elif age < 18 and age > 14:
+            return df.at[voivodeship, "junior_chance"]
+        return df.at[voivodeship, "senior_chance"]
+
+if __name__ == '__main__':
+    print(x := Athletes.generate_dataset(2,None,{"sportstatus":None}))
+    

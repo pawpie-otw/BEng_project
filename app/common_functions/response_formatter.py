@@ -24,7 +24,9 @@ def json_form(df: pd.DataFrame, id_column:str="id") -> Tuple[Dict[str, Any]]:
             for i in range(len(df.index)))
 
 def to_def_type(var):
-    if isinstance(var, str):
+    if var is None:
+        return None
+    elif isinstance(var, str):
         return str(var)
     return int(var)
 

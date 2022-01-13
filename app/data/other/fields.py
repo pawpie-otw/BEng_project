@@ -20,6 +20,7 @@ available_fields = [
             "name": "double_name_chance",
             "description": "Chance to double last name in percent.",
             "input_type": "range",
+            "return_type": "int",
             "default": 0,
             "max":100,
             "min":0,
@@ -29,7 +30,11 @@ available_fields = [
         "description":"Independent of sex of person.",
         "input_type":"checkbox",
         "return_type":"bool"
-        }
+        },
+        {"name": "unfit_to_gen",
+         "description":"Niedopasowane do płci.",
+         "input_type":"checkbox",
+         "return_type":"bool"}
     ]
 },
 {
@@ -40,6 +45,7 @@ available_fields = [
             "name": "double_name_chance",
             "description": "Chance to double last name in percent.",
             "input_type": "range",
+            "return_type": "int",
             "default": 0,
             "max":100,
             "min":0,
@@ -49,7 +55,11 @@ available_fields = [
         "description":"Independent of sex of person.",
         "input_type":"checkbox",
         "return_type":"bool"
-        }
+        },
+        {"name": "unfit_to_gen",
+         "description":"Niedopasowane do płci.",
+         "input_type":"checkbox",
+         "return_type":"bool"}
     ]
 },
 {

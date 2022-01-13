@@ -19,8 +19,8 @@ class Areas:
     def generate_dataset(cls, 
                          rows: Union[None, int] = 1,
                          base_df: Union[None, pd.DataFrame] = None, 
-                         voivodeship_params:Union[None, Dict[str,bool]] = None,
-                         postcode_params:Union[None, Dict[str,bool]] = None)-> dict[str, pd.Series]:
+                         voivodeship:Union[None, Dict[str,bool]] = None,
+                         postcode:Union[None, Dict[str,bool]] = None)-> dict[str, pd.Series]:
         """Generate data related to administrative areas in Poland - voivodeship and postcode.
 
         Args:
@@ -39,61 +39,39 @@ class Areas:
                     "females": pd.read_csv(cls.path_dict["voivodship_females"])}
         postcode_data = dict(load(open(cls.path_dict["postcodes"], encoding="utf8")))
         
-        result = dict()
+        result = pd.DataFrame()
 
+        # VOIVODESHIP
+        result["voivodeship"] = [cls.generate_voivodeship(voivodship_data[gender+"s"],
+                                                        age,
+                                                        equal_weight=voivodeship.get("equal_weight"))
+                                for gender, age in zip(base_df.gender, base_df.age)]
         
-        # if voivodeship_params exist | is not None
-        if voivodeship_params:
-            
-            # if no depends
-            if voivodeship_params["equal_weight"] or ((base_df is None) and isinstance(rows, int)):
-                
-                result["voivodeship"] = pd.Series([cls.generate_voivodeship(equal_weight=True)
-                                                for _ in range(rows)]) # type: ignore
-                
-            #depends on age and population in voivodeship
-            elif not voivodeship_params["equal_weight"] or base_df is not None:
-                result["voivodeship"] = base_df.apply(lambda x: cls.generate_voivodeship(
-                                                                voivodship_data[str(x.gender)+"s"],x.age
-                                                                ), axis=1)
-                
-            else:
-                raise custom_exceptions.UnknownException("Upsss, something was wrong...")
-        
-        # if postcode_params exist | is not None
-        if postcode_params:
-            
-            # if no depends
-            if postcode_params["independently"] or ((base_df is None) and isinstance(rows, int)):
-                result["postcode"] = pd.Series([cls.generate_postcode(postcode_data, independently=True)
-                                                for _ in range(rows)])    # type: ignore
-            # depends on voivodeship
-            elif not postcode_params["independently"] and voivodeship_params is not None:
-                result["postcode"] = result["voivodeship"].apply(lambda x: cls.generate_postcode(postcode_data, x))
-            
-            else:
-                raise custom_exceptions.UnknownException("Upsss, something was wrong...")
-        
+        # POSTCODE
+        result["postcode"] = [cls.generate_postcode(postcode_data,
+                                                    voivodeship,
+                                                    independently=postcode.get("independently"))
+                            for voivodeship in result.voivodeship]
         return result
 
     @staticmethod
     def generate_postcode(dataset:dict,
-                          dependence:str=None,
+                          voivodeship:str=None,
                           independently:bool=False)->str:
-        """Return postcode which depends on  given voivodeship (if `dependence` not None)
-        or randomly (if `no_dependence=True`).
+        """Return postcode which depends on  given voivodeship (if `age` not None)
+        or randomly (if `independently=True`).
 
         Args:
             dataset (dict): dict build as {voivodeship_name:[postcode0,postcode1 ...],}
-            dependence (str, optional): the value (voivodeship name) on which the result depends. 
-            equal_weight (bool, optional): if True, then no needed `dependence` value - result is drawn randomly.
+            voivodeship (str, optional): the value (voivodeship name) on which the result depends. 
+            independently (bool, optional): if True, then no needed `age` value - result is drawn randomly.
 
         Returns:
             str: polish post-code
         """
         if independently:
             return choice(dataset[choice(tuple(dataset.keys()))])
-        return choice(dataset[dependence])
+        return choice(dataset[voivodeship])
         
 
     @staticmethod

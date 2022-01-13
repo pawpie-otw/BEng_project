@@ -1,6 +1,6 @@
 import collections
 
-from random import choices
+from random import choices, randint
 from typing import Union, Any, Callable, Annotated, Sequence
 
 from common_functions.log_wrapper import log_to_file_if_exception_raised
@@ -44,7 +44,6 @@ def concatenate_strings(expression:Union[str, Sequence[str]],
         elif isinstance(expression, str):
             return expression
         
-@log_to_file_if_exception_raised("/extra_funcs.errors")   
 def fast_choices(population: Annotated[Sequence[Any],2],
                  chance_for_first: Union[int, float])->Any:
     """Pre-prepared random.choices for the project.
@@ -57,3 +56,9 @@ def fast_choices(population: Annotated[Sequence[Any],2],
         Any: 1 of 2 element given as population.
     """
     return choices(population, (100-chance_for_first, chance_for_first))[0]
+
+def insert_value(list_:Sequence[Any], chance_:int, value_:Any=None)->Sequence[Any]:
+    return [v
+        if randint(0,100)<=chance_
+        else value_
+        for v in list_]

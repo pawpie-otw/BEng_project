@@ -1,8 +1,8 @@
-import pandas as pd # type: ignore
+import pandas as pd
 
 from json import loads
 from random import randint, choices, choice
-from typing import Any, Sequence, Annotated, Union, Dict
+from typing import Any, Sequence, Annotated, Union
 
 from data.people.population import gender_enum
 from data.people import population as pop
@@ -22,7 +22,7 @@ class People:
                          gender:Union[dict,None] = None,
                          age:Union[dict,None] = None,
                          first_name:Union[dict,None] = None,
-                         last_name:Union[dict, None] = None) -> Dict[str, pd.Series]:
+                         last_name:Union[dict, None] = None) -> pd.DataFrame:
 
         # load all datasets using in generate people dataset
         f_fname_df = pd.read_csv(cls.path_dict['f_fname']) # female first name
@@ -33,98 +33,55 @@ class People:
         
         age_data_dict = pd.read_json(cls.path_dict['age'])
         
-        result = {}
+        result = pd.DataFrame()
+        # GENDER
+        result["gender"] = [cls.generate_gender(equal_weight=gender["equal_weight"])
+                                          for _ in range(rows)]
         
-        if gender:
-            result["gender"] = pd.Series([cls.generate_gender(equal_weight=gender["equal_weight"])
-                                          for _ in range(rows)]) #type: ignore
-        if age:
-            if gender is None or age["equal_weight"]:
-                result["age"] = pd.Series([cls.generate_age(age["low_lim"], age["up_lim"], equal_weight=True)
-                                        for _ in range(rows)])  #type: ignore
-            elif not age["equal_weight"] and gender is not None:
-                result["age"] = result["gender"].apply(lambda x: 
-                    cls.generate_age(age["low_lim"],age["up_lim"],age_data_dict[x+"s"].to_list()))
+        # AGE
+        if age.get("equal_weight"):
+            result["age"] = [cls.generate_age(age["low_lim"], age["up_lim"], equal_weight=True)
+                                        for _ in range(rows)]
+        else:
+            result["age"] = [cls.generate_age(age["low_lim"], age["up_lim"], age_data_dict[x+"s"].to_list())
+                             for x in result.gender]
                 
-        if first_name:
-            # when gender is unknown
-            if gender is None:
-                
-                concan_fname_df = pd.concat([m_fname_df, f_fname_df])
-                
-                if first_name["double_name_chance"]==0:
-                    result["first_name"] = pd.Series([cls.generate_name(concan_fname_df,equal_weight=first_name["equal_weight"])
-                                                      for _ in range (rows)]) #type: ignore
-            
-                elif first_name["double_name_chance"]==100:
-                    result["first_name"] = pd.Series([cls.generate_name(concan_fname_df, 2)
-                                                      for _ in range (rows)]) #type: ignore
-            
-                else: 
-                    result["first_name"] = pd.Series([cls.generate_name(concan_fname_df,
-                                                                        extra_funcs.fast_choices([1,2],
-                                                                                     first_name["double_name_chance"]))
-                                                      for _ in range (rows)]) #type: ignore
-            # when gender is known
-            else:
-                # and only 1 name
-                if first_name["double_name_chance"]==0:
-                    result["first_name"] = result["gender"].apply(lambda x:
-                                                                    cls.generate_name(f_fname_df if x=="female" else m_fname_df,
-                                                                    equal_weight=first_name["equal_weight"]))
-                # and only 2 name
-                elif first_name["double_name_chance"]==100:
-                    result["first_name"] = result["gender"].apply(lambda x:
-                                                                    cls.generate_name(f_fname_df if x=="female" else m_fname_df,
-                                                                    number_of_names=2,
-                                                                    equal_weight=first_name["equal_weight"]))
-                # and second name is not sure (0<x<100%)
-                else: 
-                    result["first_name"] = result["gender"].apply(lambda x:
-                                                                    cls.generate_name(f_fname_df if x=="female" else m_fname_df, 
-                                                                    extra_funcs.fast_choices([1,2],first_name["double_name_chance"]),
-                                                                    equal_weight=first_name["equal_weight"]))
-        if last_name:
-            # when gender is unknown
-            if gender is None:
-                print("nie znamy plec")
-                concan_lname_df = pd.concat([m_lname_df, f_lname_df])
-                # and everyone has 1 name
-                if last_name["double_name_chance"]==0:
-                    result["last_name"] = pd.Series([cls.generate_name(concan_lname_df,equal_weight=last_name["equal_weight"])
-                                                      for _ in range (rows)]) #type: ignore
-                # and everyone has 2 names
-                elif last_name["double_name_chance"]==100:
-                    result["last_name"] = pd.Series([cls.generate_name(concan_lname_df, 2, equal_weight=last_name["equal_weight"])
-                                                      for _ in range (rows)]) #type: ignore
-                # and everyone has 1 or 2 names
-                else: 
-                    result["last_name"] = pd.Series([cls.generate_name(concan_lname_df,
-                                                                        extra_funcs.fast_choices([1,2],
-                                                                                     last_name["double_name_chance"]),
-                                                                        separator="-")
-                                                      for _ in range (rows)]) #type: ignore
-            # when gender is known
-            else:
-                print("znamy plec")
-                # and only 1 second name
-                if last_name["double_name_chance"]==0:
-                    result["last_name"] = result["gender"].apply(lambda x:
-                                                                    cls.generate_name(f_lname_df if x=="female" else m_lname_df,
-                                                                    equal_weight=last_name["equal_weight"]))
-                # and everyone has 2 second names
-                elif last_name["double_name_chance"]==100:
-                    result["last_name"] = result["gender"].apply(lambda x:
-                                                                    cls.generate_name(f_lname_df if x=="female" else m_lname_df,
-                                                                    number_of_names=2,
-                                                                    equal_weight=last_name["equal_weight"]))
-                # and everyone has 1 or 2 second names
-                else: 
-                    result["last_name"] = result["gender"].apply(lambda x:
-                                                                    cls.generate_name(f_lname_df if x=="female" else m_lname_df, 
-                                                                    extra_funcs.fast_choices([1,2],last_name["double_name_chance"]),
-                                                                    equal_weight=last_name["equal_weight"]))
+        # FIRST NAME
+        num_of_fname_gen_res = cls.calc_name_num(first_name["double_name_chance"], rows)
         
+        # when gender is unimportant
+        if first_name.get("unfit_to_gen"):
+            print("fn unfit")
+            concan_fname_df = pd.concat([m_fname_df, f_fname_df])
+            
+            result["first_name"] = [cls.generate_name(concan_fname_df, 
+                                                      number_of_names=num,
+                                                      equal_weight=first_name["equal_weight"]) 
+                                    for num in num_of_fname_gen_res]
+        else:
+            result["first_name"] = [cls.generate_name(f_fname_df if gender=="female" 
+                                                      else m_fname_df,
+                                                      number_of_names=num,
+                                                      equal_weight=first_name["equal_weight"])
+                                    for gender, num in zip(result.gender, num_of_fname_gen_res)]
+        
+        # LAST NAME
+        num_of_lname_gen_res = cls.calc_name_num(last_name["double_name_chance"], rows)
+        if last_name.get("unfit_to_gen"):
+            print("ln unfit")
+            concan_lname_df = pd.concat([m_lname_df, f_lname_df])
+            
+            result["last_name"] = [cls.generate_name(concan_lname_df,
+                                                     number_of_names=num,
+                                                     equal_weight=last_name["equal_weight"])
+                                    for num in num_of_lname_gen_res]
+        else:
+            result["last_name"] = [cls.generate_name(f_lname_df if gender=="female" 
+                                                      else m_lname_df,
+                                                      number_of_names=num,
+                                                      equal_weight=first_name["equal_weight"],
+                                                      separator="-")
+                                    for gender, num in zip(result.gender, num_of_lname_gen_res)]
 
         # result["height"] +=
         # result["weight"] +=
@@ -208,7 +165,16 @@ class People:
         return extra_funcs.concatenate_strings(
                         custom_draws.simple_df_draw(name_data, k=number_of_names, equal_weight=equal_weight)
                         ,sep=separator)
-
+    @staticmethod
+    def calc_name_num(chance:int, rows:int)->int:
+        
+        if chance ==0:
+            return (1 for _ in range(rows))
+        elif chance == 100:
+            return (2 for _ in range(rows))
+        
+        return (2 if randint(1,99) <= chance else 1
+                for _ in range(rows))
 
 if __name__ == '__main__':
     json_string = """{
@@ -232,11 +198,6 @@ if __name__ == '__main__':
         }
     }"""
 
-
-
-
-
-    
     request_dict = loads(json_string)
     print(request_dict)
     print(request_dict.get("rows"))
