@@ -57,7 +57,7 @@ def fast_choices(population: Annotated[Sequence[Any],2],
     """
     return choices(population, (100-chance_for_first, chance_for_first))[0]
 
-def insert_value(list_:Sequence[Any], chance_:int, value_:Any=None)->Sequence[Any]:
+def insert_value_randomly(list_:Sequence[Any], chance_:int, value_:Any=None)->Sequence[Any]:
     return [v
         if randint(0,100)<=chance_
         else value_

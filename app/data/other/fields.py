@@ -94,6 +94,20 @@ available_fields = [
                 PT.blanck_chance()
             
         ]
+    },
+    {
+        "name":"sportstatus",
+        "repr": "Status sportowca",
+        "description": "Status sportowca w rozumieniu Junior, Senior lub brak.",
+        "custom_col_name": PT.custom_col_name(),
+        "options":[
+            
+                PT.dict_checkbox("independently",
+                                "Niezależny",
+                                "Kody nie są dopasowane do województwa."),
+                PT.blanck_chance()
+            
+        ]
     }
 ]
 return_params = [
