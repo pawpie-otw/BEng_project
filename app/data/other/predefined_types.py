@@ -1,3 +1,4 @@
+from http.client import ResponseNotReady
 from typing import Sequence, Any
 
 
@@ -10,13 +11,15 @@ class PredefinedTypes:
                     desc:str,
                     checked:bool=False)->dict:
 
-        return cls.base_dict(name,repr_,desc).update(
-                                {
-                                "input_type": "checkbox",
-                                "return_type": "bool",
-                                "checked":checked,
-                                }
-                            )
+        response = cls.base_dict(name,repr_,desc)
+        response.update(
+                {
+                "input_type": "checkbox",
+                "return_type": "bool",
+                "checked":checked,
+                }
+            )
+        return response
     
     @classmethod
     def dict_range(cls,
@@ -27,7 +30,8 @@ class PredefinedTypes:
                 max_:int=100,
                 default:int=0,
                 step:int=1)->dict:
-        return cls.base_dict(name,repr_,desc).update(
+        response = cls.base_dict(name,repr_,desc)
+        response.update(
                                 {
                                 "input_type": "range",
                                 "return_type": "int",
@@ -37,19 +41,23 @@ class PredefinedTypes:
                                 "step":step
                                 }
                             )
+        return response
+    
     @classmethod
     def dict_text(cls,
                 name:str,
                 repr_:str,
                 desc:str,
                 maxlength:int=20)->dict:
-        return cls.base_dict(name, repr_ ,desc).update(
-                                {
-                                    "input_type":"text",
-                                    "return_type":"str",
-                                    "maxlength": maxlength
-                                }
-                            )
+        response = cls.base_dict(name,repr_,desc)
+        response.update(
+                            {
+                                "input_type":"text",
+                                "return_type":"str",
+                                "maxlength": maxlength
+                            }
+                        )
+        return response
     @classmethod
     def custom_col_name(cls)->dict:
         """
@@ -76,7 +84,8 @@ class PredefinedTypes:
                     desc:str,
                     options:Sequence[str])->dict:
         
-        return cls.base_dict(name, repr_, desc).update(
+        response = cls.base_dict(name,repr_,desc)
+        response.update(
                                 {
                                     "options":options
                                 }
@@ -90,7 +99,8 @@ class PredefinedTypes:
                 max_:int=100,
                 default:int=0,
                 step:int=1)->dict:
-        return cls.base_dict(name,repr_,desc).update(
+        response = cls.base_dict(name,repr_,desc)
+        response.update(
                                 {
                                 "input_type": "number",
                                 "return_type": "int",
@@ -100,6 +110,8 @@ class PredefinedTypes:
                                 "step":step
                                 }
                             )
+        return response
+    
     @staticmethod
     def dict_option(repr_:str,
                     value:Any)->dict:
