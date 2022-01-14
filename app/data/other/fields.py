@@ -1,120 +1,116 @@
+from data.other.predefined_types import PredefinedTypes as PT
+
 available_fields = [
-# PEOPLE
-{
-    "name": "gender",
-    "description": "Gender. \n Chance for male ~ 49%, for female ~51% (base on population statistics in Poland). \n type: string/text",
-    "options":[
-        {
-            "name": "equal_weight",
-            "description": "Equal chance for every gender",
-            "input_type": "checkbox",
-            "return_type": "bool"
-        }
-    ]
-},
-{
-    "name": "first_name",
-    "description": "Polish first names fit to gender. \n type: string/text",
-    "options":[
-        {
-            "name": "double_name_chance",
-            "description": "Chance to double last name in percent.",
-            "input_type": "range",
-            "return_type": "int",
-            "default": 0,
-            "max":100,
-            "min":0,
-            "step":1
-        },
-        {"name": "equal_weight",
-        "description":"Independent of sex of person.",
-        "input_type":"checkbox",
-        "return_type":"bool"
-        },
-        {"name": "unfit_to_gen",
-         "description":"Niedopasowane do płci.",
-         "input_type":"checkbox",
-         "return_type":"bool"}
-    ]
-},
-{
-    "name": "last_name",
-    "description": "Polish last names fit to gender. \n type: string/text",
-    "options":[
-        {
-            "name": "double_name_chance",
-            "description": "Chance to double last name in percent.",
-            "input_type": "range",
-            "return_type": "int",
-            "default": 0,
-            "max":100,
-            "min":0,
-            "step":1
-        },
-        {"name": "equal_weight",
-        "description":"Independent of sex of person.",
-        "input_type":"checkbox",
-        "return_type":"bool"
-        },
-        {"name": "unfit_to_gen",
-         "description":"Niedopasowane do płci.",
-         "input_type":"checkbox",
-         "return_type":"bool"}
-    ]
-},
-{
-    "name": "age",
-    "description": "Age of person. Depends on sex.",
-    "options":[
-        {"name": "equal_weight",
-        "description":"Independent of sex of person.",
-        "input_type":"checkbox",
-        "return_type":"bool"
-        },
-        {
-            "name":"low_lim",
-            "description":"Value which means lowest limit of age value. It depends on other fields.",
-            "input_type": "number",
-            "default":0,
-            "max":"up_lim",
-            "min":0
-        },
-        {
-            "name":"up_lim",
-            "description":"Value which means upper limit of age value. It depends on other fields.",
-            "input_type": "number",
-            "default":100,
-            "max":100,
-            "min":"low_lim"
-        }
-    ]
-},
+     {
+         "name":"gender",
+        "repr": "Płeć",
+        "description": r"""Płeć przedstawiona w postaci ciągu znaków jako 'female', 'male'.
+        ~51% szans na kobietę i ~49% szans na kobietę. Szanse na wylosowanie na bazie statystyk z Polski.""",
+        "custom_col_name":PT.custom_col_name(),
+        "options":[
+            PT.dict_checkbox("equal_weight",
+                            "Równe szanse",
+                            r"Każda z płci ma 50% szans na wylosowanie."),
+            PT.blanck_chance()
+            ]
+    },
+    {
+        "name": "age",
+        "repr": "Wiek",
+        "description": "Losowany na bazie popularności w Polsce z uwzględnieniem płci.",
+        "custom_col_name":PT.custom_col_name(),
+        "options":[
+            PT.dict_range("low_lim",
+                        "Dolna granica.",
+                        "Wiek będzie równy bądź wyższy od tej wartości."),
+            PT.dict_range("up_lim",
+                        "Górna granica.",
+                        "Wiek będzie równy bądź niższy od tej wartości."),
+            PT.dict_checkbox("equal_weight",
+                            "Równe szanse",
+                        r"Płeć i popularność nie wpływają na losowany wiek."),
+            PT.blanck_chance()
+            ]
+    },
+    {
+        "name":"first_name",
+        "repr": "Imię",
+        "description": "Imię na bazie imion występujących w Polsce. \n Szansa na dane imię jest równoważna z jego popularnością.",
+        "custom_col_name":PT.custom_col_name(),    
+        "options":[
+            PT.dict_range("double_name_chance",
+                        "Szansa na podwójne imię.",
+                        "Szansa w \% na podwójne imię."),
+            PT.dict_checkbox("equal_weight",
+                            "Równe wagi.",
+                            "Każde imię ma równe szanse na wysolowanie, popularność nie ma znaczenia."),
+            PT.dict_checkbox("unfit_to_gen",
+                            "Niedopasowanie do płci",
+                            "Imiona są losowe, nie będą dopasowane do płci."),
+            PT.blanck_chance()
+            ]
+    },
+    {
+        "name": "last_name",
+        "repr": "Nazwisko",
+        "description": "Nazwisko na bazie nazwisk występujących w Polsce. \n Szansa na dane nazwisko jest równoważna z jego popularnością.",
+        "custom_col_name":PT.custom_col_name(),
+        "options":[
+            PT.dict_range("double_name_chance",
+                        "Szansa na podwójne Nazwisko.",
+                        "Szansa w \% na podwójne imię."),
+            PT.dict_checkbox("equal_weight",
+                            "Równe wagi.",
+                            "Każde nazwisko ma równe szanse na wysolowanie, popularność nie ma znaczenia."),
+            PT.dict_checkbox("unfit_to_gen",
+                            "Niedopasowanie do płci",
+                            "Nazwiska są losowe, nie będą dopasowane do płci."),
+            PT.blanck_chance()
+            ]
+    },
 # AREAS
-{
-    "name":"voivodeship",
-    "description":"Polish voivodeships, depends on age and population.",
-    "options":[
-        {
-            "name": "equal_weight",
-            "description": "Equal chance for every voivodeship. Independent of anythink.",
-            "input_type": "checkbox",
-            "return_type": "bool"
-        }
-    ]
-},
-{
-    "name":"postcode",
-    "description":"Polish postcodes, depends on voivodeship if it's possible.",
-    "options":[
-        {
-            "name": "equal_weight",
-            "description": "Postcode no depends on voivodeship. Drawn randomly.",
-            "input_type": "checkbox",
-            "return_type": "bool"
-        }
-    ]
-},
-{
-    "response_format":"typical_json"
+    {
+        "name": "voivodeship",
+        "repr": "Województwo",
+        "description":"Województwo na bazie województw w Polsce.\n Zależne od wieku, płci i populacji.",
+        "custom_col_name":PT.custom_col_name(),
+        "options":[
+            PT.dict_checkbox("equal_weight",
+                            "Równe wagi.",
+                            "Każde województwo ma taką samą szansę. Niezależne od innych parametrów."),
+            PT.blanck_chance()
+            ]
+    },
+    {
+        "name":"postcode",
+        "repr": "Kod pocztowy",
+        "description": "Kody pocztowe na bazie kodów w Polsce.\n Kody są dopasowane do województwa.",
+        "custom_col_name": PT.custom_col_name(),
+        "options":[
+            
+                PT.dict_checkbox("independently",
+                                "Niezależny",
+                                "Kody nie są dopasowane do województwa."),
+                PT.blanck_chance()
+            
+        ]
     }
 ]
+return_params = [
+    PT.dict_number("rows",
+                   "Wiersze",
+                   "Ilość wygenerowanych wierszy.",
+                   1,None,1),
+    PT.dict_select("returned_type",
+                   "Zwracany typ",
+                   "Sposób, w jaki dane zostaną zwrócone.",
+                   [
+                       PT.dict_option("API JSON", "json"),
+                       PT.dict_option("plik CSV", "csv_file"),
+                       PT.dict_option("plik JSON", "json_file"),
+                       PT.dict_option("tabela HTML", "html_table")
+                   ]
+                   )
+]
+
+

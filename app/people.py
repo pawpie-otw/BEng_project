@@ -35,7 +35,7 @@ class People:
         
         result = pd.DataFrame()
         # GENDER
-        result["gender"] = [cls.generate_gender(equal_weight=gender["equal_weight"])
+        result["gender"] = [cls.generate_gender(equal_weight=gender.get("equal_weight"))
                                           for _ in range(rows)]
         
         # AGE

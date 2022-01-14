@@ -94,7 +94,10 @@ async def available_fields():
 
 @app.get("/available_response_forms")
 async def available_response_forms():
-    return response_forms.response_forms
+    return {
+            "fields": response_forms.response_forms,
+            "return_fields": response_forms.return_params
+            }
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")
