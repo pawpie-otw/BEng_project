@@ -118,7 +118,7 @@ available_fields = [
         ]
     },
     {
-        "name":"sportdyscypline",
+        "name":"sportdiscipline",
         "repr": "Dyscyplina sportowa",
         "description": "Losuje się jedynie wtedy, kiedy istnieje jakiś status sportowca.",
         "custom_col_name": PT.custom_col_name(),

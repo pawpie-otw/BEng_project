@@ -34,6 +34,8 @@ async def get_body(request: Request):
                     for key in fields_data.keys()}
     
     rows = general_data.get("rows") if general_data.get("rows") is not None else 1
+    
+    print(field_params.keys())
     people_res = People.generate_dataset(rows = rows,
                                          gender = field_params["gender"],
                                          age = field_params["age"],
@@ -48,7 +50,7 @@ async def get_body(request: Request):
     athletes_res = Athletes.generate_dataset(rows = rows
                                              ,base_df=pd.concat([people_res['age'], areas_res['voivodeship']],axis=1)
                                              ,sportstatus=field_params["sportstatus"]
-                                             ,sportdyscipline=field_params["sportdyscypline"]
+                                             ,sportdyscipline=field_params["sportdiscipline"]
                                              )
     
     

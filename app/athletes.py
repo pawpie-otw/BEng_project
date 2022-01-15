@@ -26,10 +26,12 @@ class Athletes:
                          rows: Union[None,int],
                          base_df: Union[None, pd.DataFrame] = None,
                          sportstatus:Union[None, Dict[str, Any]] = None,
-                         sportdyscipline:Union[None, Dict[str, Any]] = None) -> Dict[str, pd.Series]:
+                         sportdiscipline:Union[None, Dict[str, Any]] = None) -> Dict[str, pd.Series]:
         
         sportstatus_data = pd.read_csv(cls.path_dict["sportstatus"], index_col='voivodeship')
-        
+        all_sports = pd.read_csv(cls.path_dict["all_sports"])
+        sports_per_voivodeship = pd.read_csv(cls.path_dict["sports_per_voivodship"])
+        voivodeship_dict = __class__.create_voivodship_dict(all_sports, sports_per_voivodeship)
         result = pd.DataFrame()
             
         result["sportstatus"] = [cls.generate_sportstatus(sportstatus_data,
@@ -39,7 +41,7 @@ class Athletes:
                                 for age, voivodeship in zip(base_df.age, base_df.voivodeship)]
         
         
-        result["sportdyscypline"] = [cls.generate_sportdyscypline(voivodeship)
+        result["sportdiscipline"] = [cls.generate_sportdiscipline(voivodeship,voivodeship_dict)
                                       if status is not None else None
                                       for status, voivodeship in zip(result.sportstatus, base_df.voivodeship)]
         
@@ -47,15 +49,13 @@ class Athletes:
         return result
       
     @staticmethod
-    def generate_sportdyscypline(voivodeship)-> str:
-        result = custom_draws.draw_from_df(__class__.create_voivodship_dict()[voivodeship])[0]
+    def generate_sportdiscipline(voivodeship, voivodship_dict)-> str:
+        result = custom_draws.draw_from_df(voivodship_dict[voivodeship])[0]
         return result
 
 
     @classmethod
-    def create_voivodship_dict(cls):
-        all_sports = pd.read_csv(cls.path_dict["all_sports"])
-        sports_per_voivodship = pd.read_csv(cls.path_dict["sports_per_voivodship"])
+    def create_voivodship_dict(cls, all_sports, sports_per_voivodship):
         sport_names = []
         for col in sports_per_voivodship.columns:
             sport_names.append(col)
