@@ -89,7 +89,7 @@ content-type: application/json
                 "custom_col_name":"status",
                 "independently":false
                     },
-        "sportdyscipline":{
+        "sport_dyscipline":{
                 "custom_col_name":"dyscyplina",
                 "independently":false,
                 "blanck_chance":0
