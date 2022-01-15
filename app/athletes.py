@@ -5,7 +5,6 @@ from random import choice, randint
 
 from common_functions.extra_funcs import fast_choices
 
-from data.athletes.sports_data import Data
 from common_functions import custom_draws
 
 
@@ -15,11 +14,11 @@ class Athletes:
     '''Class for generating athletes dataset'''
 
     path_dict = {
-        "sportstatus":r"data/athletes/sportstatus_chance.csv"
+        "sportstatus":r"data/athletes/sportstatus_chance.csv",
+        "sports_per_voivodship":r"data/athletes/sports_per_voivodship.csv",
+        "all_sports":r"data/athletes/all_sports.csv"
     }
     
-    data = Data()
-
     
 
     @classmethod
@@ -40,7 +39,7 @@ class Athletes:
                                 for age, voivodeship in zip(base_df.age, base_df.voivodeship)]
         
         
-        result["sport_dyscypline"] = [cls.generate_sportdyscypline("all_sports.csv" ,voivodeship)
+        result["sportdyscypline"] = [cls.generate_sportdyscypline(voivodeship)
                                       if status is not None else None
                                       for status, voivodeship in zip(result.sportstatus, base_df.voivodeship)]
         
@@ -48,52 +47,25 @@ class Athletes:
         return result
       
     @staticmethod
-    def generate_sportdyscypline(data_df, voivodeship)-> str:
-        # miejsce na kod ewy, który zwraca sport w postaci
-        # custom_draws.draw_from_df()
-        pass
-    
-    
-        # elif sportstatus and isinstance(base_df, dict):
-            
-        #     # verify data
-            
-        #     # if base_df is DF and has requirements to generate dependence data.
-        #     if condition? :
-                
-        #         if all(["voivodeship" in base_df.keys(), "age" in base_df.keys()]):
-        #             result["sportstatus"] =  pd.Series([cls.generate_sportstatus(sportstatus_data, voivodeship, age)
-        #                                                for voivodeship, age in zip(base_df["voivodeship"], base_df["age"])])
-        #         # if data is incomplete
-        #         else :
-                    
-                    
-                                                           
-        #             result["sportstatus"] = pd.Series([cls.generate_sportstatus(sportstatus_data, voivodeship, age)
-        #                                                for voivodeship, age in zip(base_df["voivodeship"], base_df["age"])])
-            
-        #     # if "completely" random 
-            
-        # if sport_params:
-        #     pass        
-        #     # result["sports_discipline"] = pd.Series([draw_from_df(__class__.create_provinces_dict()[voivodeship])
-            #                   for voivodeship in base_df.voivodeship])
-        
+    def generate_sportdyscypline(voivodeship)-> str:
+        result = custom_draws.draw_from_df(__class__.create_voivodship_dict()[voivodeship])[0]
+        return result
+
 
     @classmethod
-    def create_provinces_dict(cls):
-        all_sports = cls.data.join_all_sports()
-        all_to_dict = all_sports.drop(columns=["Nazwa"])
+    def create_voivodship_dict(cls):
+        all_sports = pd.read_csv(cls.path_dict["all_sports"])
+        sports_per_voivodship = pd.read_csv(cls.path_dict["sports_per_voivodship"])
         sport_names = []
-        for col in all_to_dict.columns:
+        for col in sports_per_voivodship.columns:
             sport_names.append(col)
         sport_names_series = pd.Series(sport_names)
-        dfs_provinces_dict = {}
+        dfs_voivodship_dict = {}
         for index, row in all_sports.iterrows():
-            dfs_provinces_dict[row[0]] = pd.DataFrame(
+            dfs_voivodship_dict[row[0]] = pd.DataFrame(
                 {'Name': sport_names_series, 'People': row[1:].reset_index(drop=True)})
 
-        return dfs_provinces_dict
+        return dfs_voivodship_dict
     
     @classmethod
     def generate_sportstatus(cls,

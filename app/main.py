@@ -7,7 +7,6 @@ import uvicorn # type: ignore
 from common_functions.response_formatter import response_formatter
 from people import People
 from areas import Areas
-from data.athletes.sports_data import Data
 from data.other import fields
 from data.other import response_forms
 
@@ -49,7 +48,7 @@ async def get_body(request: Request):
     athletes_res = Athletes.generate_dataset(rows = rows
                                              ,base_df=pd.concat([people_res['age'], areas_res['voivodeship']],axis=1)
                                              ,sportstatus=field_params["sportstatus"]
-                                             #,sportdyscipline=field_params["sportdyscypline"]
+                                             ,sportdyscipline=field_params["sportdyscypline"]
                                              )
     
     
@@ -67,7 +66,6 @@ async def available_fields():
             "fields": response_forms.response_forms,
             "general": response_forms.return_params
             }
-    
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")
