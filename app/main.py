@@ -23,28 +23,34 @@ async def get_body(request: Request):
     
     request_json = await request.json()
     request_dict = dict(request_json)
+    fields_data = request_dict.get("fields")
     general_data = request_dict.get('general')
+    
+    # compare default data to requested data
+    field_params = fields.request_checker(fields_data,
+                                          fields.available_fields)
+    
     rows = general_data.get("rows") if general_data.get("rows") is not None else 1
     people_res = People.generate_dataset(rows = rows,
-                                         gender = request_dict.get("gender"),
-                                         age = request_dict.get("age"),
-                                         first_name = request_dict.get("first_name"),
-                                         last_name = request_dict.get("last_name"))
+                                         gender = field_params["gender"],
+                                         age = field_params["age"],
+                                         first_name = field_params["first_name"],
+                                         last_name = field_params["last_name"])
     
     areas_res = Areas.generate_dataset(rows = rows,
-                                        base_df = pd.DataFrame(people_res),
-                                        voivodeship=request_dict.get("voivodeship"),
-                                        postcode=request_dict.get("postcode"))
+                                        base_df = people_res,
+                                        voivodeship=field_params["voivodeship"],
+                                        postcode=field_params["postcode"])
     
     athletes_res = Athletes.generate_dataset(rows = rows,
                                              base_df=pd.concat([people_res['age'], areas_res['voivodeship']],axis=1),
-                                             sportstatus=request_dict.get("sportstatus"),
-                                             sportdyscipline=request_dict.get("sportdyscypline"))
+                                             sportstatus=field_params["sportstatus"]
+                                             #,sportdyscipline=field_params["sportdyscypline"]
+                                             )
     
     
     response_format = str(general_data.get("response_format"))
-    
-    return response_formatter(pd.concat([people_res, areas_res, athletes_res],axis=1),
+    return response_formatter(pd.concat([people_res, areas_res, athletes_res],axis=1)[fields_data.keys()],
                               response_format)
 
 @app.get("/available_fields")

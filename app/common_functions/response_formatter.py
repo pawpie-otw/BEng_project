@@ -48,7 +48,7 @@ def response_formatter(df:pd.DataFrame,
         Any: return pd.DataFrame converted into one of available format.
     """
     available_response_formats = {
-        "typical_json": json_form,
+        "json": json_form,
         "html table":pd.DataFrame.to_html,
         "csv":pd.DataFrame.to_csv,
         "markdown": pd.DataFrame.to_markdown

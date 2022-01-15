@@ -2,7 +2,7 @@ from data.other.predefined_types import PredefinedTypes as PT
 
 available_fields = [
      {
-         "name":"gender",
+        "name":"gender",
         "repr": "Płeć",
         "description": r"""Płeć przedstawiona w postaci ciągu znaków jako 'female', 'male'.
         ~51% szans na kobietę i ~49% szans na kobietę. Szanse na wylosowanie na bazie statystyk z Polski.""",
@@ -25,7 +25,8 @@ available_fields = [
                         "Wiek będzie równy bądź wyższy od tej wartości."),
             PT.dict_range("up_lim",
                         "Górna granica.",
-                        "Wiek będzie równy bądź niższy od tej wartości."),
+                        "Wiek będzie równy bądź niższy od tej wartości.",
+                        default=100),
             PT.dict_checkbox("equal_weight",
                             "Równe szanse",
                         r"Płeć i popularność nie wpływają na losowany wiek."),
@@ -118,6 +119,7 @@ return_params = [
     PT.dict_select("returned_type",
                    "Zwracany typ",
                    "Sposób, w jaki dane zostaną zwrócone.",
+                   "json",
                    [
                        PT.dict_option("API JSON", "json"),
                        PT.dict_option("plik CSV", "csv_file"),
@@ -126,3 +128,36 @@ return_params = [
                    ]
                    )
 ]
+
+def request_checker(request:dict, available_fields:list = available_fields):
+    
+    # get default parameters for fields
+    field_params = get_default_params(available_fields)
+    
+    # get list of requested parameters
+    request_fields = set(request.keys())
+    
+    for field in field_params:
+        if field in request_fields:
+            # if field is requested -> overwrite it
+            field_params[field] = request[field]
+    
+    # return default params overwrite by user request
+    return field_params
+            
+            
+
+def get_default_params(available_fields)->dict:
+    """Convert `available_fields` list to 
+    expected requests data form to compare it to request data.
+
+    Args:
+        available_fields ([type]): [description]
+
+    Returns:
+        dict: [description]
+    """
+    return { field_dict["name"]:{ option["name"]:option["default"]
+            for option in field_dict["options"]}
+         for field_dict in available_fields }
+    

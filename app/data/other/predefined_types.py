@@ -9,6 +9,7 @@ class PredefinedTypes:
                     name:str,
                     repr_:str,
                     desc:str,
+                    default:bool=False,
                     checked:bool=False)->dict:
 
         response = cls.base_dict(name,repr_,desc)
@@ -16,7 +17,8 @@ class PredefinedTypes:
                 {
                 "input_type": "checkbox",
                 "return_type": "bool",
-                "checked":checked,
+                "default": default,
+                "checked": checked,
                 }
             )
         return response
@@ -82,11 +84,13 @@ class PredefinedTypes:
                     name:str,
                     repr_:str,
                     desc:str,
+                    default:str,
                     options:Sequence[str])->dict:
         
         response = cls.base_dict(name,repr_,desc)
         response.update(
                                 {
+                                    "default":default,
                                     "options":options
                                 }
                             )

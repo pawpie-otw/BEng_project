@@ -1,5 +1,5 @@
 response_forms = [
-        "typical_json",
+        "json",
         "html table",
         "csv",
         "markdown"

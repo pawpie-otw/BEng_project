@@ -43,7 +43,7 @@ class People:
             result["age"] = [cls.generate_age(age["low_lim"], age["up_lim"], equal_weight=True)
                                         for _ in range(rows)]
         else:
-            result["age"] = [cls.generate_age(age["low_lim"], age["up_lim"], age_data_dict[x+"s"].to_list())
+            result["age"] = [cls.generate_age(age["low_lim"], age["up_lim"], age_data_dict[x].to_list())
                              for x in result.gender]
                 
         # FIRST NAME
