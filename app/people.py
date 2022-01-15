@@ -51,7 +51,6 @@ class People:
         
         # when gender is unimportant
         if first_name.get("unfit_to_gen"):
-            print("fn unfit")
             concan_fname_df = pd.concat([m_fname_df, f_fname_df])
             
             result["first_name"] = [cls.generate_name(concan_fname_df, 
@@ -68,7 +67,6 @@ class People:
         # LAST NAME
         num_of_lname_gen_res = cls.calc_name_num(last_name["double_name_chance"], rows)
         if last_name.get("unfit_to_gen"):
-            print("ln unfit")
             concan_lname_df = pd.concat([m_lname_df, f_lname_df])
             
             result["last_name"] = [cls.generate_name(concan_lname_df,

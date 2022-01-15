@@ -30,6 +30,10 @@ async def get_body(request: Request):
     field_params = fields.request_checker(fields_data,
                                           fields.available_fields)
     
+    requested_cols = {key: item
+                    if (item:=fields_data[key].get("custom_col_name")) is not None else key
+                    for key in fields_data.keys()}
+    
     rows = general_data.get("rows") if general_data.get("rows") is not None else 1
     people_res = People.generate_dataset(rows = rows,
                                          gender = field_params["gender"],
@@ -42,15 +46,16 @@ async def get_body(request: Request):
                                         voivodeship=field_params["voivodeship"],
                                         postcode=field_params["postcode"])
     
-    athletes_res = Athletes.generate_dataset(rows = rows,
-                                             base_df=pd.concat([people_res['age'], areas_res['voivodeship']],axis=1),
-                                             sportstatus=field_params["sportstatus"]
+    athletes_res = Athletes.generate_dataset(rows = rows
+                                             ,base_df=pd.concat([people_res['age'], areas_res['voivodeship']],axis=1)
+                                             ,sportstatus=field_params["sportstatus"]
                                              #,sportdyscipline=field_params["sportdyscypline"]
                                              )
     
     
     response_format = str(general_data.get("response_format"))
-    return response_formatter(pd.concat([people_res, areas_res, athletes_res],axis=1)[fields_data.keys()],
+    return response_formatter(pd.concat([people_res, areas_res, athletes_res],axis=1),
+                              requested_cols,
                               response_format)
 
 @app.get("/available_fields")

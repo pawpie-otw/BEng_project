@@ -32,8 +32,10 @@ def to_def_type(var):
 
 
 def response_formatter(df:pd.DataFrame,
-                  requested_format: str = "typical_json",
+                  columns_names: Dict[str,str],
+                  requested_format: str = "json",
                   *args, **kwargs)->Any:
+    
     """Return pd.DataFrame in `type_name` form.
 
     Args:
@@ -47,6 +49,11 @@ def response_formatter(df:pd.DataFrame,
     Returns:
         Any: return pd.DataFrame converted into one of available format.
     """
+    
+    response_df = df[columns_names.keys()]
+    response_df.columns = [columns_names[key]
+                           for key in columns_names]
+    
     available_response_formats = {
         "json": json_form,
         "html table":pd.DataFrame.to_html,
@@ -56,4 +63,4 @@ def response_formatter(df:pd.DataFrame,
     
     for format, method in available_response_formats.items():
         if format == requested_format:
-            return method(df, *args, **kwargs)
+            return method(response_df, *args, **kwargs)
