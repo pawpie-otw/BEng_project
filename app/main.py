@@ -70,7 +70,7 @@ async def available_fields():
     """
     return {
             "fields": fields.available_fields,
-            "general": response_forms.return_params
+            "general": response_forms.response_forms
             }
 
 if __name__ == "__main__":
