@@ -29,9 +29,14 @@ async def get_body(request: Request):
     field_params = fields.request_checker(fields_data,
                                           fields.available_fields)
     
-    requested_cols = {key: item
-                    if (item:=fields_data[key].get("custom_col_name")) is not None else key
-                    for key in fields_data.keys()}
+    requested_cols = {}
+    
+    for key in fields_data.keys():
+        custom_col_name =fields_data[key].get("custom_col_name") if fields_data[key].get("custom_col_name") is not None else key
+        blanck_chance = fields_data[key].get("blanck_chance") if fields_data[key].get("blanck_chance") else 0
+        requested_cols[key]={"custom_col_name":custom_col_name,
+                             "blanck_chance":blanck_chance}
+    
     
     rows = general_data.get("rows") if general_data.get("rows") is not None else 1
     
@@ -49,7 +54,7 @@ async def get_body(request: Request):
     athletes_res = Athletes.generate_dataset(rows = rows
                                              ,base_df=pd.concat([people_res['age'], areas_res['voivodeship']],axis=1)
                                              ,sportstatus=field_params["sportstatus"]
-                                             ,sportdyscipline=field_params["sportdiscipline"]
+                                             ,sportdiscipline=field_params["sportdiscipline"]
                                              )
     
     
@@ -64,7 +69,7 @@ async def available_fields():
     mainly customized to API GUI.
     """
     return {
-            "fields": response_forms.response_forms,
+            "fields": fields.available_fields,
             "general": response_forms.return_params
             }
 

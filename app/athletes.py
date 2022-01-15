@@ -142,7 +142,3 @@ class Athletes:
         elif age < 18 and age > 14:
             return df.at[voivodeship, "junior_chance"]
         return df.at[voivodeship, "senior_chance"]
-
-if __name__ == '__main__':
-    print(x := Athletes.generate_dataset(2,None,{"sportstatus":None}))
-    

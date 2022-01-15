@@ -71,7 +71,15 @@ class Areas:
         """
         if independently:
             return choice(dataset[choice(tuple(dataset.keys()))])
-        return choice(dataset[voivodeship])
+        
+        
+        try:
+            return choice(dataset[voivodeship])
+        except Exception as e:
+            print(bladdd)
+            print(dataset.keys())
+            print(voivodeship)
+            return "an error place"
         
 
     @staticmethod
