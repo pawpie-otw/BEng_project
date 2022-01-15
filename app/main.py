@@ -35,7 +35,6 @@ async def get_body(request: Request):
     
     rows = general_data.get("rows") if general_data.get("rows") is not None else 1
     
-    print(field_params.keys())
     people_res = People.generate_dataset(rows = rows,
                                          gender = field_params["gender"],
                                          age = field_params["age"],
