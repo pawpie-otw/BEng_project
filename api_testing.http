@@ -6,36 +6,97 @@ POST http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
 {
-    "rows":50,
-    "response_format":"typical_json",
-    "gender":{
-        "equal_weight": true
-    },
-    "age":{
-        "equal_weight":true,
-        "low_lim":0,
-        "up_lim":100
-    },
-    "first_name":{
-        "double_name_chance":15,
-        "equal_weight":false
-    },
-    "last_name":{
-        "double_name_chance":15,
-        "equal_weight":false
+"fields":{
+        "age":{
+                    "custom_col_name":"Wiek",
+                    "low_lim":0,
+                    "up_lim":100,
+                    "equal_weight":true,
+                    "blanck_chance":0,
+            },
+        "first_name":{
+                    "custom_col_name":"imiona",
+                    "double_name_chance":15,
+                    "equal_weight":false,
+                    "unfit_to_gen":true,
+                    "blanck_chance":0
+                    },
+        "last_name":{
+                    "custom_col_name":"Nazwisko",
+                    "double_name_chance":15,
+                    "equal_weight":false,
+                    "unfit_to_gen":true,
+                    "blanck_chance":0
+                    },
+        "voivodeship":{
+                        "custom_col_name":"Wojewodztwo",
+                    "equal_weight": false,
+                    "blanck_chance":0
+                    },
+        "postcode":{
+                "custom_col_name":"kod pocztowy",
+                    "independently": false,
+                    "blanck_chance":0
+                    },
+        "sportstatus":{
+                "custom_col_name":"status sportowca",
+                    "random_chance":false,
+                    "blanck_chance":0
+                    }  
         },
-    "voivodeship":{
-        "equal_weight": false
-    },
-    "postcode":{
-        "independently": false
-    },
-    "sportstatus":{
-        "random_chance":false
-    },
-    "sportdyscypline":true
+"general":{
+        "rows":20,
+        "response_format":"json" 
+        }
 }
 
 ###
 
-GET http://localhost:8000/available_response_forms/
+POST http://localhost:8000/generate_dataset/ HTTP/1.1
+content-type: application/json
+
+{
+"fields":{
+        "last_name":{
+                "custom_col_name":"nazwisko",
+                    "double_name_chance":5,
+                    "equal_weight":false,
+                    "unfit_to_gen":true,
+                    "blanck_chance":30
+                    },
+        "first_name":{
+                "custom_col_name":"imie",
+                    "double_name_chance":10,
+                    "equal_weight":false,
+                    "unfit_to_gen":true,
+                    "blanck_chance":20
+                    }
+        },
+"general":{
+        "rows":20,
+        "response_format":"json" 
+        }
+}
+
+### sprawdz czy sport pyka
+
+POST http://localhost:8000/generate_dataset/ HTTP/1.1
+content-type: application/json
+
+{
+"fields":{
+        "sportstatus":{
+                "custom_col_name":"status",
+                "independently":false
+                    },
+        "sportdyscipline":{
+                "custom_col_name":"dyscyplina",
+                "independently":false,
+                "blanck_chance":0
+                }
+        },
+"general":{
+        "rows":10,
+        "response_format":"json" 
+        }
+}

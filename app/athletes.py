@@ -6,7 +6,7 @@ from random import choice, randint
 from common_functions.extra_funcs import fast_choices
 
 from data.athletes.sports_data import Data
-
+from common_functions import custom_draws
 
 
 
@@ -40,17 +40,18 @@ class Athletes:
                                 for age, voivodeship in zip(base_df.age, base_df.voivodeship)]
         
         
-        result["sport_dyscypline"] = [cls.generate_sportdyscypline()
+        result["sport_dyscypline"] = [cls.generate_sportdyscypline("all_sports.csv" ,voivodeship)
                                       if status is not None else None
-                                      for status in result.sportstatus]
+                                      for status, voivodeship in zip(result.sportstatus, base_df.voivodeship)]
         
         
         return result
       
     @staticmethod
-    def generate_sportdyscypline()-> str:
+    def generate_sportdyscypline(data_df, voivodeship)-> str:
         # miejsce na kod ewy, który zwraca sport w postaci
-        return "jakis sport"
+        # custom_draws.draw_from_df()
+        pass
     
     
         # elif sportstatus and isinstance(base_df, dict):

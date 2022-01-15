@@ -1,6 +1,13 @@
 from data.other.predefined_types import PredefinedTypes as PT
 
 available_fields = [
+    {
+        "name": "id",
+        "repr": "Id",
+        "description":"Unikatowy numer wiersza.",
+        "custom_col_name":PT.custom_col_name(),
+        "options":[]
+    },
      {
         "name":"gender",
         "repr": "Płeć",
@@ -21,10 +28,10 @@ available_fields = [
         "custom_col_name":PT.custom_col_name(),
         "options":[
             PT.dict_range("low_lim",
-                        "Dolna granica.",
+                        "Dolna granica",
                         "Wiek będzie równy bądź wyższy od tej wartości."),
             PT.dict_range("up_lim",
-                        "Górna granica.",
+                        "Górna granica",
                         "Wiek będzie równy bądź niższy od tej wartości.",
                         default=100),
             PT.dict_checkbox("equal_weight",
@@ -40,10 +47,10 @@ available_fields = [
         "custom_col_name":PT.custom_col_name(),    
         "options":[
             PT.dict_range("double_name_chance",
-                        "Szansa na podwójne imię.",
+                        "Szansa na podwójne imię",
                         "Szansa w \% na podwójne imię."),
             PT.dict_checkbox("equal_weight",
-                            "Równe wagi.",
+                            "Równe wagi",
                             "Każde imię ma równe szanse na wysolowanie, popularność nie ma znaczenia."),
             PT.dict_checkbox("unfit_to_gen",
                             "Niedopasowanie do płci",
@@ -58,10 +65,10 @@ available_fields = [
         "custom_col_name":PT.custom_col_name(),
         "options":[
             PT.dict_range("double_name_chance",
-                        "Szansa na podwójne Nazwisko.",
+                        "Szansa na podwójne Nazwisko",
                         "Szansa w \% na podwójne imię."),
             PT.dict_checkbox("equal_weight",
-                            "Równe wagi.",
+                            "Równe wagi",
                             "Każde nazwisko ma równe szanse na wysolowanie, popularność nie ma znaczenia."),
             PT.dict_checkbox("unfit_to_gen",
                             "Niedopasowanie do płci",
@@ -77,7 +84,7 @@ available_fields = [
         "custom_col_name":PT.custom_col_name(),
         "options":[
             PT.dict_checkbox("equal_weight",
-                            "Równe wagi.",
+                            "Równe wagi",
                             "Każde województwo ma taką samą szansę. Niezależne od innych parametrów."),
             PT.blanck_chance()
             ]
@@ -105,7 +112,21 @@ available_fields = [
             
                 PT.dict_checkbox("independently",
                                 "Niezależny",
-                                "Kody nie są dopasowane do województwa."),
+                                "Szansa na status losowana jest z przypadkowego województwa."),
+                PT.blanck_chance()
+            
+        ]
+    },
+    {
+        "name":"sportdyscypline",
+        "repr": "Dyscyplina sportowa",
+        "description": "Losuje się jedynie wtedy, kiedy istnieje jakiś status sportowca.",
+        "custom_col_name": PT.custom_col_name(),
+        "options":[
+            
+                PT.dict_checkbox("independently",
+                                "Niezależny",
+                                "Status sportowca nie ma wpływu na sport. Przy wybraniu zalecane zwiększenie szansy na puste pole."),
                 PT.blanck_chance()
             
         ]
