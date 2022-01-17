@@ -29,7 +29,7 @@ def to_def_type(var):
     if isinstance(var, float):
         return float(var)
     elif isinstance(var, str):
-        if str=="":
+        if var=="":
             return None
         return str(var)
     return int(var)

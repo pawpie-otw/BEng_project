@@ -130,7 +130,39 @@ available_fields = [
                 PT.blanck_chance()
             
         ]
+    },
+# EDUCATION
+    {
+        "name":"languages",
+        "repr":"Liczba znanych języków",
+        "description": "Liczba znanych języków obcych.\n Uwaga! \n Liczba 3 oznaczana 3 lub więcej.\n Brak wartości pojawia się dla osób do 18 roku życia z powodu braku żetelnych danych.",
+        "custom_col_name":PT.custom_col_name(),
+        "options":[
+            PT.dict_checkbox("equal_weight",
+                            "Równe wagi",
+                            "Szansa na wartość nie jest uzależniona od statystyki. Każdy z języków ma równą szansę."),
+            PT.dict_checkbox("without_none",
+                             "Wyklucz brak wartości",
+                             "Z możliwych wartości zostanie wyrzucona wartość None/null. Osoby <18 roku życia dostana również swoją wartość."),
+            PT.blanck_chance()
+            ]
+    },
+    {
+        "name": "education",
+        "repr": "Poziom wykształcenia",
+        "description": "Poziom wykształcenia na podstawie systemu edukacji w Polsce do roku 2016 (przed reformą szkolnictwa).",
+        "custom_col_name": PT.custom_col_name(),
+        "options":[
+            PT.dict_checkbox("equal_weight",
+                            "Równe wagi",
+                            "Szansa na wartość nie jest uzależniona od statystyki. Każdy stopień wykształcenia ma równą szansę."),
+            PT.dict_checkbox("without_none",
+                             "Wyklucz brak wartości",
+                             "Z możliwych wartości zostanie wyrzucona wartość None/null. Osoby <18 roku życia dostana również swoją wartość."),
+            PT.blanck_chance()
+                    ]
     }
+
 ]
 return_params = [
     PT.dict_number("rows",

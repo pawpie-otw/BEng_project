@@ -40,11 +40,13 @@ class Athletes:
                                                         random_chance=sportstatus.get("random_chance"))
                                 for age, voivodeship in zip(base_df.age, base_df.voivodeship)]
         
-        
-        result["sportdiscipline"] = [cls.generate_sportdiscipline(voivodeship,voivodeship_dict)
+        if sportdiscipline["independently"]:
+            result["sportdiscipline"] = [cls.generate_sportdiscipline(voivodeship,voivodeship_dict)
+                                      for voivodeship in base_df.voivodeship]
+        else:            
+            result["sportdiscipline"] = [cls.generate_sportdiscipline(voivodeship,voivodeship_dict)
                                       if status is not None else None
                                       for status, voivodeship in zip(result.sportstatus, base_df.voivodeship)]
-        
         
         return result
       

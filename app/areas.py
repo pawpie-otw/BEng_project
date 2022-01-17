@@ -76,7 +76,7 @@ class Areas:
         try:
             return choice(dataset[voivodeship])
         except Exception as e:
-            print(bladdd)
+            print("bladdd")
             print(dataset.keys())
             print(voivodeship)
             return "an error place"

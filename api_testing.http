@@ -12,7 +12,7 @@ content-type: application/json
                     "low_lim":0,
                     "up_lim":100,
                     "equal_weight":true,
-                    "blanck_chance":0,
+                    "blanck_chance":0
             },
         "first_name":{
                     "custom_col_name":"imiona",
@@ -31,7 +31,7 @@ content-type: application/json
         "voivodeship":{
                         "custom_col_name":"Wojewodztwo",
                     "equal_weight": false,
-                    "blanck_chance":0
+                    "blanck_chance":50
                     },
         "postcode":{
                 "custom_col_name":"kod pocztowy",
@@ -42,10 +42,22 @@ content-type: application/json
                 "custom_col_name":"status sportowca",
                     "random_chance":false,
                     "blanck_chance":0
-                    }  
+                    },
+        "languages":{
+                "custom_col_name":null,
+                "equal_weight":false,
+                "withoout_none":false,
+                "blanck_chance":0
+        },
+        "education":{
+                "custom_col_name":null,
+                "equal_weight":false,
+                "withoout_none":false,
+                "blanck_chance":0
+        }
         },
 "general":{
-        "rows":20,
+        "rows":500,
         "response_format":"json" 
         }
 }
@@ -65,7 +77,7 @@ content-type: application/json
                     "blanck_chance":30
                     },
         "first_name":{
-                "custom_col_name":"imie",
+                    "custom_col_name":"imie",
                     "double_name_chance":10,
                     "equal_weight":false,
                     "unfit_to_gen":true,
@@ -89,7 +101,7 @@ content-type: application/json
                 "custom_col_name":"status",
                 "independently":false
                     },
-        "sport_dyscipline":{
+        "sportdiscipline":{
                 "custom_col_name":"dyscyplina",
                 "independently":false,
                 "blanck_chance":0

@@ -1,7 +1,7 @@
 import collections
 
 from random import choices, randint
-from typing import Union, Any, Callable, Annotated, Sequence
+from typing import Union, Any, Callable, Annotated, Sequence, Dict
 
 from common_functions.log_wrapper import log_to_file_if_exception_raised
 
@@ -62,3 +62,20 @@ def insert_value_randomly(list_:Sequence[Any], chance_:int, value_:Any="")->Sequ
         if randint(0,100)<=chance_
         else v
         for v in list_]
+
+def find_by_value(dict_:Dict[Any,Any], value_:Any)->Any:
+    """Return key of given value. If return None, not found value in dict.
+
+    Args:
+        `dict_` (Dict[Any,Any]): dict to search
+        `value_` (Any): value of key you look for
+
+    Returns:
+        Any: key or `None` if not found.
+    """
+    
+    for key in dict_:
+        if dict_[key] == value_:
+            return key
+    else:
+        return None

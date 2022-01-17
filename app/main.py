@@ -1,14 +1,16 @@
-from fastapi import FastAPI, Request # type: ignore
+from fastapi import FastAPI, Request
 
-from athletes import Athletes
-import pandas as pd # type: ignore
-import uvicorn # type: ignore
+import pandas as pd
+import uvicorn 
 
-from common_functions.response_formatter import response_formatter
-from people import People
-from areas import Areas
 from data.other import fields
 from data.other import response_forms
+from common_functions.response_formatter import response_formatter
+
+from people import People
+from areas import Areas
+from athletes import Athletes
+from education import Education
 
 app = FastAPI()
 
@@ -57,9 +59,14 @@ async def get_body(request: Request):
                                              ,sportdiscipline=field_params["sportdiscipline"]
                                              )
     
+    education_res = Education.generate_dataset(rows = rows
+                                               ,base_df = people_res
+                                               ,languages = field_params["languages"]
+                                               ,education = field_params["education"]
+                                               )
     
     response_format = str(general_data.get("response_format"))
-    return response_formatter(pd.concat([people_res, areas_res, athletes_res],axis=1),
+    return response_formatter(pd.concat([people_res, areas_res, athletes_res, education_res],axis=1),
                               requested_cols,
                               response_format)
 
