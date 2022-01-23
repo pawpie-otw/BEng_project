@@ -1,8 +1,9 @@
 from fastapi import FastAPI, Request
-from fastapi.middleware.cors import CORSMiddleware 
+from fastapi.middleware.cors import CORSMiddleware
+from time import time_ns
 
 import pandas as pd
-import uvicorn 
+import uvicorn
 
 from data.other import fields
 from data.other import response_forms
@@ -27,60 +28,83 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 def read_root():
     return {"Welcome to": "data generator."}
 
+
 @app.post("/generate_dataset")
 async def get_body(request: Request):
-    
+
     request_json = await request.json()
     request_dict = dict(request_json)
     fields_data = request_dict.get("fields")
     general_data = request_dict.get('general')
-    
+
     # compare default data to requested data
     field_params = fields.request_checker(fields_data,
-                                          fields.available_fields)
+                                          fields.AVAILABLE_FIELDS)
+
+    required_cols = fields.check_dependencies(fields_data)
+    
     
     requested_cols = {}
-    
     for key in fields_data.keys():
-        custom_col_name =fields_data[key].get("custom_col_name") if fields_data[key].get("custom_col_name") is not None else key
-        blanck_chance = fields_data[key].get("blanck_chance") if fields_data[key].get("blanck_chance") else 0
-        requested_cols[key]={"custom_col_name":custom_col_name,
-                             "blanck_chance":blanck_chance}
-    
-    
-    rows = general_data.get("rows") if general_data.get("rows") is not None else 1
-    
-    people_res = People.generate_dataset(rows = rows,
-                                         gender = field_params["gender"],
-                                         age = field_params["age"],
-                                         first_name = field_params["first_name"],
-                                         last_name = field_params["last_name"])
-    
-    areas_res = Areas.generate_dataset(rows = rows,
-                                        base_df = people_res,
+        custom_col_name = fields_data[key].get("custom_col_name") if fields_data[key].get(
+            "custom_col_name") is not None else key
+        blanck_chance = fields_data[key].get(
+            "blanck_chance") if fields_data[key].get("blanck_chance") else 0
+        requested_cols[key] = {"custom_col_name": custom_col_name,
+                               "blanck_chance": blanck_chance}
+        
+    rows = general_data.get("rows", 1)
+    for i in range(2):
+        if i%2 == 0:
+            required_cols = set(requested_cols.keys())
+        start_time = time_ns()
+        response = pd.DataFrame()
+        
+        if "id" in requested_cols:
+        
+            response["id"] = [i for i in range(rows)]
+        
+        people_res = People.generate_dataset(rows=rows,
+                                            gender=field_params["gender"],
+                                            age=field_params["age"],
+                                            first_name=field_params["first_name"],
+                                            last_name=field_params["last_name"],
+                                            required_cols=required_cols)
+        response = pd.concat([people_res, response],axis=1)
+        areas_res = Areas.generate_dataset(rows=rows,
+                                        base_df=response,
                                         voivodeship=field_params["voivodeship"],
-                                        postcode=field_params["postcode"])
+                                        postcode=field_params["postcode"],
+                                        required_cols=required_cols)
+
+        response = pd.concat([response, areas_res],axis=1)
+        athletes_res = Athletes.generate_dataset(rows=rows,
+                                                base_df=response,
+                                                sportstatus=field_params["sportstatus"],
+                                                sportdiscipline=field_params["sportdiscipline"],
+                                                required_cols=required_cols)
+
+        print(field_params["sportstatus"])
+
+        response = pd.concat([response, athletes_res],axis=1)
+        education_res = Education.generate_dataset(rows=rows,
+                                                base_df=response,
+                                                languages=field_params["languages"],
+                                                edu_level=field_params["edu_level"],
+                                                required_cols=required_cols)
+
+        response = pd.concat([response, education_res],axis=1)
+        
+        response_format = str(general_data.get("response_format"))
+        print(f"generate dataset time in ns with {['all cols', 'only required cols'][i]}: ",(time_ns()-start_time)/1000**3)
     
-    athletes_res = Athletes.generate_dataset(rows = rows
-                                             ,base_df=pd.concat([people_res['age'], areas_res['voivodeship']],axis=1)
-                                             ,sportstatus=field_params["sportstatus"]
-                                             ,sportdiscipline=field_params["sportdiscipline"]
-                                             )
-    
-    education_res = Education.generate_dataset(rows = rows
-                                               ,base_df = people_res
-                                               ,languages = field_params["languages"]
-                                               ,education = field_params["education"]
-                                               )
-    
-    response_format = str(general_data.get("response_format"))
-    return response_formatter(pd.concat([people_res, areas_res, athletes_res, education_res],axis=1),
-                              requested_cols,
-                              response_format)
+    return response_formatter(response, requested_cols, field_params.get("id"), response_format)
+
 
 @app.get("/available_fields")
 async def available_fields():
@@ -88,10 +112,9 @@ async def available_fields():
     mainly customized to API GUI.
     """
     return {
-            "fields": fields.available_fields,
-            "general": response_forms.response_forms
-            }
+        "fields": fields.AVAILABLE_FIELDS,
+        "general": response_forms.RESPONSE_FORMS
+    }
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")
-    

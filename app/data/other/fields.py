@@ -1,6 +1,7 @@
+from typing import Sequence, Dict, Any
 from data.other.predefined_types import PredefinedTypes as PT
 
-available_fields = [
+AVAILABLE_FIELDS = [
     {
         "name": "id",
         "repr": "Id",
@@ -113,8 +114,13 @@ available_fields = [
                 PT.dict_checkbox("independently",
                                 "Niezależny",
                                 "Szansa na status losowana jest z przypadkowego województwa."),
+                PT.dict_checkbox("without_none",
+                                 "Bez pustych wartości",
+                                 "Losowane jest tylko między statusem junior i senior."),
+                PT.dict_checkbox("equal_weight",
+                                 "Równe szanse",
+                                 "Każdy status ma równe szanse na wylosowanie. Nadpisuje opcje `Niezależny`."),
                 PT.blanck_chance()
-            
         ]
     },
     {
@@ -123,10 +129,12 @@ available_fields = [
         "description": "Losuje się jedynie wtedy, kiedy istnieje jakiś status sportowca.",
         "custom_col_name": PT.custom_col_name(),
         "options":[
-            
-                PT.dict_checkbox("independently",
-                                "Niezależny",
-                                "Status sportowca nie ma wpływu na sport. Przy wybraniu zalecane zwiększenie szansy na puste pole."),
+                PT.dict_checkbox("without_none",
+                                 "Bez pustych wartości",
+                                 "Losowane jest tylko między statusem junior i senior."),
+                PT.dict_checkbox("equal_weight",
+                    "Równe szanse",
+                    "Każdy status ma równe szanse na wylosowanie. Nadpisuje opcje `Niezależny`."),
                 PT.blanck_chance()
             
         ]
@@ -148,7 +156,7 @@ available_fields = [
             ]
     },
     {
-        "name": "education",
+        "name": "edu_level",
         "repr": "Poziom wykształcenia",
         "description": "Poziom wykształcenia na podstawie systemu edukacji w Polsce do roku 2016 (przed reformą szkolnictwa).",
         "custom_col_name": PT.custom_col_name(),
@@ -161,10 +169,22 @@ available_fields = [
                              "Z możliwych wartości zostanie wyrzucona wartość None/null. Osoby <18 roku życia dostana również swoją wartość."),
             PT.blanck_chance()
                     ]
+    },
+    {
+        "name": "random",
+        "repr": "Losowe pole",
+        "description": "Wybiera losowe pole z póli niewybranych pól i przydziela mu domyślne parametry.",
+        "custom_col_name": PT.custom_col_name(),
+        "options":[
+            PT.dict_checkbox("random_params",
+                            "Losuj parametry",
+                            "Losuje parametry dla tego pola."),
+            PT.blanck_chance()
+                    ]
     }
 
 ]
-return_params = [
+RETURN_PARAMS = [
     PT.dict_number("rows",
                    "Wiersze",
                    "Ilość wygenerowanych wierszy.",
@@ -182,7 +202,40 @@ return_params = [
                    )
 ]
 
-def request_checker(request:dict, available_fields:list = available_fields):
+# dict of dependencies for better optimalization
+DEPENDENCIES = {
+    "age":{"equal_weight": "gender"},
+    "first_name":{"unfit_to_gen": "gender"},
+    "last_name":{"unfit_to_gen": "gender"},
+    "voivodeship":{"equal_weight":{"gender", "age"}},
+    "postcode":{"independently":"voivodeship"},
+    "sportstatus":{"random_chance":{"age","voivodeship"}},
+    "sportdiscipline":{"independently":{"sportstatus", "voivodeship"}},
+    "languages":{"equal_weight":{"gender","age"}},
+    "edu_level":{"equal_weight":{"gender", "languages"}}
+}
+
+def check_dependencies(requested_fields:Dict[str, str]
+                       ,dependencies:Dict[str,Dict[str,str]] = DEPENDENCIES
+                       )-> Sequence[Any]:
+    required_columns = set(requested_fields.keys())
+    
+    # for every requested field
+    for rf, param_dict in requested_fields.items():
+        if rf in set(dependencies.keys()):
+            # if condition to be independence hasn't been met
+            for required_to_independence in dependencies[rf]:
+                if not param_dict.get(required_to_independence):
+                    # add field to required set
+                    if isinstance(required_param:=dependencies[rf][required_to_independence], str):
+                        required_columns.add(required_param)
+                    else:
+                        required_columns = required_columns.union(required_param)
+                    
+    return required_columns
+            
+
+def request_checker(request:Dict[str,Any], available_fields:list = AVAILABLE_FIELDS):
     
     # get default parameters for fields
     field_params = get_default_params(available_fields)
@@ -213,4 +266,3 @@ def get_default_params(available_fields)->dict:
     return { field_dict["name"]:{ option["name"]:option["default"]
             for option in field_dict["options"]}
          for field_dict in available_fields }
-    

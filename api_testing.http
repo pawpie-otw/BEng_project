@@ -7,6 +7,14 @@ content-type: application/json
 
 {
 "fields":{
+        "id":{
+                "custom_col_name": "moje id"
+        },
+        "gender":{
+                "custom_col_name":"plec",
+                "equal_weight":true,
+                "blanck_chance":0
+                },
         "age":{
                     "custom_col_name":"Wiek",
                     "low_lim":0,
@@ -39,25 +47,27 @@ content-type: application/json
                     "blanck_chance":0
                     },
         "sportstatus":{
-                "custom_col_name":"status sportowca",
-                    "random_chance":false,
+                    "custom_col_name":"status sportowca",
+                    "independently":false,
+                    "without_none":false,
+                    "equal_weight":false,
                     "blanck_chance":0
                     },
         "languages":{
                 "custom_col_name":null,
                 "equal_weight":false,
-                "withoout_none":false,
+                "without_none":false,
                 "blanck_chance":0
         },
-        "education":{
+        "edu_level":{
                 "custom_col_name":null,
                 "equal_weight":false,
-                "withoout_none":false,
+                "without_none":false,
                 "blanck_chance":0
         }
         },
 "general":{
-        "rows":500,
+        "rows":10,
         "response_format":"json" 
         }
 }
@@ -69,6 +79,18 @@ content-type: application/json
 
 {
 "fields":{
+        "gender":{
+                "custom_col_name":"plec",
+                "equal_weight":true,
+                "blanck_chance":0
+                },
+        "age":{
+                    "custom_col_name":"Wiek",
+                    "low_lim":0,
+                    "up_lim":100,
+                    "equal_weight":true,
+                    "blanck_chance":0
+            },
         "last_name":{
                 "custom_col_name":"nazwisko",
                     "double_name_chance":5,
@@ -80,12 +102,12 @@ content-type: application/json
                     "custom_col_name":"imie",
                     "double_name_chance":10,
                     "equal_weight":false,
-                    "unfit_to_gen":true,
+                    "unfit_to_gen":false,
                     "blanck_chance":20
                     }
         },
 "general":{
-        "rows":20,
+        "rows":30000,
         "response_format":"json" 
         }
 }

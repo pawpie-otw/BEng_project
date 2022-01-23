@@ -1,4 +1,4 @@
-response_forms = [
+RESPONSE_FORMS = [
         "json",
         "html table",
         "csv",

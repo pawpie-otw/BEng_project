@@ -1,13 +1,14 @@
+from email.mime import base
 import pandas as pd
 
 from typing import Union, Dict, Any
-from random import choice, randint
+from random import choices, choice, randint
 
 from common_functions.extra_funcs import fast_choices
-
 from common_functions import custom_draws
+from common_functions import loggers
 
-
+from data.areas import areas_const
 
 class Athletes:
 
@@ -24,57 +25,94 @@ class Athletes:
     @classmethod
     def generate_dataset(cls,
                          rows: Union[None,int],
+                         required_cols,
                          base_df: Union[None, pd.DataFrame] = None,
                          sportstatus:Union[None, Dict[str, Any]] = None,
                          sportdiscipline:Union[None, Dict[str, Any]] = None) -> Dict[str, pd.Series]:
         
-        sportstatus_data = pd.read_csv(cls.path_dict["sportstatus"], index_col='voivodeship')
-        all_sports = pd.read_csv(cls.path_dict["all_sports"])
-        sports_per_voivodeship = pd.read_csv(cls.path_dict["sports_per_voivodship"])
-        voivodeship_dict = __class__.create_voivodship_dict(all_sports, sports_per_voivodeship)
         result = pd.DataFrame()
-            
-        result["sportstatus"] = [cls.generate_sportstatus(sportstatus_data,
-                                                        voivodeship,
-                                                        age,                                                          
-                                                        random_chance=sportstatus.get("random_chance"))
-                                for age, voivodeship in zip(base_df.age, base_df.voivodeship)]
         
-        if sportdiscipline["independently"]:
-            result["sportdiscipline"] = [cls.generate_sportdiscipline(voivodeship,voivodeship_dict)
-                                      for voivodeship in base_df.voivodeship]
-        else:            
-            result["sportdiscipline"] = [cls.generate_sportdiscipline(voivodeship,voivodeship_dict)
-                                      if status is not None else None
-                                      for status, voivodeship in zip(result.sportstatus, base_df.voivodeship)]
+        if "sportstatus" in required_cols:
+            result["sportstatus"] = cls.complete_sportstatus(rows,sportstatus, base_df, required_cols)
+        
+        
+        if "sportdiscipline" in required_cols:
+            result["sportdiscipline"] = cls.complete_sportdiscipline(
+                rows, sportdiscipline, pd.concat([base_df, result], axis=1), required_cols)
         
         return result
-      
-    @staticmethod
-    def generate_sportdiscipline(voivodeship, voivodship_dict)-> str:
-        result = custom_draws.draw_from_df(voivodship_dict[voivodeship])[0]
-        return result
-
-
+    
     @classmethod
-    def create_voivodship_dict(cls, all_sports, sports_per_voivodship):
-        sport_names = []
-        for col in sports_per_voivodship.columns:
-            sport_names.append(col)
-        sport_names_series = pd.Series(sport_names)
-        dfs_voivodship_dict = {}
-        for index, row in all_sports.iterrows():
-            dfs_voivodship_dict[row[0]] = pd.DataFrame(
-                {'Name': sport_names_series, 'People': row[1:].reset_index(drop=True)})
-
-        return dfs_voivodship_dict
+    def complete_sportdiscipline(cls, rows, sportdiscipline, base_df, required_cols):
+        all_sports = pd.read_csv(cls.path_dict["all_sports"])
+        
+        if {"voivodeship", "sportstatus"}.issubset(required_cols) \
+            and not sportdiscipline["without_none"]:
+            
+            return tuple(cls.generate_discipline(all_sports, voivodeship, 
+                                                 equal_weight=sportdiscipline["equal_weight"])
+                         if sportstatus else None
+                     for voivodeship, sportstatus in zip(base_df.voivodeship, base_df.sportstatus))
+        
+        elif "voivodeship" in required_cols and sportdiscipline["without_none"]:
+            return tuple(cls.generate_discipline(all_sports, voivodeship, 
+                                                 equal_weight=sportdiscipline["equal_weight"])
+                     for voivodeship in base_df.voivodeship)
+        
+        return tuple(cls.complete_sportdiscipline(all_sports, equal_weight=True)
+                     for _ in range(rows))
+            
+    
+    @classmethod
+    def generate_discipline(cls, sportdiscipline_data:pd.DataFrame,
+                            voivodeship=None, equal_weight=False)->str:
+        
+        if equal_weight or voivodeship is not None:
+            return choice(sportdiscipline_data.columns)
+        
+        return choices(sportdiscipline_data.columns,
+                       sportdiscipline_data.loc[voivodeship])
+            
+    
+    @classmethod
+    def complete_sportstatus(cls, rows, sportstatus, base_df, required_cols):
+        if sportstatus["equal_weight"]:
+            return tuple(cls.generate_sportstatus(equal_weight=True,
+                                                  without_none=sportstatus["without_none"])
+                         for _ in range(rows))
+        
+        
+        sportstatus_data = pd.read_csv(cls.path_dict["sportstatus"], index_col='voivodeship')
+        
+        if sportstatus["independently"]:
+            return tuple(cls.generate_sportstatus(sportstatus_data,
+                                                  voivodeship=choice(areas_const.VOIVODESHIP),
+                                                  age=randint(0,100))
+                     for _ in range(rows))
+        elif {"age", "voivodeship"}.issubset(required_cols):
+            
+            return  tuple(cls.generate_sportstatus(sportstatus_data,
+                                                        voivodeship,
+                                                        age, without_none=sportstatus["without_none"])
+                                for age, voivodeship in zip(base_df.age, base_df.voivodeship))
+        
+        # if not "voivodeship" in required_cols:
+        #     voivodeship_gen = (choice(areas_const.VOIVODESHIP)
+        #                        for _ in range(rows))
+        # if not "age" in required_cols:
+        #     age_gen = (choice(randint(0,100))
+        #                        for _ in range(rows))
+        
+    
+    
     
     @classmethod
     def generate_sportstatus(cls,
                         sportchance_data:pd.DataFrame,
                         voivodeship: str = None,
                         age: int = None,
-                        random_chance:bool = False)->pd.DataFrame:
+                        equal_weight:bool = False,
+                        without_none:bool = False)->pd.DataFrame:
         """Return sportstatus, one of {`None`, `"Junior"`, `"Senior"`}.
         Return depends mainly on sportchance_data, less on `age` and `voivodeship`
         or chance is drawn from `sportchance_data`.
@@ -83,22 +121,22 @@ class Athletes:
             `sportchance_data` (pd.DataFrame): df contains chance to get sportstatus 
                             depends on voivodeship and age.
             `voivodeship` (str, optional): One of `voivodeships` in Poland. 
-                                        Required if `random_chance` = `False`.Defaults to None.
+                                        Required if `independently` = `False`.Defaults to None.
             `age` (int, optional): Age of person. Defaults to None.
-            `random_chance` (bool, optional): If `True`, `age` and `voivodeship` have no effect
+            `independently` (bool, optional): If `True`, `age` and `voivodeship` have no effect
                                             to result. Defaults to False.
 
         Returns:
             Union[str, None]: Return str, if "Junior"|"Senior", else None.
         """
         
-        # if random or no `age` or no `voivodeship` arg.
-        if random_chance or age is None or voivodeship is None:
-            return fast_choices([choice(["Junior", "Senior"]), None],
-                                cls.sport_status_chance_by_data(
-                                    sportchance_data,
-                                    choice(sportchance_data.index),
-                                    randint(0,100)))
+        if without_none:
+            pool = ["Junior", "Senior"]
+        else:
+            pool = ["Junior", "Senior", None]
+        
+        if equal_weight:
+            return choice(pool)
             
         # out of accept age range
         elif age < 15 or age > 45:

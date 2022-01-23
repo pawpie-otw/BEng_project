@@ -1,9 +1,9 @@
 from typing import Dict, Tuple, Any
 from common_functions import extra_funcs
-import pandas as pd #type: ignore
+import pandas as pd
 
 
-def json_form(df: pd.DataFrame, id_column:str="id") -> Tuple[Dict[str, Any]]:
+def json_form(df: pd.DataFrame, id_column: str = "id") -> Tuple[Dict[str, Any]]:
     """Convert pandas df to 
     >>> [{field_name -> value},
     ... {field_name -> value} ...] 
@@ -16,12 +16,11 @@ def json_form(df: pd.DataFrame, id_column:str="id") -> Tuple[Dict[str, Any]]:
     Returns:
         Tuple[Dict[str, Any]]: Returned data.
     """
-    if id_column:
-        df.insert(loc=0, column=id_column, value=df.index)
     cols = df.columns
     return tuple({col: to_def_type(df.iloc[i][col])
-            for col in cols}
-            for i in range(len(df.index)))
+                  for col in cols}
+                 for i in range(len(df.index)))
+
 
 def to_def_type(var):
     if var is None:
@@ -29,16 +28,17 @@ def to_def_type(var):
     if isinstance(var, float):
         return float(var)
     elif isinstance(var, str):
-        if var=="":
+        if var == "":
             return None
         return str(var)
     return int(var)
 
-def response_formatter(df:pd.DataFrame,
-                  columns_names: Dict[str,str],
-                  requested_format: str = "json",
-                  *args, **kwargs)->Any:
-    
+
+def response_formatter(df: pd.DataFrame,
+                       columns_names: Dict[str, str],
+                       field_id: dict,
+                       requested_format: str = "json",
+                       *args, **kwargs) -> Any:
     """Return pd.DataFrame in `type_name` form.
 
     Args:
@@ -52,25 +52,26 @@ def response_formatter(df:pd.DataFrame,
     Returns:
         Any: return pd.DataFrame converted into one of available format.
     """
+
     response_df = df[columns_names.keys()].fillna("")
-    
+
     for key in columns_names:
         response_df[key] = extra_funcs.insert_value_randomly(response_df[key],
-                                                            columns_names[key]["blanck_chance"])
-    
+                                                             columns_names[key]["blanck_chance"])
+
     response_df.columns = [columns_names[key]["custom_col_name"]
                            for key in columns_names]
-    
-                                                             
-    
-    
+
     available_response_formats = {
         "json": json_form,
-        "html table":pd.DataFrame.to_html,
-        "csv":pd.DataFrame.to_csv,
+        "html table": pd.DataFrame.to_html,
+        "csv": pd.DataFrame.to_csv,
         "markdown": pd.DataFrame.to_markdown
-        }
-    
+    }
+
     for format, method in available_response_formats.items():
         if format == requested_format:
-            return method(response_df, *args, **kwargs)
+            if format == "json":
+                return method(response_df, id_column=field_id.get("custom_col_name"))
+            else:
+                return method(response_df, *args, index=field_id.get("custom_col_name") is not None, **kwargs)
