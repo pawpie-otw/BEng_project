@@ -50,15 +50,13 @@ class PredefinedTypes:
                 name:str,
                 repr_:str,
                 desc:str,
-                maxlength:int=20,
-                default:Any="")->dict:
+                maxlength:int=20)->dict:
         response = cls.base_dict(name,repr_,desc)
         response.update(
                             {
                                 "input_type":"text",
                                 "return_type":"str",
-                                "maxlength": maxlength,
-                                "default":default
+                                "maxlength": maxlength
                             }
                         )
         return response
@@ -128,10 +126,8 @@ class PredefinedTypes:
     @staticmethod
     def base_dict(name:str,
                 repr_:str,
-                desc:str,
-                default:Any=None)->dict:
+                desc:str)->dict:
         
         return {"name": name,
                 "repr": repr_,
-                "description": desc,
-                "default":default}
+                "description": desc}

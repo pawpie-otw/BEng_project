@@ -1,6 +1,5 @@
-from typing import Sequence, Dict, Any
 from predefined_types import PredefinedTypes as PT
-# from data.other.predefined_types import PredefinedTypes as PT
+#from fields.predefined_types import PredefinedTypes as PT
 
 AVAILABLE_FIELDS = [
     {
@@ -171,99 +170,17 @@ AVAILABLE_FIELDS = [
             PT.blanck_chance()
                     ]
     },
-    {
-        "name": "random",
-        "repr": "Losowe pole",
-        "description": "Wybiera losowe pole z póli niewybranych pól i przydziela mu domyślne parametry.",
-        "custom_col_name": PT.custom_col_name(),
-        "options":[
-            PT.dict_checkbox("random_params",
-                            "Losuj parametry",
-                            "Losuje parametry dla tego pola."),
-            PT.blanck_chance()
-                    ]
-    }
+    # {
+    #     "name": "random",
+    #     "repr": "Losowe pole",
+    #     "description": "Wybiera losowe pole z póli niewybranych pól i przydziela mu domyślne parametry.",
+    #     "custom_col_name": PT.custom_col_name(),
+    #     "options":[
+    #         PT.dict_checkbox("random_params",
+    #                         "Losuj parametry",
+    #                         "Losuje parametry dla tego pola."),
+    #         PT.blanck_chance()
+    #                 ]
+    # }
 
 ]
-RETURN_PARAMS = [
-    PT.dict_number("rows",
-                   "Wiersze",
-                   "Ilość wygenerowanych wierszy.",
-                   1,None,1),
-    PT.dict_select("returned_type",
-                   "Zwracany typ",
-                   "Sposób, w jaki dane zostaną zwrócone.",
-                   "json",
-                   [
-                       PT.dict_option("API JSON", "json"),
-                       PT.dict_option("plik CSV", "csv_file"),
-                       PT.dict_option("plik JSON", "json_file"),
-                       PT.dict_option("tabela HTML", "html_table")
-                   ]
-                   )
-]
-
-# dict of dependencies for better optimalization
-DEPENDENCIES = {
-    "age":{"equal_weight": "gender"},
-    "first_name":{"unfit_to_gen": "gender"},
-    "last_name":{"unfit_to_gen": "gender"},
-    "voivodeship":{"equal_weight":{"gender", "age"}},
-    "postcode":{"independently":"voivodeship"},
-    "sportstatus":{"random_chance":{"age","voivodeship"}},
-    "sportdiscipline":{"independently":{"sportstatus", "voivodeship"}},
-    "languages":{"equal_weight":{"gender","age"}},
-    "edu_level":{"equal_weight":{"gender", "languages"}}
-}
-
-def check_dependencies(requested_fields:Dict[str, str]
-                       ,dependencies:Dict[str,Dict[str,str]] = DEPENDENCIES
-                       )-> Sequence[Any]:
-    required_columns = set(requested_fields.keys())
-    
-    # for every requested field
-    for rf, param_dict in requested_fields.items():
-        if rf in set(dependencies.keys()):
-            # if condition to be independence hasn't been met
-            for required_to_independence in dependencies[rf]:
-                if not param_dict.get(required_to_independence):
-                    # add field to required set
-                    if isinstance(required_param:=dependencies[rf][required_to_independence], str):
-                        required_columns.add(required_param)
-                    else:
-                        required_columns = required_columns.union(required_param)
-                    
-    return required_columns
-            
-
-def request_checker(request:Dict[str,Any], available_fields:list = AVAILABLE_FIELDS):
-    
-    # get default parameters for fields
-    field_params = get_default_params(available_fields)
-    
-    # get list of requested parameters
-    request_fields = set(request.keys())
-    
-    for field in field_params:
-        if field in request_fields:
-            # if field is requested -> overwrite it
-            field_params[field] = request[field]
-    
-    # return default params overwrite by user request
-    return field_params
-            
-            
-
-def get_default_params(available_fields)->dict:
-    """Convert `available_fields` list to 
-    expected requests data form to compare it to request data.
-
-    Args:
-        available_fields ([type]): [description]
-
-    Returns:
-        dict: [description]
-    """
-    return { field_dict["name"]:{ option["name"]:option["default"]
-            for option in field_dict["options"]}
-         for field_dict in available_fields }

@@ -1,5 +1,7 @@
 from typing import Dict, Tuple, Any
 from common_functions import extra_funcs
+from fastapi.responses import StreamingResponse
+import io
 import pandas as pd
 
 
@@ -32,6 +34,29 @@ def to_def_type(var):
             return None
         return str(var)
     return int(var)
+
+
+def return_file(df:pd.DataFrame, filetype:str, dict_method:dict):
+    """Convert df file to streamable form and return it.
+
+    Args:
+        df (pd.DataFrame): DataFrame to convert and return
+        filetype (str): filetype (like `csv`) which is also key in `dict_method`.
+        dict_method (dict): dict contains `filetype`:{`method_name`:method, }
+
+    Returns:
+        Ready to return file.
+    """
+    
+    stream = io.StringIO()
+    df.dict_metod_data[filetype](stream, index = False)
+    
+    response = StreamingResponse(iter([stream.getvalue()]), media_type=f"text/{filetype}")
+    
+    response.headers["Content-Disposition"] = f"attachment; filename=export.{filetype}"
+    
+    return response
+
 
 
 def response_formatter(df: pd.DataFrame,

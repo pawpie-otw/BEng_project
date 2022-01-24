@@ -9,6 +9,9 @@ from data.other import fields
 from data.other import response_forms
 from common_functions.response_formatter import response_formatter
 
+from fields.field_types import AVAILABLE_FIELDS
+from fields.field_interpreter import FieldInterpreter
+
 from people import People
 from areas import Areas
 from athletes import Athletes
@@ -28,6 +31,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+fi = FieldInterpreter(AVAILABLE_FIELDS)
 
 @app.get("/")
 def read_root():
