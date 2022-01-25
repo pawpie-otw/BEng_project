@@ -31,10 +31,14 @@ class People:
 
         result = pd.DataFrame()
 
+        print("required cols",required_cols)
+        
         if "gender" in required_cols:
+            print("gender",result)
             result["gender"] = cls.complete_gender(rows, gender, required_cols)
 
         if "age" in required_cols:
+            print("age",result)
             result["age"] = cls.complete_age(rows, age, required_cols, result)
 
         if "first_name" in required_cols:
@@ -52,7 +56,6 @@ class People:
         return result
 
     @classmethod
-    @loggers.timeit_and_log("logs/exec_logs.log")
     def complete_name(cls, rows, name_params, paths_to_sets, base_df:pd.DataFrame):
         f_name_df = pd.read_csv(paths_to_sets[0])  # female first name
         m_name_df = pd.read_csv(paths_to_sets[1])  # male first name
@@ -74,7 +77,6 @@ class People:
                     for gender, num in zip(base_df.gender, num_of_names_gen))
 
     @classmethod
-    @loggers.timeit_and_log("logs/exec_logs.log")
     def complete_age(cls, rows: int, age: dict, required_cols=None, base_df: Union[pd.DataFrame, None] = None) -> Sequence[str]:
         if age.get("equal_weight"):
             return tuple(cls.generate_age(age["low_lim"], age["up_lim"], equal_weight=True)
@@ -82,10 +84,9 @@ class People:
         else:
             age_data_dict = pd.read_json(cls.path_dict['age'])
             return tuple(cls.generate_age(age["low_lim"], age["up_lim"], age_data_dict[gender].to_list())
-                    for gender in result.gender)
+                    for gender in base_df.gender)
 
     @classmethod
-    @loggers.timeit_and_log("logs/exec_logs.log")
     def complete_gender(cls, rows: int, gender: Dict[str, bool], required_cols: dict) -> Sequence[str]:
         return tuple(cls.generate_gender(equal_weight=gender.get("equal_weight"))
                 for _ in range(rows))

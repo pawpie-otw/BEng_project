@@ -1,3 +1,5 @@
+from field.predefined_types import PredefinedTypes as PT
+
 RETURN_PARAMS = [
     PT.dict_number("rows",
                    "Wiersze",
@@ -13,4 +15,11 @@ RETURN_PARAMS = [
                        PT.dict_option("plik JSON", "json_file"),
                        PT.dict_option("tabela HTML", "html_table")
                    ]
-                   )
+                   )]
+
+RESPONSE_FORMS = [
+        "json",
+        "html table",
+        "csv",
+        "markdown"
+]

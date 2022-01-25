@@ -478,4 +478,70 @@ datetime: 2022-01-21 18:11:35func name: complete_genderdatetime:2022-01-21 18:17
 6    male    4              WIOLETTA  PER£OWSKA ADAMSKA   6           LUBELSKIE   20-129        None        NaN
 7    male   33                 JAKUB       MATYJASZCZYK   7        DOLNOŒL¥SKIE   50-141      Senior        2.0
 8  female   93  MA£GORZATA MAGDALENA             ZDYBEL   8         MA£OPOLSKIE   31-965        None        0.0
-9    male   96                 ROMAN        SEROCZYÑSKI   9            LUBUSKIE   65-223        None        2.0)kwargs:{}exe time:9399000##################################################
+9    male   96                 ROMAN        SEROCZYÑSKI   9            LUBUSKIE   65-223        None        2.0)kwargs:{}exe time:9399000##################################################datetime:2022-01-25 12:46:20func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0}, Empty DataFrame
+Columns: []
+Index: [], {'voivodeship'})kwargs:{}exe time:162665100##################################################datetime:2022-01-25 12:46:41func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0}, Empty DataFrame
+Columns: []
+Index: [], {'voivodeship'})kwargs:{}exe time:35185600##################################################datetime:2022-01-25 12:46:41func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0}, Empty DataFrame
+Columns: []
+Index: [], {'voivodeship'})kwargs:{}exe time:13391300##################################################datetime:2022-01-25 12:47:14func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0}, Empty DataFrame
+Columns: []
+Index: [], {'voivodeship'})kwargs:{}exe time:43642700##################################################datetime:2022-01-25 12:47:14func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0}, Empty DataFrame
+Columns: []
+Index: [], {'voivodeship'})kwargs:{}exe time:13889800##################################################datetime:2022-01-25 12:54:06func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0}, Empty DataFrame
+Columns: []
+Index: [], {'voivodeship'})kwargs:{}exe time:43623500##################################################datetime:2022-01-25 12:54:06func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0}, Empty DataFrame
+Columns: []
+Index: [], {'voivodeship'})kwargs:{}exe time:13392300##################################################datetime:2022-01-25 13:10:07func name:complete_genderargs:(<class 'people.People'>, 30000, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0}, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:57036300##################################################datetime:2022-01-25 13:19:15func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},        gender  age
+0      female   36
+1      female   82
+2      female   30
+3      female   29
+4      female   20
+...       ...  ...
+29995  female   84
+29996  female   67
+29997    male   68
+29998    male   49
+29999  female   47
+
+[30000 rows x 2 columns], {'gender', 'age', 'voivodeship'})kwargs:{}exe time:1480560800##################################################datetime:2022-01-25 13:19:17func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},        gender  age
+0      female    9
+1      female   48
+2        male   37
+3      female   31
+4        male   47
+...       ...  ...
+29995  female   10
+29996  female   63
+29997  female   40
+29998  female   55
+29999    male   48
+
+[30000 rows x 2 columns], {'gender', 'age', 'voivodeship'})kwargs:{}exe time:1528201100##################################################datetime:2022-01-25 14:30:04func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},        gender  age
+0        male   41
+1      female   30
+2        male   35
+3      female   29
+4      female   47
+...       ...  ...
+29995  female   22
+29996  female   64
+29997    male   80
+29998  female   27
+29999  female   49
+
+[30000 rows x 2 columns], {'age', 'voivodeship', 'gender'})kwargs:{}exe time:1457249100##################################################datetime:2022-01-25 14:30:06func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 30000, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},        gender  age
+0        male   30
+1        male    3
+2        male   76
+3        male    2
+4        male   45
+...       ...  ...
+29995  female   45
+29996  female   28
+29997    male   57
+29998  female   38
+29999    male    0
+
+[30000 rows x 2 columns], {'age', 'voivodeship', 'gender'})kwargs:{}exe time:1472129200##################################################

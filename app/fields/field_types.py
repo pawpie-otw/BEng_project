@@ -1,4 +1,4 @@
-from predefined_types import PredefinedTypes as PT
+from fields.predefined_types import PredefinedTypes as PT
 #from fields.predefined_types import PredefinedTypes as PT
 
 AVAILABLE_FIELDS = [
