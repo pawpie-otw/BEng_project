@@ -544,4 +544,10 @@ Index: [], {'voivodeship'})kwargs:{}exe time:13392300###########################
 29998  female   38
 29999    male    0
 
-[30000 rows x 2 columns], {'age', 'voivodeship', 'gender'})kwargs:{}exe time:1472129200##################################################
+[30000 rows x 2 columns], {'age', 'voivodeship', 'gender'})kwargs:{}exe time:1472129200##################################################datetime:2022-01-25 15:10:57func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   59
+1  female    0
+2  female   71, {'age', 'voivodeship', 'gender'})kwargs:{}exe time:4959200##################################################datetime:2022-01-25 15:10:57func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},   gender  age
+0   male   49
+1   male    9
+2   male    4, {'age', 'voivodeship', 'gender'})kwargs:{}exe time:4463400##################################################

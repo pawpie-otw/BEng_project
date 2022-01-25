@@ -79,40 +79,16 @@ content-type: application/json
 
 {
 "fields":{
-        "gender":{
-                "custom_col_name":"plec",
-                "equal_weight":true,
-                "blanck_chance":0
-                },
-        "age":{
-                    "custom_col_name":"Wiek",
-                    "low_lim":0,
-                    "up_lim":100,
-                    "equal_weight":true,
-                    "blanck_chance":0
-            },
-        "last_name":{
-                "custom_col_name":"nazwisko",
-                    "double_name_chance":5,
-                    "equal_weight":false,
-                    "unfit_to_gen":true,
-                    "blanck_chance":30
-                    },
-        "first_name":{
-                    "custom_col_name":"imie",
-                    "double_name_chance":10,
-                    "equal_weight":false,
-                    "unfit_to_gen":false,
-                    "blanck_chance":20
-                    }
-        },
+        "voivodeship":{
+                "equal_weight":false
+        }},
 "general":{
-        "rows":30000,
+        "rows":3,
         "response_format":"json" 
         }
 }
 
-### sprawdz czy sport pyka
+###
 
 POST http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json

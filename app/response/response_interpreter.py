@@ -8,7 +8,7 @@ class ResponseInterpreter:
     
     def csv_stream(self, df:pd.DataFrame):
         stream = io.StringIO()
-        df.to_csv(stream, index = False)
+        df.to_csv(stream)
         filetype = "csv"
         response = StreamingResponse(iter([stream.getvalue()]), media_type=f"text/{filetype}")
 
