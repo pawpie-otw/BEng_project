@@ -672,4 +672,184 @@ Index: [], {'voivodeship'})kwargs:{}exe time:13392300###########################
 6    male   36
 7  female   35
 8  female   63
-9    male   36, {'gender', 'sportdiscipline', 'sportstatus', 'voivodeship', 'age'})kwargs:{}exe time:7992000##################################################
+9    male   36, {'gender', 'sportdiscipline', 'sportstatus', 'voivodeship', 'age'})kwargs:{}exe time:7992000##################################################datetime:2022-01-26 23:21:51func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0    male   29
+1    male   46
+2  female   41
+3  female   86
+4  female   22
+5    male   30
+6    male   45
+7  female   12
+8    male   36
+9  female   69, {'age', 'sportdiscipline', 'gender', 'sportstatus', 'voivodeship'})kwargs:{}exe time:8006800##################################################datetime:2022-01-26 23:21:51func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0    male   65
+1  female   60
+2    male   17
+3  female   20
+4  female   33
+5  female   57
+6    male   17
+7    male   29
+8    male   80
+9    male   49, {'age', 'sportdiscipline', 'gender', 'sportstatus', 'voivodeship'})kwargs:{}exe time:4997700##################################################datetime:2022-01-26 23:21:59func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0    male   30
+1    male   53
+2    male   35
+3    male    2
+4    male   29
+5    male   66
+6  female   37
+7  female   23
+8  female   78
+9  female   25, {'age', 'sportdiscipline', 'gender', 'sportstatus', 'voivodeship'})kwargs:{}exe time:6010700##################################################datetime:2022-01-26 23:21:59func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0  female   33
+1    male   25
+2    male   71
+3  female   37
+4    male   38
+5    male   55
+6    male   66
+7  female   10
+8    male   57
+9  female   25, {'age', 'sportdiscipline', 'gender', 'sportstatus', 'voivodeship'})kwargs:{}exe time:8001200##################################################datetime:2022-01-26 23:22:10func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0    male    9
+1    male   21
+2  female   16
+3    male   72
+4  female   89
+5  female   34
+6  female   46
+7    male   27
+8    male   34
+9  female   65, {'age', 'sportdiscipline', 'gender', 'sportstatus', 'voivodeship'})kwargs:{}exe time:5992000##################################################datetime:2022-01-26 23:22:10func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0  female   73
+1    male   73
+2    male   35
+3  female   64
+4  female   22
+5  female   41
+6    male   22
+7    male   63
+8    male   22
+9  female   25, {'age', 'sportdiscipline', 'gender', 'sportstatus', 'voivodeship'})kwargs:{}exe time:5992700##################################################datetime:2022-01-26 23:55:21func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0  female   32
+1    male   30
+2  female   54
+3  female   70
+4  female   34
+5    male   37
+6  female   32
+7    male   52
+8    male   17
+9  female   31, {'voivodeship', 'age', 'sportdiscipline', 'sportstatus', 'gender'})kwargs:{}exe time:5997800##################################################datetime:2022-01-26 23:58:26func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age  id
+0  female   20   0
+1    male   35   1
+2  female   48   2
+3  female   68   3
+4    male   42   4
+5    male   61   5
+6    male   51   6
+7    male   63   7
+8    male   86   8
+9    male   34   9, {'id', 'voivodeship', 'sportstatus', 'age', 'gender', 'sportdiscipline'})kwargs:{}exe time:7003900##################################################datetime:2022-01-27 00:02:22func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age        first_name     last_name  id
+0    male   75              ADAM        KLEKOT   0
+1    male   75            £UKASZ        OSZUST   1
+2  female   19            £UKASZ   JÊDRZEJCZYK   2
+3  female   15  AGNIESZKA ADRIAN      CZARNOTA   3
+4  female   91           BARTOSZ      £AZARSKA   4
+5    male    3          GRZEGORZ   TRZASKOWSKA   5
+6    male   83             PIOTR      WIDAWSKA   6
+7    male    3        MIECZYS£AW     STOLARSKA   7
+8  female   16            JANINA  WALCZAK NYCZ   8
+9  female   78          EL¯BIETA     KOWALCZYK   9, {'first_name', 'age', 'last_name', 'edu_level', 'sportstatus', 'gender', 'voivodeship', 'languages', 'postcode', 'id'})kwargs:{}exe time:4990500##################################################datetime:2022-01-27 00:02:22func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},            voivodeship
+0          MAZOWIECKIE
+1          MAZOWIECKIE
+2        WIELKOPOLSKIE
+3          MAZOWIECKIE
+4  WARMIÑSKO-MAZURSKIE
+5              ŒL¥SKIE
+6              £ÓDZKIE
+7            POMORSKIE
+8            LUBELSKIE
+9              ŒL¥SKIE, {'first_name', 'age', 'last_name', 'edu_level', 'sportstatus', 'gender', 'voivodeship', 'languages', 'postcode', 'id'})kwargs:{}exe time:6004400##################################################datetime:2022-01-27 00:02:23func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'first_name', 'age', 'last_name', 'edu_level', 'sportstatus', 'gender', 'voivodeship', 'languages', 'postcode', 'id'},    gender  age        first_name     last_name  id          voivodeship postcode sportstatus
+0    male   75              ADAM        KLEKOT   0          MAZOWIECKIE   04-457        None
+1    male   75            £UKASZ        OSZUST   1          MAZOWIECKIE   03-934        None
+2  female   19            £UKASZ   JÊDRZEJCZYK   2        WIELKOPOLSKIE   61-323      Senior
+3  female   15  AGNIESZKA ADRIAN      CZARNOTA   3          MAZOWIECKIE   02-187      Junior
+4  female   91           BARTOSZ      £AZARSKA   4  WARMIÑSKO-MAZURSKIE   10-352        None
+5    male    3          GRZEGORZ   TRZASKOWSKA   5              ŒL¥SKIE   42-400        None
+6    male   83             PIOTR      WIDAWSKA   6              £ÓDZKIE   94-101        None
+7    male    3        MIECZYS£AW     STOLARSKA   7            POMORSKIE   81-845        None
+8  female   16            JANINA  WALCZAK NYCZ   8            LUBELSKIE   20-025      Junior
+9  female   78          EL¯BIETA     KOWALCZYK   9              ŒL¥SKIE   44-164        None)kwargs:{}exe time:724880600##################################################datetime:2022-01-27 00:02:23func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'first_name', 'age', 'last_name', 'edu_level', 'sportstatus', 'gender', 'voivodeship', 'languages', 'postcode', 'id'},    gender  age        first_name     last_name  id          voivodeship postcode sportstatus  languages
+0    male   75              ADAM        KLEKOT   0          MAZOWIECKIE   04-457        None        2.0
+1    male   75            £UKASZ        OSZUST   1          MAZOWIECKIE   03-934        None        0.0
+2  female   19            £UKASZ   JÊDRZEJCZYK   2        WIELKOPOLSKIE   61-323      Senior        0.0
+3  female   15  AGNIESZKA ADRIAN      CZARNOTA   3          MAZOWIECKIE   02-187      Junior        NaN
+4  female   91           BARTOSZ      £AZARSKA   4  WARMIÑSKO-MAZURSKIE   10-352        None        0.0
+5    male    3          GRZEGORZ   TRZASKOWSKA   5              ŒL¥SKIE   42-400        None        NaN
+6    male   83             PIOTR      WIDAWSKA   6              £ÓDZKIE   94-101        None        2.0
+7    male    3        MIECZYS£AW     STOLARSKA   7            POMORSKIE   81-845        None        NaN
+8  female   16            JANINA  WALCZAK NYCZ   8            LUBELSKIE   20-025      Junior        NaN
+9  female   78          EL¯BIETA     KOWALCZYK   9              ŒL¥SKIE   44-164        None        0.0)kwargs:{}exe time:13014800##################################################datetime:2022-01-27 00:02:53func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age        first_name             last_name
+0    male   94            HENRYK  SZYSZKO PRZYBYLIÑSKA
+1  female   72            JOANNA                RUSNAK
+2  female    9  MARTA MA£GORZATA            MALINOWSKA
+3  female   11           GRA¯YNA                CZAJKA
+4  female   96  SYLWESTER BOGDAN                  MRÓZ
+5  female    6              ANNA              BUKOWSKI
+6    male   69            MI£OSZ            SOKO£OWSKA
+7  female   91             ROMAN                KUBISZ
+8  female   96   KAMIL STANIS£AW              SZEWCZYK
+9    male   37           MARIUSZ               ¯ABICKA, {'first_name', 'age', 'last_name', 'edu_level', 'sportstatus', 'gender', 'voivodeship', 'languages', 'postcode'})kwargs:{}exe time:7004700##################################################datetime:2022-01-27 00:02:53func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},           voivodeship
+0             ŒL¥SKIE
+1           POMORSKIE
+2  ZACHODNIOPOMORSKIE
+3  ZACHODNIOPOMORSKIE
+4         MA£OPOLSKIE
+5             ŒL¥SKIE
+6         MA£OPOLSKIE
+7       WIELKOPOLSKIE
+8        DOLNOŒL¥SKIE
+9            OPOLSKIE, {'first_name', 'age', 'last_name', 'edu_level', 'sportstatus', 'gender', 'voivodeship', 'languages', 'postcode'})kwargs:{}exe time:5996700##################################################datetime:2022-01-27 00:09:03func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age        first_name             last_name
+0  female    1          GRZEGORZ               URBANEK
+1    male   19            MONIKA             PAW£OWSKA
+2  female   21           RAJNOLD                DOBOSZ
+3  female   88  KATARZYNA JANINA                 RÓ¯AK
+4    male   50           BARBARA            CZAPLIÑSKI
+5  female   54           GRA¯YNA            TWARDOWSKA
+6    male    6  KRZYSZTOF £UKASZ  ZIOBROWSKA STEFAÑSKI
+7    male   46             ALINA                BISKUP
+8    male    9      MARIAN ARTUR             WOJNARSKA
+9    male   61              ANNA             MUSZYÑSKA, {'first_name', 'last_name', 'sportstatus', 'edu_level', 'voivodeship', 'age', 'gender', 'languages', 'postcode'})kwargs:{}exe time:6001200##################################################datetime:2022-01-27 00:09:03func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},           voivodeship
+0       WIELKOPOLSKIE
+1        PODKARPACKIE
+2         MA£OPOLSKIE
+3         MAZOWIECKIE
+4         MA£OPOLSKIE
+5         MAZOWIECKIE
+6             ŒL¥SKIE
+7             ŒL¥SKIE
+8  KUJAWSKO-POMORSKIE
+9             ŒL¥SKIE, {'first_name', 'last_name', 'sportstatus', 'edu_level', 'voivodeship', 'age', 'gender', 'languages', 'postcode'})kwargs:{}exe time:4999800##################################################datetime:2022-01-27 00:09:04func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'first_name', 'last_name', 'sportstatus', 'edu_level', 'voivodeship', 'age', 'gender', 'languages', 'postcode'},    gender  age        first_name             last_name         voivodeship postcode sportstatus
+0  female    1          GRZEGORZ               URBANEK       WIELKOPOLSKIE   61-038        None
+1    male   19            MONIKA             PAW£OWSKA        PODKARPACKIE   35-241      Senior
+2  female   21           RAJNOLD                DOBOSZ         MA£OPOLSKIE   32-732      Senior
+3  female   88  KATARZYNA JANINA                 RÓ¯AK         MAZOWIECKIE   03-412        None
+4    male   50           BARBARA            CZAPLIÑSKI         MA£OPOLSKIE   31-242        None
+5  female   54           GRA¯YNA            TWARDOWSKA         MAZOWIECKIE   03-471        None
+6    male    6  KRZYSZTOF £UKASZ  ZIOBROWSKA STEFAÑSKI             ŒL¥SKIE   41-600        None
+7    male   46             ALINA                BISKUP             ŒL¥SKIE   42-600        None
+8    male    9      MARIAN ARTUR             WOJNARSKA  KUJAWSKO-POMORSKIE   85-659        None
+9    male   61              ANNA             MUSZYÑSKA             ŒL¥SKIE   43-196        None)kwargs:{}exe time:490829500##################################################datetime:2022-01-27 00:09:04func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'first_name', 'last_name', 'sportstatus', 'edu_level', 'voivodeship', 'age', 'gender', 'languages', 'postcode'},    gender  age        first_name             last_name         voivodeship postcode sportstatus  languages
+0  female    1          GRZEGORZ               URBANEK       WIELKOPOLSKIE   61-038        None        NaN
+1    male   19            MONIKA             PAW£OWSKA        PODKARPACKIE   35-241      Senior        1.0
+2  female   21           RAJNOLD                DOBOSZ         MA£OPOLSKIE   32-732      Senior        1.0
+3  female   88  KATARZYNA JANINA                 RÓ¯AK         MAZOWIECKIE   03-412        None        0.0
+4    male   50           BARBARA            CZAPLIÑSKI         MA£OPOLSKIE   31-242        None        1.0
+5  female   54           GRA¯YNA            TWARDOWSKA         MAZOWIECKIE   03-471        None        0.0
+6    male    6  KRZYSZTOF £UKASZ  ZIOBROWSKA STEFAÑSKI             ŒL¥SKIE   41-600        None        NaN
+7    male   46             ALINA                BISKUP             ŒL¥SKIE   42-600        None        0.0
+8    male    9      MARIAN ARTUR             WOJNARSKA  KUJAWSKO-POMORSKIE   85-659        None        NaN
+9    male   61              ANNA             MUSZYÑSKA             ŒL¥SKIE   43-196        None        0.0)kwargs:{}exe time:15992200##################################################

@@ -99,13 +99,3 @@ class Population:
         """
         return random.choices(range(age_low_lim, age_up_lim+1),
                               age_df[gender.value][age_low_lim:age_up_lim+1])[0]
-
-        pass
-
-
-if __name__ == '__main__':
-
-    for i in range(10, 80):
-        print(Population.gender_chance_by_age(gender_enum.FEMALE, i))
-        print(Population.gender_chance_by_age_between(gender_enum.MALE, i, i+5))
-        print('-'*50)

@@ -23,11 +23,11 @@ class ResponseInterpreter:
         stream = io.StringIO()
 
         if method_name == "to_csv":
-            data.to_csv(stream)
+            data.to_csv(stream, index=False)
         elif method_name == "to_html":
-            data.to_html(stream)
+            data.to_html(stream, index=False)
         elif method_name == "to_latex":
-            data.to_latex(stream)
+            data.to_latex(stream, index=False)
         else:
             return self.json_form(data)
 
@@ -39,7 +39,7 @@ class ResponseInterpreter:
 
         return response
 
-    def json_form(self, df: pd.DataFrame, id_column: str = "id") -> Tuple[Dict[str, Any]]:
+    def json_form(self, df: pd.DataFrame) -> Tuple[Dict[str, Any]]:
         """Convert pandas df to 
         >>> [{field_name -> value},
         ... {field_name -> value} ...] 

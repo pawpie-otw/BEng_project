@@ -31,24 +31,22 @@ class People:
 
         result = pd.DataFrame()
 
-        print("required cols",required_cols)
-        
         if "gender" in required_cols:
-            print("gender",result)
             result["gender"] = cls.complete_gender(rows, gender, required_cols)
 
         if "age" in required_cols:
-            print("age",result)
             result["age"] = cls.complete_age(rows, age, required_cols, result)
 
         if "first_name" in required_cols:
             result["first_name"] = cls.complete_name(rows, first_name,
-                                                     (cls.path_dict["f_fname"],cls.path_dict["m_fname"]),
-                                                     result)    
+                                                     (cls.path_dict["f_fname"],
+                                                      cls.path_dict["m_fname"]),
+                                                     result)
         if "last_name" in required_cols:
             result["last_name"] = cls.complete_name(rows, last_name,
-                                                     (cls.path_dict["f_lname"],cls.path_dict["m_lname"]),
-                                                     result)
+                                                    (cls.path_dict["f_lname"],
+                                                     cls.path_dict["m_lname"]),
+                                                    result)
 
         # result["height"] +=
         # result["weight"] +=
@@ -56,7 +54,7 @@ class People:
         return result
 
     @classmethod
-    def complete_name(cls, rows, name_params, paths_to_sets, base_df:pd.DataFrame):
+    def complete_name(cls, rows, name_params, paths_to_sets, base_df: pd.DataFrame):
         f_name_df = pd.read_csv(paths_to_sets[0])  # female first name
         m_name_df = pd.read_csv(paths_to_sets[1])  # male first name
         num_of_names_gen = cls.calc_name_num(
@@ -66,30 +64,30 @@ class People:
         if name_params["unfit_to_gen"]:
             concan_fname_df = pd.concat([m_name_df, f_name_df])
             return tuple(cls.generate_name(concan_fname_df,
-                                      number_of_names=num,
-                                      equal_weight=name_params["equal_weight"])
-                    for num in num_of_names_gen)
+                                           number_of_names=num,
+                                           equal_weight=name_params["equal_weight"])
+                         for num in num_of_names_gen)
         else:
             return tuple(cls.generate_name(f_name_df if gender == "female"
-                                      else m_name_df,
-                                      number_of_names=num,
-                                      equal_weight=name_params["equal_weight"])
-                    for gender, num in zip(base_df.gender, num_of_names_gen))
+                                           else m_name_df,
+                                           number_of_names=num,
+                                           equal_weight=name_params["equal_weight"])
+                         for gender, num in zip(base_df.gender, num_of_names_gen))
 
     @classmethod
     def complete_age(cls, rows: int, age: dict, required_cols=None, base_df: Union[pd.DataFrame, None] = None) -> Sequence[str]:
         if age.get("equal_weight"):
             return tuple(cls.generate_age(age["low_lim"], age["up_lim"], equal_weight=True)
-                    for _ in range(rows))
+                         for _ in range(rows))
         else:
             age_data_dict = pd.read_json(cls.path_dict['age'])
             return tuple(cls.generate_age(age["low_lim"], age["up_lim"], age_data_dict[gender].to_list())
-                    for gender in base_df.gender)
+                         for gender in base_df.gender)
 
     @classmethod
     def complete_gender(cls, rows: int, gender: Dict[str, bool], required_cols: dict) -> Sequence[str]:
         return tuple(cls.generate_gender(equal_weight=gender.get("equal_weight"))
-                for _ in range(rows))
+                     for _ in range(rows))
 
     @staticmethod
     def generate_age(low_lim: int = 0,
@@ -199,11 +197,9 @@ if __name__ == '__main__':
     }"""
 
     request_dict = loads(json_string)
-    print(request_dict)
-    print(request_dict.get("rows"))
+
     result = People.generate_dataset(rows=request_dict.get("rows"),
                                      gender=request_dict.get("gender"),
                                      age=request_dict.get("age"),
                                      first_name=request_dict.get("first_name"),
                                      last_name=request_dict.get("last_name"))
-    print(pd.DataFrame(result))
