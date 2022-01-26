@@ -68,7 +68,7 @@ content-type: application/json
         },
 "general":{
         "rows":10,
-        "response_format":"json" 
+        "response_format":"to_html" 
         }
 }
 
@@ -84,7 +84,7 @@ content-type: application/json
         }},
 "general":{
         "rows":3,
-        "response_format":"json" 
+        "response_format":"to_latex" 
         }
 }
 
