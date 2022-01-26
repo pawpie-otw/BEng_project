@@ -1,5 +1,7 @@
 from tkinter.font import names
 from typing import Dict, Any, List, Union
+
+
 class FieldInterpreter:
     def __init__(self, available_fields: List[Dict[str, Union[str, Dict[str, Any]]]], dependencies) -> None:
         """
@@ -32,6 +34,9 @@ class FieldInterpreter:
         for condition, required_cols in curr_field_dep.items():
             if not options[condition]:
                 response = response.union(required_cols)
+                for res in response:
+                    response = response.union(self.if_need_dependencies(
+                        res, self.get_default_options_for(res)))
         return response
 
     def fix_request(self, requested_data, clean=True, fill=True):
@@ -59,11 +64,10 @@ class FieldInterpreter:
                 for option, value in current_params.items()
                 if option in default_set}
 
-    def refill_multiple_fields(self, names_set)->dict:
+    def refill_multiple_fields(self, names_set) -> dict:
         return {name: self.get_default_options_for(name)
-        for name in names_set}
-            
-    
+                for name in names_set}
+
     def refill_field(self, name: str, current_params: Dict[str, Any] = {}) -> Dict[str, Any]:
 
         param_copy = {key: val
@@ -85,7 +89,7 @@ class FieldInterpreter:
         Returns:
             Dict[str, Any]: return dict with missing params.
         """
-        
+
         default_set = self.get_default_options_for(name)
 
         return {option: default_set[option]
@@ -93,7 +97,7 @@ class FieldInterpreter:
                 if not option in current_params}
 
     def get_default_options_for(self, name):
-        
+
         field = self.get_default_field(name)
 
         response = {"custom_col_name": None}
@@ -104,7 +108,7 @@ class FieldInterpreter:
         return response
 
     def get_default_field(self, name) -> dict:
-        
+
         for field in self.available_fields:
             if field["name"] == name:
                 return field

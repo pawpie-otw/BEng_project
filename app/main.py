@@ -1,18 +1,15 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from time import time_ns
 
 import pandas as pd
 import uvicorn
-
-from data.other import response_forms
-from common_functions.response_formatter import response_formatter
 
 from fields.dependencies import DEPENDENCIES
 from fields.field_types import AVAILABLE_FIELDS
 from fields.field_interpreter import FieldInterpreter
 
 from response.response_interpreter import ResponseInterpreter
+from response.response_types import RESPONSE_PARAMS, RESPONSES_FOR_CONVERTER
 
 from people import People
 from areas import Areas
@@ -34,7 +31,9 @@ app.add_middleware(
 )
 
 fi = FieldInterpreter(AVAILABLE_FIELDS, DEPENDENCIES)
-ri = ResponseInterpreter()
+ri = ResponseInterpreter(RESPONSES_FOR_CONVERTER)
+
+
 @app.get("/")
 def read_root():
     return {"Welcome to": "data generator."}
@@ -49,50 +48,64 @@ async def get_body(request: Request):
     general_data = request_dict.get('general')
 
     fixed_request = fi.fix_request(fields_data)
-    cols_to_refill =  fi.check_requested_cols_for_dependencies(fixed_request)
+    cols_to_refill = fi.check_requested_cols_for_dependencies(fixed_request)
     refilled = fi.refill_multiple_fields(cols_to_refill)
     refilled.update(fixed_request)
     # compare default data to requested data
 
     required_cols = set(refilled.keys())
-        
+
     rows = general_data.get("rows", 1)
-    
+    response_form = general_data.get("response_format", "json")
+
     print(required_cols)
     for i in range(2):
         response = pd.DataFrame()
-        
+
         people_res = People.generate_dataset(rows=rows,
-                                            gender=refilled.get("gender"),
-                                            age=refilled.get("age"),
-                                            first_name=refilled.get("first_name"),
-                                            last_name=refilled.get("last_name"),
-                                            required_cols=required_cols)
-        response = pd.concat([people_res, response],axis=1)
+                                             gender=refilled.get("gender"),
+                                             age=refilled.get("age"),
+                                             first_name=refilled.get(
+                                                 "first_name"),
+                                             last_name=refilled.get(
+                                                 "last_name"),
+                                             required_cols=required_cols)
+        response = pd.concat([people_res, response], axis=1)
         areas_res = Areas.generate_dataset(rows=rows,
-                                        base_df=response,
-                                        voivodeship=refilled.get("voivodeship"),
-                                        postcode=refilled.get("postcode"),
-                                        required_cols=required_cols)
+                                           base_df=response,
+                                           voivodeship=refilled.get(
+                                               "voivodeship"),
+                                           postcode=refilled.get("postcode"),
+                                           required_cols=required_cols)
 
-        response = pd.concat([response, areas_res],axis=1)
+        response = pd.concat([response, areas_res], axis=1)
         athletes_res = Athletes.generate_dataset(rows=rows,
-                                                base_df=response,
-                                                sportstatus=refilled.get("sportstatus"),
-                                                sportdiscipline=refilled.get("sportdiscipline"),
-                                                required_cols=required_cols)
+                                                 base_df=response,
+                                                 sportstatus=refilled.get(
+                                                     "sportstatus"),
+                                                 sportdiscipline=refilled.get(
+                                                     "sportdiscipline"),
+                                                 required_cols=required_cols)
 
-        response = pd.concat([response, athletes_res],axis=1)
+        response = pd.concat([response, athletes_res], axis=1)
         education_res = Education.generate_dataset(rows=rows,
-                                                base_df=response,
-                                                languages=refilled.get("languages"),
-                                                edu_level=refilled.get("edu_level"),
-                                                required_cols=required_cols)
+                                                   base_df=response,
+                                                   languages=refilled.get(
+                                                       "languages"),
+                                                   edu_level=refilled.get(
+                                                       "edu_level"),
+                                                   required_cols=required_cols)
 
-        response = pd.concat([response, education_res],axis=1)
-        
-    
-    return ri.csv_stream(response)
+        response = pd.concat([response, education_res], axis=1)
+
+        cutted_df = response[fields_data.keys()]
+
+        cutted_df.columns = [x if (x := options["custom_col_name"]) is not None
+                             else field
+                             for field, options in fields_data.items()
+                             ]
+
+    return ri.convert_df(cutted_df, response_form)
 
 
 @app.get("/available_fields")
@@ -102,7 +115,7 @@ async def available_fields():
     """
     return {
         "fields": AVAILABLE_FIELDS,
-        "general": response_forms.RESPONSE_FORMS
+        "general": RESPONSE_PARAMS
     }
 
 if __name__ == "__main__":
