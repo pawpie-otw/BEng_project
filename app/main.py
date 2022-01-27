@@ -103,7 +103,7 @@ async def get_body(request: Request):
 
     cutted_df.columns = [x if (x := options["custom_col_name"]) is not None
                          else field
-                         for field, options in fields_data.items()
+                         for field, options in fixed_request.items()
                          ]
 
     return ri.convert_df(cutted_df, response_form)

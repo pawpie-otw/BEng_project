@@ -852,4 +852,336 @@ Index: [], {'voivodeship'})kwargs:{}exe time:13392300###########################
 6    male    6  KRZYSZTOF £UKASZ  ZIOBROWSKA STEFA—SKI             åL•SKIE   41-600        None        NaN
 7    male   46             ALINA                BISKUP             åL•SKIE   42-600        None        0.0
 8    male    9      MARIAN ARTUR             WOJNARSKA  KUJAWSKO-POMORSKIE   85-659        None        NaN
-9    male   61              ANNA             MUSZY—SKA             åL•SKIE   43-196        None        0.0)kwargs:{}exe time:15992200##################################################
+9    male   61              ANNA             MUSZY—SKA             åL•SKIE   43-196        None        0.0)kwargs:{}exe time:15992200##################################################datetime:2022-01-27 22:01:16func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   65
+1    male   56
+2  female   57, {'voivodeship', 'gender', 'age'})kwargs:{}exe time:17880300##################################################datetime:2022-01-27 22:02:35func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age          first_name          last_name  id
+0  female   13               ARTUR  TABAKA MIåKIEWICZ   0
+1  female   15    KRZYSZTOF DAMIAN             NIKIEL   1
+2  female   75               PAWE£    BERNAT KAMI—SKI   2
+3    male    6            RADOS£AW        MIKO£AJCZAK   3
+4  female   10              REGINA          MARCINIAK   4
+5  female   58  KAZIMIERA JAROS£AW           POPOWSKA   5
+6  female   45              IGNACY             BRY£KA   6
+7  female   50               IWONA          ORCHOWSKA   7
+8    male   45              £UKASZ         PIECHOWIAK   8
+9    male   98               MARIA      OLESZKO SMUGA   9, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'})kwargs:{}exe time:6458300##################################################datetime:2022-01-27 22:02:35func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},           voivodeship
+0             £”DZKIE
+1             åL•SKIE
+2           POMORSKIE
+3  ZACHODNIOPOMORSKIE
+4  ZACHODNIOPOMORSKIE
+5       WIELKOPOLSKIE
+6             åL•SKIE
+7       WIELKOPOLSKIE
+8       WIELKOPOLSKIE
+9             åL•SKIE, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'})kwargs:{}exe time:23806900##################################################datetime:2022-01-27 22:02:36func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'},    gender  age          first_name          last_name  id         voivodeship postcode sportstatus
+0  female   13               ARTUR  TABAKA MIåKIEWICZ   0             £”DZKIE   93-308        None
+1  female   15    KRZYSZTOF DAMIAN             NIKIEL   1             åL•SKIE   42-400        None
+2  female   75               PAWE£    BERNAT KAMI—SKI   2           POMORSKIE   80-431        None
+3    male    6            RADOS£AW        MIKO£AJCZAK   3  ZACHODNIOPOMORSKIE   71-252        None
+4  female   10              REGINA          MARCINIAK   4  ZACHODNIOPOMORSKIE   70-752        None
+5  female   58  KAZIMIERA JAROS£AW           POPOWSKA   5       WIELKOPOLSKIE   61-417        None
+6  female   45              IGNACY             BRY£KA   6             åL•SKIE   41-219      Senior
+7  female   50               IWONA          ORCHOWSKA   7       WIELKOPOLSKIE   60-175        None
+8    male   45              £UKASZ         PIECHOWIAK   8       WIELKOPOLSKIE   60-616      Senior
+9    male   98               MARIA      OLESZKO SMUGA   9             åL•SKIE   44-210        None)kwargs:{}exe time:289627400##################################################datetime:2022-01-27 22:02:36func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'},    gender  age          first_name          last_name  id         voivodeship postcode sportstatus  languages
+0  female   13               ARTUR  TABAKA MIåKIEWICZ   0             £”DZKIE   93-308        None        NaN
+1  female   15    KRZYSZTOF DAMIAN             NIKIEL   1             åL•SKIE   42-400        None        NaN
+2  female   75               PAWE£    BERNAT KAMI—SKI   2           POMORSKIE   80-431        None        2.0
+3    male    6            RADOS£AW        MIKO£AJCZAK   3  ZACHODNIOPOMORSKIE   71-252        None        NaN
+4  female   10              REGINA          MARCINIAK   4  ZACHODNIOPOMORSKIE   70-752        None        NaN
+5  female   58  KAZIMIERA JAROS£AW           POPOWSKA   5       WIELKOPOLSKIE   61-417        None        0.0
+6  female   45              IGNACY             BRY£KA   6             åL•SKIE   41-219      Senior        0.0
+7  female   50               IWONA          ORCHOWSKA   7       WIELKOPOLSKIE   60-175        None        0.0
+8    male   45              £UKASZ         PIECHOWIAK   8       WIELKOPOLSKIE   60-616      Senior        1.0
+9    male   98               MARIA      OLESZKO SMUGA   9             åL•SKIE   44-210        None        1.0)kwargs:{}exe time:18847700##################################################datetime:2022-01-27 22:03:05func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age  first_name             last_name  id
+0  female   95      TOMASZ    WRZOSEK JAKUBOWSKA   0
+1    male   46     MARLENA  S£OTWI—SKI KACZMAREK   1
+2  female   19   ZDZIS£AWA               SZUSTAK   2
+3    male   26      DAMIAN              K DZIORA   3
+4  female   45       RAFA£           LEWANDOWSKA   4
+5  female   87  FRANCISZEK            CHODKOWSKI   5
+6  female   15     MARZENA          SA£EK NOWROT   6
+7    male   32       PAWE£                 DUDEK   7
+8    male   45   ALEKSANDR            JAKUBOWSKA   8
+9    male   80   KAZIMIERZ           LESZCZY—SKA   9, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'})kwargs:{}exe time:4958800##################################################datetime:2022-01-27 22:03:05func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},           voivodeship
+0             åL•SKIE
+1         MA£OPOLSKIE
+2         MA£OPOLSKIE
+3       WIELKOPOLSKIE
+4           PODLASKIE
+5           POMORSKIE
+6  KUJAWSKO-POMORSKIE
+7       WIELKOPOLSKIE
+8           PODLASKIE
+9           POMORSKIE, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'})kwargs:{}exe time:3000000##################################################datetime:2022-01-27 22:03:05func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'},    gender  age  first_name             last_name  id         voivodeship postcode sportstatus
+0  female   95      TOMASZ    WRZOSEK JAKUBOWSKA   0             åL•SKIE   41-820        None
+1    male   46     MARLENA  S£OTWI—SKI KACZMAREK   1         MA£OPOLSKIE   31-953        None
+2  female   19   ZDZIS£AWA               SZUSTAK   2         MA£OPOLSKIE   33-101      Senior
+3    male   26      DAMIAN              K DZIORA   3       WIELKOPOLSKIE   60-818      Senior
+4  female   45       RAFA£           LEWANDOWSKA   4           PODLASKIE   15-633      Senior
+5  female   87  FRANCISZEK            CHODKOWSKI   5           POMORSKIE   80-622        None
+6  female   15     MARZENA          SA£EK NOWROT   6  KUJAWSKO-POMORSKIE   85-511      Junior
+7    male   32       PAWE£                 DUDEK   7       WIELKOPOLSKIE   60-178      Senior
+8    male   45   ALEKSANDR            JAKUBOWSKA   8           PODLASKIE   15-872      Senior
+9    male   80   KAZIMIERZ           LESZCZY—SKA   9           POMORSKIE   80-438        None)kwargs:{}exe time:12424700##################################################datetime:2022-01-27 22:03:06func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'age', 'last_name', 'id', 'sportstatus', 'edu_level', 'voivodeship', 'postcode', 'gender', 'languages', 'first_name'},    gender  age  first_name             last_name  id         voivodeship postcode sportstatus  languages
+0  female   95      TOMASZ    WRZOSEK JAKUBOWSKA   0             åL•SKIE   41-820        None        0.0
+1    male   46     MARLENA  S£OTWI—SKI KACZMAREK   1         MA£OPOLSKIE   31-953        None        1.0
+2  female   19   ZDZIS£AWA               SZUSTAK   2         MA£OPOLSKIE   33-101      Senior        0.0
+3    male   26      DAMIAN              K DZIORA   3       WIELKOPOLSKIE   60-818      Senior        2.0
+4  female   45       RAFA£           LEWANDOWSKA   4           PODLASKIE   15-633      Senior        1.0
+5  female   87  FRANCISZEK            CHODKOWSKI   5           POMORSKIE   80-622        None        0.0
+6  female   15     MARZENA          SA£EK NOWROT   6  KUJAWSKO-POMORSKIE   85-511      Junior        NaN
+7    male   32       PAWE£                 DUDEK   7       WIELKOPOLSKIE   60-178      Senior        1.0
+8    male   45   ALEKSANDR            JAKUBOWSKA   8           PODLASKIE   15-872      Senior        0.0
+9    male   80   KAZIMIERZ           LESZCZY—SKA   9           POMORSKIE   80-438        None        0.0)kwargs:{}exe time:11406600##################################################datetime:2022-01-27 22:03:35func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   23
+1    male   50
+2  female   76, {'voivodeship', 'gender', 'age'})kwargs:{}exe time:8432800##################################################datetime:2022-01-27 22:04:17func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   72
+1    male   28
+2    male   40, {'age', 'gender', 'voivodeship'})kwargs:{}exe time:7908700##################################################datetime:2022-01-27 22:05:03func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   66
+1  female   63
+2  female   30, {'gender', 'voivodeship', 'age'})kwargs:{}exe time:6945200##################################################datetime:2022-01-27 22:05:19func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age  first_name           last_name  id
+0  female   49    GRZEGORZ                WISZ   0
+1  female   14  MA£GORZATA               TOFIL   1
+2    male   81    ADELAJDA                SOWA   2
+3  female    5       KAMIL               WALAS   3
+4    male   85      ROBERT        PRZYBY£OWICZ   4
+5  female   33       BEATA           STEPANIUK   5
+6  female   73     ZUZANNA            BEDNAREK   6
+7    male   32      JANINA          SZATKOWSKA   7
+8    male   81      MARCEL            KICI—SKA   8
+9  female   66    GRZEGORZ  KORNET ANDRYSZCZYK   9, {'voivodeship', 'sportstatus', 'gender', 'first_name', 'last_name', 'edu_level', 'postcode', 'age', 'id', 'languages'})kwargs:{}exe time:4961000##################################################datetime:2022-01-27 22:05:19func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},           voivodeship
+0      åWI TOKRZYSKIE
+1         MA£OPOLSKIE
+2             åL•SKIE
+3             åL•SKIE
+4         MA£OPOLSKIE
+5        DOLNOåL•SKIE
+6           POMORSKIE
+7         MA£OPOLSKIE
+8  ZACHODNIOPOMORSKIE
+9             åL•SKIE, {'voivodeship', 'sportstatus', 'gender', 'first_name', 'last_name', 'edu_level', 'postcode', 'age', 'id', 'languages'})kwargs:{}exe time:9423300##################################################datetime:2022-01-27 22:06:48func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age first_name         last_name  id
+0    male   74     MARIAN   KACZMAREK KUZYK   0
+1    male   52  KATARZYNA           MATYSEK   1
+2    male   55     TOMASZ           TOMCZYK   2
+3    male   87    DAGMARA          RUMI—SKI   3
+4  female   30   ELØBIETA            KORNAå   4
+5  female   21   KAROLINA            KWAPIS   5
+6  female   15        EWA         KARKOWSKI   6
+7  female   81    KLAUDIA        SKOWRO—SKA   7
+8  female   79      JULIA  HAJDUK BUDZI—SKA   8
+9  female   69   ZBIGNIEW            KOZIE£   9, {'last_name', 'sportstatus', 'id', 'languages', 'voivodeship', 'postcode', 'gender', 'edu_level', 'first_name', 'age'})kwargs:{}exe time:6943900##################################################datetime:2022-01-27 22:06:48func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},     voivodeship
+0   MA£OPOLSKIE
+1  DOLNOåL•SKIE
+2  PODKARPACKIE
+3  DOLNOåL•SKIE
+4  PODKARPACKIE
+5     PODLASKIE
+6       åL•SKIE
+7   MAZOWIECKIE
+8  DOLNOåL•SKIE
+9   MAZOWIECKIE, {'last_name', 'sportstatus', 'id', 'languages', 'voivodeship', 'postcode', 'gender', 'edu_level', 'first_name', 'age'})kwargs:{}exe time:5952000##################################################datetime:2022-01-27 22:06:48func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'last_name', 'sportstatus', 'id', 'languages', 'voivodeship', 'postcode', 'gender', 'edu_level', 'first_name', 'age'},    gender  age first_name         last_name  id   voivodeship postcode sportstatus
+0    male   74     MARIAN   KACZMAREK KUZYK   0   MA£OPOLSKIE   31-589        None
+1    male   52  KATARZYNA           MATYSEK   1  DOLNOåL•SKIE   50-304        None
+2    male   55     TOMASZ           TOMCZYK   2  PODKARPACKIE   35-213        None
+3    male   87    DAGMARA          RUMI—SKI   3  DOLNOåL•SKIE   53-326        None
+4  female   30   ELØBIETA            KORNAå   4  PODKARPACKIE   35-322      Senior
+5  female   21   KAROLINA            KWAPIS   5     PODLASKIE   15-777      Senior
+6  female   15        EWA         KARKOWSKI   6       åL•SKIE   40-748      Junior
+7  female   81    KLAUDIA        SKOWRO—SKA   7   MAZOWIECKIE   05-077        None
+8  female   79      JULIA  HAJDUK BUDZI—SKA   8  DOLNOåL•SKIE   54-435        None
+9  female   69   ZBIGNIEW            KOZIE£   9   MAZOWIECKIE   03-982        None)kwargs:{}exe time:291648400##################################################datetime:2022-01-27 22:06:48func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'last_name', 'sportstatus', 'id', 'languages', 'voivodeship', 'postcode', 'gender', 'edu_level', 'first_name', 'age'},    gender  age first_name         last_name  id   voivodeship postcode sportstatus  languages
+0    male   74     MARIAN   KACZMAREK KUZYK   0   MA£OPOLSKIE   31-589        None        1.0
+1    male   52  KATARZYNA           MATYSEK   1  DOLNOåL•SKIE   50-304        None        1.0
+2    male   55     TOMASZ           TOMCZYK   2  PODKARPACKIE   35-213        None        0.0
+3    male   87    DAGMARA          RUMI—SKI   3  DOLNOåL•SKIE   53-326        None        1.0
+4  female   30   ELØBIETA            KORNAå   4  PODKARPACKIE   35-322      Senior        2.0
+5  female   21   KAROLINA            KWAPIS   5     PODLASKIE   15-777      Senior        2.0
+6  female   15        EWA         KARKOWSKI   6       åL•SKIE   40-748      Junior        NaN
+7  female   81    KLAUDIA        SKOWRO—SKA   7   MAZOWIECKIE   05-077        None        0.0
+8  female   79      JULIA  HAJDUK BUDZI—SKA   8  DOLNOåL•SKIE   54-435        None        0.0
+9  female   69   ZBIGNIEW            KOZIE£   9   MAZOWIECKIE   03-982        None        0.0)kwargs:{}exe time:21824300##################################################datetime:2022-01-27 22:06:52func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age    first_name    last_name  id
+0  female   83     W£ADYS£AW  MACIEJEWSKI   0
+1  female   85      WOJCIECH      MARCZAK   1
+2  female   37         ZOFIA   WIåNIEWSKI   2
+3    male   24       MARZENA   PUZDROWSKA   3
+4    male   25        JOWITA         GIZA   4
+5  female   16        DOROTA      WOèNIAK   5
+6    male   90  ROMAN NIKOLA   S£OMKOWSKA   6
+7    male   72          ADAM     JASI—SKI   7
+8  female   64         PIOTR  MALISZEWSKI   8
+9    male   36      JAROS£AW         SMYK   9, {'last_name', 'sportstatus', 'id', 'languages', 'voivodeship', 'postcode', 'gender', 'edu_level', 'first_name', 'age'})kwargs:{}exe time:5953200##################################################datetime:2022-01-27 22:06:52func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},      voivodeship
+0    MAZOWIECKIE
+1      LUBELSKIE
+2        £”DZKIE
+3        £”DZKIE
+4      POMORSKIE
+5    MAZOWIECKIE
+6      POMORSKIE
+7    MAZOWIECKIE
+8       LUBUSKIE
+9  WIELKOPOLSKIE, {'last_name', 'sportstatus', 'id', 'languages', 'voivodeship', 'postcode', 'gender', 'edu_level', 'first_name', 'age'})kwargs:{}exe time:8929300##################################################datetime:2022-01-27 22:08:38func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age       first_name        last_name  id
+0    male   73             ANNA  SAD£O ZIELI—SKI   0
+1    male   48   JOANNA BARTOSZ       CIESIELSKA   1
+2  female   96     RAFA£ DOROTA         J DRUSIK   2
+3    male   86          NORBERT        MAJCHEREK   3
+4    male   39           £UKASZ             STE∆   4
+5    male   41            JAKUB         KRAWCZYK   5
+6  female   99          BARBARA          J”èWIAK   6
+7    male   49        STANIS£AW       CIESIELSKI   7
+8    male   94            ALINA          JAROCKI   8
+9    male   12  KATARZYNA PIOTR             BURY   9, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:4963900##################################################datetime:2022-01-27 22:08:38func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},      voivodeship
+0       OPOLSKIE
+1  WIELKOPOLSKIE
+2   DOLNOåL•SKIE
+3      LUBELSKIE
+4  WIELKOPOLSKIE
+5  WIELKOPOLSKIE
+6    MA£OPOLSKIE
+7    MA£OPOLSKIE
+8  WIELKOPOLSKIE
+9   PODKARPACKIE, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:5952800##################################################datetime:2022-01-27 22:08:38func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age       first_name        last_name  id    voivodeship postcode sportstatus
+0    male   73             ANNA  SAD£O ZIELI—SKI   0       OPOLSKIE   45-022        None
+1    male   48   JOANNA BARTOSZ       CIESIELSKA   1  WIELKOPOLSKIE   60-433        None
+2  female   96     RAFA£ DOROTA         J DRUSIK   2   DOLNOåL•SKIE   53-401        None
+3    male   86          NORBERT        MAJCHEREK   3      LUBELSKIE   20-523        None
+4    male   39           £UKASZ             STE∆   4  WIELKOPOLSKIE   60-401        None
+5    male   41            JAKUB         KRAWCZYK   5  WIELKOPOLSKIE   61-585      Senior
+6  female   99          BARBARA          J”èWIAK   6    MA£OPOLSKIE   30-440        None
+7    male   49        STANIS£AW       CIESIELSKI   7    MA£OPOLSKIE   31-863        None
+8    male   94            ALINA          JAROCKI   8  WIELKOPOLSKIE   60-978        None
+9    male   12  KATARZYNA PIOTR             BURY   9   PODKARPACKIE   35-111        None)kwargs:{}exe time:264368300##################################################datetime:2022-01-27 22:08:39func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age       first_name        last_name  id    voivodeship postcode sportstatus  languages
+0    male   73             ANNA  SAD£O ZIELI—SKI   0       OPOLSKIE   45-022        None        0.0
+1    male   48   JOANNA BARTOSZ       CIESIELSKA   1  WIELKOPOLSKIE   60-433        None        2.0
+2  female   96     RAFA£ DOROTA         J DRUSIK   2   DOLNOåL•SKIE   53-401        None        0.0
+3    male   86          NORBERT        MAJCHEREK   3      LUBELSKIE   20-523        None        0.0
+4    male   39           £UKASZ             STE∆   4  WIELKOPOLSKIE   60-401        None        0.0
+5    male   41            JAKUB         KRAWCZYK   5  WIELKOPOLSKIE   61-585      Senior        1.0
+6  female   99          BARBARA          J”èWIAK   6    MA£OPOLSKIE   30-440        None        0.0
+7    male   49        STANIS£AW       CIESIELSKI   7    MA£OPOLSKIE   31-863        None        0.0
+8    male   94            ALINA          JAROCKI   8  WIELKOPOLSKIE   60-978        None        1.0
+9    male   12  KATARZYNA PIOTR             BURY   9   PODKARPACKIE   35-111        None        NaN)kwargs:{}exe time:14879900##################################################datetime:2022-01-27 22:08:41func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age    first_name           last_name  id
+0  female   89        MICHA£   W”JCIK MICHALCZYK   0
+1    male   36      MARIANNA           KACZMAREK   1
+2    male   15        ANTONI     DEJA PRZYBYLSKA   2
+3  female  100      ELØBIETA              K£OSEK   3
+4  female   41       MARZENA               NOWAK   4
+5  female   23        BOGDAN             SCHMIDT   5
+6    male   23     KAZIMIERA        ZAR BA NOWAK   6
+7    male    4        MICHA£               RAJCA   7
+8  female   19  ROMAN DANUTA  JAWORSKA OSTAPCZUK   8
+9  female  100  KLAUDIA OLGA             G”RCZAK   9, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:7438200##################################################datetime:2022-01-27 22:08:41func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},            voivodeship
+0   ZACHODNIOPOMORSKIE
+1  WARMI—SKO-MAZURSKIE
+2          MA£OPOLSKIE
+3         DOLNOåL•SKIE
+4   KUJAWSKO-POMORSKIE
+5              åL•SKIE
+6              åL•SKIE
+7   KUJAWSKO-POMORSKIE
+8             LUBUSKIE
+9         DOLNOåL•SKIE, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:6944600##################################################datetime:2022-01-27 22:08:41func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age    first_name           last_name  id          voivodeship postcode sportstatus
+0  female   89        MICHA£   W”JCIK MICHALCZYK   0   ZACHODNIOPOMORSKIE   75-662        None
+1    male   36      MARIANNA           KACZMAREK   1  WARMI—SKO-MAZURSKIE   11-041      Senior
+2    male   15        ANTONI     DEJA PRZYBYLSKA   2          MA£OPOLSKIE   30-381      Junior
+3  female  100      ELØBIETA              K£OSEK   3         DOLNOåL•SKIE   54-029        None
+4  female   41       MARZENA               NOWAK   4   KUJAWSKO-POMORSKIE   87-102      Senior
+5  female   23        BOGDAN             SCHMIDT   5              åL•SKIE   42-500      Senior
+6    male   23     KAZIMIERA        ZAR BA NOWAK   6              åL•SKIE   43-600      Senior
+7    male    4        MICHA£               RAJCA   7   KUJAWSKO-POMORSKIE   85-429        None
+8  female   19  ROMAN DANUTA  JAWORSKA OSTAPCZUK   8             LUBUSKIE   65-245      Senior
+9  female  100  KLAUDIA OLGA             G”RCZAK   9         DOLNOåL•SKIE   51-114        None)kwargs:{}exe time:22318800##################################################datetime:2022-01-27 22:08:41func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age    first_name           last_name  id          voivodeship postcode sportstatus  languages
+0  female   89        MICHA£   W”JCIK MICHALCZYK   0   ZACHODNIOPOMORSKIE   75-662        None        0.0
+1    male   36      MARIANNA           KACZMAREK   1  WARMI—SKO-MAZURSKIE   11-041      Senior        2.0
+2    male   15        ANTONI     DEJA PRZYBYLSKA   2          MA£OPOLSKIE   30-381      Junior        NaN
+3  female  100      ELØBIETA              K£OSEK   3         DOLNOåL•SKIE   54-029        None        0.0
+4  female   41       MARZENA               NOWAK   4   KUJAWSKO-POMORSKIE   87-102      Senior        0.0
+5  female   23        BOGDAN             SCHMIDT   5              åL•SKIE   42-500      Senior        0.0
+6    male   23     KAZIMIERA        ZAR BA NOWAK   6              åL•SKIE   43-600      Senior        0.0
+7    male    4        MICHA£               RAJCA   7   KUJAWSKO-POMORSKIE   85-429        None        NaN
+8  female   19  ROMAN DANUTA  JAWORSKA OSTAPCZUK   8             LUBUSKIE   65-245      Senior        2.0
+9  female  100  KLAUDIA OLGA             G”RCZAK   9         DOLNOåL•SKIE   51-114        None        1.0)kwargs:{}exe time:14878500##################################################datetime:2022-01-27 22:08:43func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age      first_name             last_name  id
+0    male   58      ALEKSANDRA                   FIL   0
+1  female   14           PIOTR     JANOWSKI BOCHENEK   1
+2    male   36         ANDRZEJ        NISKA GOLI—SKA   2
+3    male   71  FILIP ZBIGNIEW            NOWAK OLAS   3
+4  female   96         MATEUSZ              KRAWCZYK   4
+5    male   88           JACEK             PAW£OWSKI   5
+6    male   81        LUBOMI£A                 PLUTA   6
+7    male   69           ARTUR  WOJCIECHOWSKI DOROSZ   7
+8  female   18          DOROTA                 ANTOS   8
+9    male    9         WIOLETA             KAROLCZAK   9, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:4959700##################################################datetime:2022-01-27 22:08:43func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},           voivodeship
+0       WIELKOPOLSKIE
+1  KUJAWSKO-POMORSKIE
+2        PODKARPACKIE
+3         MAZOWIECKIE
+4           POMORSKIE
+5           PODLASKIE
+6         MAZOWIECKIE
+7       WIELKOPOLSKIE
+8  ZACHODNIOPOMORSKIE
+9             åL•SKIE, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:7466000##################################################datetime:2022-01-27 22:08:43func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age      first_name             last_name  id         voivodeship postcode sportstatus
+0    male   58      ALEKSANDRA                   FIL   0       WIELKOPOLSKIE   60-003        None
+1  female   14           PIOTR     JANOWSKI BOCHENEK   1  KUJAWSKO-POMORSKIE   85-461        None
+2    male   36         ANDRZEJ        NISKA GOLI—SKA   2        PODKARPACKIE   35-304      Senior
+3    male   71  FILIP ZBIGNIEW            NOWAK OLAS   3         MAZOWIECKIE   05-077        None
+4  female   96         MATEUSZ              KRAWCZYK   4           POMORSKIE   81-601        None
+5    male   88           JACEK             PAW£OWSKI   5           PODLASKIE   15-573        None
+6    male   81        LUBOMI£A                 PLUTA   6         MAZOWIECKIE   02-569        None
+7    male   69           ARTUR  WOJCIECHOWSKI DOROSZ   7       WIELKOPOLSKIE   61-335        None
+8  female   18          DOROTA                 ANTOS   8  ZACHODNIOPOMORSKIE   71-616      Senior
+9    male    9         WIOLETA             KAROLCZAK   9             åL•SKIE   41-605        None)kwargs:{}exe time:22814500##################################################datetime:2022-01-27 22:08:43func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age      first_name             last_name  id         voivodeship postcode sportstatus  languages
+0    male   58      ALEKSANDRA                   FIL   0       WIELKOPOLSKIE   60-003        None        0.0
+1  female   14           PIOTR     JANOWSKI BOCHENEK   1  KUJAWSKO-POMORSKIE   85-461        None        NaN
+2    male   36         ANDRZEJ        NISKA GOLI—SKA   2        PODKARPACKIE   35-304      Senior        2.0
+3    male   71  FILIP ZBIGNIEW            NOWAK OLAS   3         MAZOWIECKIE   05-077        None        0.0
+4  female   96         MATEUSZ              KRAWCZYK   4           POMORSKIE   81-601        None        0.0
+5    male   88           JACEK             PAW£OWSKI   5           PODLASKIE   15-573        None        0.0
+6    male   81        LUBOMI£A                 PLUTA   6         MAZOWIECKIE   02-569        None        0.0
+7    male   69           ARTUR  WOJCIECHOWSKI DOROSZ   7       WIELKOPOLSKIE   61-335        None        1.0
+8  female   18          DOROTA                 ANTOS   8  ZACHODNIOPOMORSKIE   71-616      Senior        2.0
+9    male    9         WIOLETA             KAROLCZAK   9             åL•SKIE   41-605        None        NaN)kwargs:{}exe time:14878800##################################################datetime:2022-01-27 22:08:45func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age first_name      last_name  id
+0    male    9    DARIUSZ          STOPA   0
+1    male   88     £UKASZ       DOLI—SKI   1
+2    male   68   WOJCIECH          HAJDA   2
+3  female   76  SYLWESTER      PAWLACZYK   3
+4    male   89       ZOIA           STEC   4
+5    male   20      PIOTR          LEKKI   5
+6  female   25        JAN      SKORUPSKA   6
+7    male   88   GRZEGORZ    CIESZKOWSKI   7
+8    male   33    BARBARA      GAWLI—SKA   8
+9    male   87      PIOTR  GIEREK KALATA   9, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:5455700##################################################datetime:2022-01-27 22:08:45func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},           voivodeship
+0             åL•SKIE
+1  ZACHODNIOPOMORSKIE
+2         MA£OPOLSKIE
+3           PODLASKIE
+4         MA£OPOLSKIE
+5  ZACHODNIOPOMORSKIE
+6  ZACHODNIOPOMORSKIE
+7        DOLNOåL•SKIE
+8           PODLASKIE
+9       WIELKOPOLSKIE, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'})kwargs:{}exe time:8899100##################################################datetime:2022-01-27 22:08:45func name:complete_num_of_langsargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age first_name      last_name  id         voivodeship postcode sportstatus
+0    male    9    DARIUSZ          STOPA   0             åL•SKIE   41-906        None
+1    male   88     £UKASZ       DOLI—SKI   1  ZACHODNIOPOMORSKIE   75-671        None
+2    male   68   WOJCIECH          HAJDA   2         MA£OPOLSKIE   31-630        None
+3  female   76  SYLWESTER      PAWLACZYK   3           PODLASKIE   15-617        None
+4    male   89       ZOIA           STEC   4         MA£OPOLSKIE   30-656        None
+5    male   20      PIOTR          LEKKI   5  ZACHODNIOPOMORSKIE   71-493      Senior
+6  female   25        JAN      SKORUPSKA   6  ZACHODNIOPOMORSKIE   75-399      Senior
+7    male   88   GRZEGORZ    CIESZKOWSKI   7        DOLNOåL•SKIE   53-430        None
+8    male   33    BARBARA      GAWLI—SKA   8           PODLASKIE   15-669      Senior
+9    male   87      PIOTR  GIEREK KALATA   9       WIELKOPOLSKIE   61-431        None)kwargs:{}exe time:22293500##################################################datetime:2022-01-27 22:08:45func name:complete_edu_levelargs:(<class 'education.Education'>, 10, {'custom_col_name': None, 'equal_weight': False, 'without_none': False, 'blank_chance': 0}, {'gender', 'age', 'languages', 'sportstatus', 'last_name', 'postcode', 'id', 'voivodeship', 'edu_level', 'first_name'},    gender  age first_name      last_name  id         voivodeship postcode sportstatus  languages
+0    male    9    DARIUSZ          STOPA   0             åL•SKIE   41-906        None        NaN
+1    male   88     £UKASZ       DOLI—SKI   1  ZACHODNIOPOMORSKIE   75-671        None        0.0
+2    male   68   WOJCIECH          HAJDA   2         MA£OPOLSKIE   31-630        None        0.0
+3  female   76  SYLWESTER      PAWLACZYK   3           PODLASKIE   15-617        None        1.0
+4    male   89       ZOIA           STEC   4         MA£OPOLSKIE   30-656        None        0.0
+5    male   20      PIOTR          LEKKI   5  ZACHODNIOPOMORSKIE   71-493      Senior        0.0
+6  female   25        JAN      SKORUPSKA   6  ZACHODNIOPOMORSKIE   75-399      Senior        0.0
+7    male   88   GRZEGORZ    CIESZKOWSKI   7        DOLNOåL•SKIE   53-430        None        0.0
+8    male   33    BARBARA      GAWLI—SKA   8           PODLASKIE   15-669      Senior        1.0
+9    male   87      PIOTR  GIEREK KALATA   9       WIELKOPOLSKIE   61-431        None        0.0)kwargs:{}exe time:16864100##################################################

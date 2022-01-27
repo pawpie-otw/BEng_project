@@ -116,8 +116,10 @@ class Education:
             elif age < 18:
                 return None
         else:
-            column = language_data.index[-1] if age >= 69 else language_data.index[int(
-                (age-24)/5)]
+            print((age-24)//5)
+            print(len(language_data.index), language_data.index)
+            column = language_data.index[-1] if age >= 69 else language_data.index[
+                ((age-24)//5)-1]
 
         return cls.number_of_lan_mapper[choices(NUMBER_OF_LANGS,
                                                 language_data.loc[column].to_list())[0]]
