@@ -101,7 +101,7 @@ async def get_body(request: Request):
 
     cutted_df = response[fields_data.keys()]
 
-    cutted_df.columns = [x if (x := options["custom_col_name"]) is not None
+    cutted_df.columns = [x if (x := options["custom_col_name"]) is not None and len(x)>1
                          else field
                          for field, options in fixed_request.items()
                          ]

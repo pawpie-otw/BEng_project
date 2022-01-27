@@ -1184,4 +1184,23 @@ Index: [], {'voivodeship'})kwargs:{}exe time:13392300###########################
 6  female   25        JAN      SKORUPSKA   6  ZACHODNIOPOMORSKIE   75-399      Senior        0.0
 7    male   88   GRZEGORZ    CIESZKOWSKI   7        DOLNOŒL¥SKIE   53-430        None        0.0
 8    male   33    BARBARA      GAWLIÑSKA   8           PODLASKIE   15-669      Senior        1.0
-9    male   87      PIOTR  GIEREK KALATA   9       WIELKOPOLSKIE   61-431        None        0.0)kwargs:{}exe time:16864100##################################################
+9    male   87      PIOTR  GIEREK KALATA   9       WIELKOPOLSKIE   61-431        None        0.0)kwargs:{}exe time:16864100##################################################datetime:2022-01-27 23:41:01func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   43
+1  female   11
+2  female   15, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:5957500##################################################datetime:2022-01-27 23:41:08func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   18
+1  female   46
+2    male   88, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:3471400##################################################datetime:2022-01-27 23:41:35func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0    male   33
+1  female   64
+2    male   13, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:7936200##################################################datetime:2022-01-27 23:50:36func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age
+0    male   79
+1    male   81
+2    male   42
+3  female   62
+4  female    4
+5  female   48
+6  female   45
+7  female   38
+8  female   21
+9    male   47, {'sportdiscipline', 'sportstatus', 'gender', 'age', 'voivodeship'})kwargs:{}exe time:4463300##################################################

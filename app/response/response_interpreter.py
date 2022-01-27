@@ -53,6 +53,11 @@ class ResponseInterpreter:
             Tuple[Dict[str, Any]]: Returned data.
         """
         cols = df.columns
+        
+        print(df)
+        print(cols)
+        print(df.iloc[0][cols[-1]])
+        
         return tuple({col: self.pandas_to_def_mapper(df.iloc[i][col])
                       for col in cols}
                      for i in range(len(df.index)))
@@ -69,4 +74,10 @@ class ResponseInterpreter:
             if var == "":
                 return None
             return str(var)
-        return int(var)
+        
+        try:
+            return int(var)
+        except Exception as e:
+            print(var)
+            print(type(var))
+            return str(var)

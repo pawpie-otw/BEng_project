@@ -111,7 +111,7 @@ class People:
         if equal_weight:
             return randint(low_lim, up_lim)
 
-        return choices(range(low_lim, up_lim+1), population)[0]
+        return choices(range(low_lim, up_lim+1), population[low_lim:up_lim+1])[0]
 
     @ staticmethod
     def generate_gender(gender: Sequence[Any] = tuple(gen for gen in gender_enum),
