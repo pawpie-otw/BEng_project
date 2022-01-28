@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import pandas as pd
 import uvicorn
 
+from common_functions.extra_funcs import make_cols_unique
+
 from fields.dependencies import DEPENDENCIES
 from fields.field_types import AVAILABLE_FIELDS
 from fields.field_interpreter import FieldInterpreter
@@ -101,10 +103,11 @@ async def get_body(request: Request):
 
     cutted_df = response[fields_data.keys()]
 
-    cutted_df.columns = [x if (x := options["custom_col_name"]) is not None and len(x)>1
-                         else field
-                         for field, options in fixed_request.items()
-                         ]
+    unique_names = make_cols_unique(options["custom_col_name"]
+                    for options in fixed_request.values())
+    cutted_df.columns = [ucn if ucn is not None 
+        else col_name
+        for col_name, ucn in zip(fixed_request, unique_names)]
 
     return ri.convert_df(cutted_df, response_form)
 

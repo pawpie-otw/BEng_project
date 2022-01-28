@@ -1,11 +1,11 @@
 import collections
 
 from random import choices, randint
+from collections import defaultdict as dd
 from typing import Union, Any, Callable, Annotated, Sequence, Dict
 
 from common_functions.log_wrapper import log_to_file_if_exception_raised
 
-@log_to_file_if_exception_raised("/extra_funcs.errors")
 def if_not_then_none(expression:Any, method_to_check:Callable=None, *args, **kwargs)->Union[None,Any]:
     """Universal method to test expression. If condition return false, then return None.
 
@@ -78,4 +78,22 @@ def find_by_value(dict_:Dict[Any,Any], value_:Any)->Any:
         if dict_[key] == value_:
             return key
     else:
-        return None
+        raise KeyError(f"No value {value_} in dict. Values: {dict_.values()}")
+    
+def make_cols_unique(cols_names, ignore_empty_string=True):
+    
+    count_dict = dd(int)
+    response = []
+    
+    for col in cols_names:
+        if col is None or col=="":
+            response.append(None)
+        elif count_dict[col] ==0:
+            count_dict[col]+=1
+            response.append(col)
+        elif count_dict[col]>=1:
+            count_dict[col]+=1
+            response.append(f"{col}{count_dict[col]}")
+    
+    return response
+    

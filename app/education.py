@@ -21,8 +21,8 @@ class Education:
                         "Średnie ogólnokształcące": "General secondary",
                         "Zasadnicze zawodowe": "Basic vocational",
                         "Gimnazjalne": "Lower secondary",
-                        "podstawowe": "primary",
-                        "bez formalnego wykształcenia": "incomplete primary"}
+                        "podstawowe": "Primary",
+                        "bez formalnego wykształcenia": "Incomplete primary"}
 
     path_dict = {
         "female_by_age": r"data\education\female_languages_by_age.xlsx",
@@ -57,42 +57,39 @@ class Education:
                      "male": pd.read_excel("data/education/male_languages_education.xlsx", index_col="edu_level")}
 
         if edu_level.get("equal_weights", False):
-            return tuple(cls.generate_edu_level(equal_weight=True, map_to_polish=True)
+            return tuple(cls.generate_edu_level(equal_weight=True, map_to_polish=True, ignore_age=edu_level["ignore_age"])
                          for _ in range(rows))
 
         if {"gender", "languages", "age"}.issubset(required_cols):
-            return tuple(cls.generate_edu_level(by_edu_df[gender],age, number_of_lang, map_to_polish=True)
+            return tuple(cls.generate_edu_level(by_edu_df[gender],age, number_of_lang, map_to_polish=True, ignore_age=edu_level["ignore_age"])
                          for gender, number_of_lang, age in zip(base_df.gender, base_df.languages, base_df.age))
 
     @classmethod
-    def generate_edu_level(cls, education_data: pd.DataFrame = None, age=None, number_of_langs=None, equal_weight=False, map_to_polish=False) -> str:
+    def generate_edu_level(cls, education_data: pd.DataFrame = None, age=None, number_of_langs=None, equal_weight=False, map_to_polish=False, ignore_age=None) -> str:
         
-        idx = cls.select_edu_options(age)-2
-        edu_lev_list:Sequence[str] = education_data.index[:idx:-1]
+        column = extra_funcs.find_by_value(cls.number_of_lan_mapper,
+                                            number_of_langs)
+        if ignore_age:
+            idx = cls.select_edu_options(age)-2
+            edu_lev_list:Sequence[str] = education_data.index[:idx:-1]
+            population = education_data[column][:idx:-1]
+        else:
+            edu_lev_list=education_data.index
+            population=education_data[column]
         if equal_weight:
             edu = choice(edu_lev_list)
         else:
-            column = extra_funcs.find_by_value(cls.number_of_lan_mapper,
-                                            number_of_langs)
-            
-            edu = choices(edu_lev_list, education_data[column][:idx:-1])[0]
+            edu = choices(edu_lev_list, population)[0]
         
         if map_to_polish:
-            return extra_funcs.find_by_value(cls.education_mapper,
+            res =  extra_funcs.find_by_value(cls.education_mapper,
                                              edu)
         else:
-            return edu
+            res = edu
+        return res
 
     @staticmethod
     def select_edu_options(age):
-        {"Wyższe": "Tertiary",
-                        "Policealne": "Post-secondary",
-                        "Średnie zawodowe": "Technical secondary",
-                        "Średnie ogólnokształcące": "General secondary",
-                        "Zasadnicze zawodowe": "Basic vocational",
-                        "Gimnazjalne": "Lower secondary",
-                        "podstawowe": "primary",
-                        "bez formalnego wykształcenia": "incomplete primary"}
         
         if age>=21:
             return -7

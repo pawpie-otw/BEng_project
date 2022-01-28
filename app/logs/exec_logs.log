@@ -1206,4 +1206,13 @@ Index: [], {'voivodeship'})kwargs:{}exe time:13392300###########################
 9    male   47, {'sportdiscipline', 'sportstatus', 'gender', 'age', 'voivodeship'})kwargs:{}exe time:4463300##################################################datetime:2022-01-28 18:32:14func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},   gender  age
 0   male   47
 1   male   77
-2   male   52, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:36787500##################################################
+2   male   52, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:36787500##################################################datetime:2022-01-28 21:55:50func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0    male   53
+1  female   66
+2  female   18, {'gender', 'age', 'voivodeship'})kwargs:{}exe time:4492900##################################################datetime:2022-01-28 21:56:14func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},    gender  age
+0  female   50
+1    male   28
+2  female   82, {'age', 'voivodeship', 'gender'})kwargs:{}exe time:6447600##################################################datetime:2022-01-28 21:57:02func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},   gender  age
+0   male   24
+1   male   70
+2   male   66, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:3448000##################################################

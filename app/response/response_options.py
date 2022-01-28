@@ -10,16 +10,9 @@ RETURN_PARAMS = [
                    "Sposób, w jaki dane zostaną zwrócone.",
                    "json",
                    [
-                       PT.dict_option("API JSON", "json"),
+                       PT.dict_option("JSON", "json"),
                        PT.dict_option("plik CSV", "csv_file"),
                        PT.dict_option("plik JSON", "json_file"),
                        PT.dict_option("tabela HTML", "html_table")
                    ]
                    )]
-
-RESPONSE_FORMS = [
-        "json",
-        "html table",
-        "csv",
-        "markdown"
-]

@@ -167,6 +167,9 @@ AVAILABLE_FIELDS = [
             PT.dict_checkbox("without_none",
                              "Wyklucz brak wartości",
                              "Z możliwych wartości zostanie wyrzucona wartość None/null. Osoby <18 roku życia dostana również swoją wartość."),
+            PT.dict_checkbox("ignore_age",
+                             "Ignoruj wiek",
+                             "Dostępna jest pełna pula wykształcenia, niezależnie od wieku."),
             PT.blanck_chance()
                     ]
     },
