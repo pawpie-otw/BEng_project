@@ -1203,4 +1203,7 @@ Index: [], {'voivodeship'})kwargs:{}exe time:13392300###########################
 6  female   45
 7  female   38
 8  female   21
-9    male   47, {'sportdiscipline', 'sportstatus', 'gender', 'age', 'voivodeship'})kwargs:{}exe time:4463300##################################################
+9    male   47, {'sportdiscipline', 'sportstatus', 'gender', 'age', 'voivodeship'})kwargs:{}exe time:4463300##################################################datetime:2022-01-28 18:32:14func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 3, {'equal_weight': False, 'custom_col_name': None, 'blank_chance': 0},   gender  age
+0   male   47
+1   male   77
+2   male   52, {'voivodeship', 'age', 'gender'})kwargs:{}exe time:36787500##################################################

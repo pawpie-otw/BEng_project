@@ -7,7 +7,6 @@ from typing import Any, Dict, Sequence, Annotated, Union
 
 from data.people.population import gender_enum
 from data.people import population as pop
-from common_functions import loggers
 from common_functions import custom_draws, custom_exceptions, extra_funcs
 
 

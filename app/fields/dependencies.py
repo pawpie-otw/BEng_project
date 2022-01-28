@@ -9,5 +9,5 @@ DEPENDENCIES = {
     "sportstatus": {"independently": {"age", "voivodeship"}},
     "sportdiscipline": {"equal_weight": {"sportstatus", "voivodeship"}},
     "languages": {"equal_weight": {"gender", "age"}},
-    "edu_level": {"equal_weight": {"gender", "languages"}}
+    "edu_level": {"equal_weight": {"gender", "languages", "age"}}
 }
