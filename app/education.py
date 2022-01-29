@@ -13,7 +13,8 @@ class Education:
         "no_one": 0,
         "one": 1,
         "two": 2,
-        "tree_or_more": 3}
+        "tree_or_more": 3,
+        None:None}
 
     education_mapper = {"Wyższe": "Tertiary",
                         "Policealne": "Post-secondary",

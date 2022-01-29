@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 import pandas as pd
 import uvicorn
@@ -39,7 +40,6 @@ ri = ResponseInterpreter(RESPONSES_FOR_CONVERTER)
 @app.get("/")
 def read_root():
     return {"Welcome to": "data generator."}
-
 
 @app.post("/generate_dataset")
 async def get_body(request: Request):
