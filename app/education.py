@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from typing import Sequence
 from random import choices, choice
@@ -13,8 +14,7 @@ class Education:
         "no_one": 0,
         "one": 1,
         "two": 2,
-        "tree_or_more": 3,
-        None:None}
+        "tree_or_more": 3}
 
     education_mapper = {"Wyższe": "Tertiary",
                         "Policealne": "Post-secondary",
@@ -68,8 +68,13 @@ class Education:
     @classmethod
     def generate_edu_level(cls, education_data: pd.DataFrame = None, age=None, number_of_langs=None, equal_weight=False, map_to_polish=False, ignore_age=None) -> str:
         
-        column = extra_funcs.find_by_value(cls.number_of_lan_mapper,
+        
+        if number_of_langs is None or np.isnan(number_of_langs):    
+            column = "no_one"
+        else:
+            column = cls.map_languages_to_str(cls.number_of_lan_mapper,
                                             number_of_langs)
+        
         if ignore_age:
             idx = cls.select_edu_options(age)-2
             edu_lev_list:Sequence[str] = education_data.index[:idx:-1]
@@ -131,8 +136,9 @@ class Education:
                                  equal_weight: bool = False,
                                  without_none: bool = False) -> int:
         if equal_weight:
-            return cls.number_of_lan_mapper[choice(NUMBER_OF_LANGS)]
-
+            return cls.map_languages[choice(NUMBER_OF_LANGS)]
+        elif age<3:
+            return 0
         elif age < 18:
             if without_none:
                 column = "18 - 24"
@@ -142,5 +148,16 @@ class Education:
             column = language_data.index[-1] if age >= 69 else language_data.index[
                 ((age-24)//5)-1]
 
-        return cls.number_of_lan_mapper[choices(NUMBER_OF_LANGS,
+        x= cls.number_of_lan_mapper[choices(NUMBER_OF_LANGS,
                                                 language_data.loc[column].to_list())[0]]
+        return x
+        
+    @classmethod
+    def map_languages_to_str(cls, dict_, lang_num):
+        
+        if str(lang_num)=='nan':
+            return None
+        elif lang_num is None:
+            return None
+        else:
+            return extra_funcs.find_by_value(dict_, lang_num)
