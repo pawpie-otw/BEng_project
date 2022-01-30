@@ -47,7 +47,7 @@ async def get_body(request: Request):
     request_json = await request.json()
     request_dict = dict(request_json)
     fields_data = request_dict.get("fields")
-    general_data = request_dict.get('general')
+    general_data = request_dict.get("general")
 
     fixed_request = fi.fix_request(fields_data)
     cols_to_refill = fi.check_requested_cols_for_dependencies(fixed_request)
@@ -105,11 +105,15 @@ async def get_body(request: Request):
 
     unique_names = make_cols_unique(options["custom_col_name"]
                     for options in fixed_request.values())
+
     cutted_df.columns = [ucn if ucn is not None 
         else col_name
         for col_name, ucn in zip(fixed_request, unique_names)]
+    
 
-    return ri.convert_df(cutted_df, response_form)
+    x = ri.convert_df(cutted_df, response_form)
+    
+    return x
 
 
 @app.get("/available_fields")

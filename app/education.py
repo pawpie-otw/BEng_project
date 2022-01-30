@@ -26,10 +26,10 @@ class Education:
                         "bez formalnego wykształcenia": "Incomplete primary"}
 
     path_dict = {
-        "female_by_age": r"data\education\female_languages_by_age.xlsx",
-        "female_by_edu": r"data\education\female_languages_education.xlsx",
-        "male_by_age": r"data\education\male_languages_by_age.xlsx",
-        "male_by_edu": r"data\education\male_languages_education.xlsx"}
+        "female_by_age": r"data\education\female_languages_by_age.csv",
+        "female_by_edu": r"data\education\female_languages_education.csv",
+        "male_by_age": r"data\education\male_languages_by_age.csv",
+        "male_by_edu": r"data\education\male_languages_education.csv"}
 
     @classmethod
     def generate_dataset(cls, rows, required_cols, base_df: pd.DataFrame, languages: dict, edu_level: dict
@@ -54,8 +54,8 @@ class Education:
                            required_cols,
                            base_df):
 
-        by_edu_df = {"female": pd.read_excel("data/education/female_languages_education.xlsx", index_col="edu_level"),
-                     "male": pd.read_excel("data/education/male_languages_education.xlsx", index_col="edu_level")}
+        by_edu_df = {"female": pd.read_csv("data/education/female_languages_education.csv", index_col="edu_level"),
+                     "male": pd.read_csv("data/education/male_languages_education.csv", index_col="edu_level")}
 
         if edu_level.get("equal_weights", False):
             return tuple(cls.generate_edu_level(equal_weight=True, map_to_polish=True, ignore_age=edu_level["ignore_age"])
@@ -117,8 +117,8 @@ class Education:
     @classmethod
     def complete_num_of_langs(cls, rows, num_of_langs, required_cols, base_df):
 
-        by_edu_df = {"male": pd.read_excel(cls.path_dict["male_by_edu"], index_col="edu_level"),
-                     "female": pd.read_excel(cls.path_dict["female_by_edu"], index_col="edu_level")}
+        by_edu_df = {"male": pd.read_csv(cls.path_dict["male_by_edu"], index_col="edu_level"),
+                     "female": pd.read_csv(cls.path_dict["female_by_edu"], index_col="edu_level")}
 
         if num_of_langs["equal_weight"] or not {"age", "gender"}.issubset(required_cols):
             return tuple(cls.generate_number_of_langs(equal_weight=True)
@@ -136,7 +136,7 @@ class Education:
                                  equal_weight: bool = False,
                                  without_none: bool = False) -> int:
         if equal_weight:
-            return cls.map_languages[choice(NUMBER_OF_LANGS)]
+            return cls.number_of_lan_mapper[choice(NUMBER_OF_LANGS)]
         elif age<3:
             return 0
         elif age < 18:
