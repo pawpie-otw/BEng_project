@@ -53,11 +53,6 @@ class ResponseInterpreter:
             Tuple[Dict[str, Any]]: Returned data.
         """
         cols = df.columns
-        
-        print(df)
-        print(cols)
-        print(df.iloc[0][cols[-1]])
-        
         return tuple({col: self.pandas_to_def_mapper(df.iloc[i][col])
                       for col in cols}
                      for i in range(len(df.index)))
@@ -66,7 +61,8 @@ class ResponseInterpreter:
     def pandas_to_def_mapper(var):
         """This method map pandas dtype to typical python data types like str, int itd.
         """
-        if var is None:
+
+        if var is None or str(var)=="nan":
             return None
         elif isinstance(var, float):
             return float(var)
@@ -78,6 +74,5 @@ class ResponseInterpreter:
         try:
             return int(var)
         except Exception as e:
-            print(var)
-            print(type(var))
             return str(var)
+
