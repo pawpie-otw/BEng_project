@@ -1,9 +1,9 @@
 edu_level,one,two,tree_or_more,no_one
 Tertiary,2140.0,1525.0,267,299.0
-Post-secondary,355.0,186.0,25,134.0
-Technical secondary,1330.0,461.0,25,792.0
-General secondary,892.0,575.0,25,438.0
-Basic vocational,1054.0,117.0,25,1541.0
-Lower secondary,127.3333333,62.33333333,25,283.6666667
-Primary,127.3333333,62.33333333,25,283.6666667
-Incomplete primary,127.3333333,62.33333333,25,283.6666667
+Post-secondary,355.0,186.0,0,134.0
+Technical secondary,1330.0,461.0,0,792.0
+General secondary,892.0,575.0,0,438.0
+Basic vocational,1054.0,117.0,0,1541.0
+Lower secondary,127.3333333,62.33333333,0,283.6666667
+Primary,127.3333333,62.33333333,0,283.6666667
+Incomplete primary,127.3333333,62.33333333,0,283.6666667
