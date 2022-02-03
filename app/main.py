@@ -1,3 +1,4 @@
+import time
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
@@ -41,6 +42,7 @@ ri = ResponseInterpreter(RESPONSES_FOR_CONVERTER)
 def read_root():
     return {"Welcome to": "data generator."}
 
+
 @app.post("/generate_dataset")
 async def get_body(request: Request):
 
@@ -64,6 +66,8 @@ async def get_body(request: Request):
 
     if "id" in required_cols:
         response["id"] = range(rows)
+
+    start = time.time()
 
     people_res = People.generate_dataset(rows=rows,
                                          gender=refilled.get("gender"),
@@ -99,20 +103,27 @@ async def get_body(request: Request):
                                                    "edu_level"),
                                                required_cols=required_cols)
 
+    gen_exe = time.time()
+
     response = pd.concat([response, education_res], axis=1)
 
     cutted_df = response[fields_data.keys()]
 
     unique_names = make_cols_unique(options["custom_col_name"]
-                    for options in fixed_request.values())
+                                    for options in fixed_request.values())
 
-    cutted_df.columns = [ucn if ucn is not None 
-        else col_name
-        for col_name, ucn in zip(fixed_request, unique_names)]
-    
+    cutted_df.columns = [ucn if ucn is not None
+                         else col_name
+                         for col_name, ucn in zip(fixed_request, unique_names)]
 
     x = ri.convert_df(cutted_df, response_form)
-    
+
+    data_converting = time.time()
+
+    print(f"ilosc danych wygenerowanych: {rows}x{len(required_cols)}")
+    print(f"ilosc danych zwroconych: {rows}x{len(required_cols)}")
+    print(f"czas generowania: {gen_exe - start}")
+    print(f"formating time {data_converting - gen_exe}")
     return x
 
 
