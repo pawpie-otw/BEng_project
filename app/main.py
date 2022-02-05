@@ -1,4 +1,5 @@
 import time
+from typing import Sequence, Any, Union
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
@@ -11,6 +12,7 @@ from common_functions.extra_funcs import make_cols_unique
 from fields.dependencies import DEPENDENCIES
 from fields.field_types import AVAILABLE_FIELDS
 from fields.field_interpreter import FieldInterpreter
+from fields.example_request import EXAMPLE_BODY
 
 from response.response_interpreter import ResponseInterpreter
 from response.response_types import RESPONSE_PARAMS, RESPONSES_FOR_CONVERTER
@@ -44,14 +46,95 @@ def read_root():
 
 
 @app.post("/generate_dataset")
-async def get_body(request: Request):
+async def generate_dataset(request: Request) -> Union[str, 'JSON']:
+    """This is key method of `Generator danych z API` which returns synthetic generated data
+    based on statistic from Poland. Let's check out our server dedicated web page for more
+    user-friendly experience.
+    Example of the accepted request body/data looks like this one:\n
 
+
+```
+    {
+    "id": {
+        "custom_col_name": null
+    },
+    "gender": {
+        "custom_col_name": null,
+        "equal_weight": false,
+        "blank_chance": 0
+    },
+    "age": {
+        "custom_col_name": null,
+        "low_lim": 0,
+        "up_lim": 100,
+        "equal_weight": false,
+        "blank_chance": 0
+    },
+    "first_name": {
+        "custom_col_name": null,
+        "double_name_chance": 0,
+        "equal_weight": false,
+        "unfit_to_gen": false,
+        "blank_chance": 0
+    },
+    "last_name": {
+        "custom_col_name": null,
+        "double_name_chance": 0,
+        "equal_weight": false,
+        "unfit_to_gen": false,
+        "blank_chance": 0
+    },
+    "voivodeship": {
+        "custom_col_name": null,
+        "equal_weight": false,
+        "blank_chance": 0
+    },
+    "postcode": {
+        "custom_col_name": null,
+        "independently": false,
+        "blank_chance": 0
+    },
+    "sportstatus": {
+        "custom_col_name": null,
+        "independently": false,
+        "without_null": false,
+        "equal_weight": false,
+        "blank_chance": 0
+    },
+    "sportdiscipline": {
+        "custom_col_name": null,
+        "without_null": false,
+        "equal_weight": false,
+        "blank_chance": 0
+    },
+    "languages": {
+        "custom_col_name": null,
+        "equal_weight": false,
+        "without_null": false,
+        "blank_chance": 0
+    },
+    "edu_level": {
+        "custom_col_name": null,
+        "equal_weight": false,
+        "without_null": false,
+        "ignore_age": false,
+        "blank_chance": 0
+        } 
+    }
+    ```
+
+    It contains all available field with all options set to default value.
+
+    Returns:
+        It returns string in csv, LaTeX/HTML table or just json.
+    """
     request_json = await request.json()
     request_dict = dict(request_json)
     fields_data = request_dict.get("fields")
     general_data = request_dict.get("general")
 
-    fixed_request = fi.fix_request(fields_data)
+    if (len(requested_cols := fields_data.keys()) == 10 and "id" not in requested_cols) or len(requested_cols) == 11:
+        fixed_request = fi.fix_request(fields_data)
     cols_to_refill = fi.check_requested_cols_for_dependencies(fixed_request)
     refilled = fi.refill_multiple_fields(cols_to_refill)
     refilled.update(fixed_request)
@@ -107,7 +190,7 @@ async def get_body(request: Request):
 
     response = pd.concat([response, education_res], axis=1)
 
-    cutted_df = response[fields_data.keys()]
+    cutted_df = response[requested_cols]
 
     unique_names = make_cols_unique(options["custom_col_name"]
                                     for options in fixed_request.values())
@@ -136,6 +219,7 @@ async def available_fields():
         "fields": AVAILABLE_FIELDS,
         "general": RESPONSE_PARAMS
     }
+
 
 if __name__ == "__main__":
     uvicorn.run(app, port=8000, host="0.0.0.0")

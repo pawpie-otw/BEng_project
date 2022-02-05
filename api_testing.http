@@ -74,7 +74,7 @@ content-type: application/json
     }
   },
   "general": {
-    "rows": 100000,
+    "rows": 10,
     "response_format": "json"
   }
 }
@@ -86,74 +86,20 @@ content-type: application/json
 
 {
   "fields": {
-    "first_name": {
-      "custom_col_name": "imie",
-      "double_name_chance": 0,
-      "equal_weight": false,
-      "unfit_to_gen": false,
-      "blank_chance": 0
-    },
-    "age": {
-      "custom_col_name": "nazwisko",
-      "low_lim": 0,
-      "up_lim": 100,
-      "equal_weight": false,
-      "blank_chance": 0
-    },
-    "postcode": {
-      "custom_col_name": "",
-      "independently": false,
-      "blank_chance": 0
-    },
-    "sportstatus": {
-      "custom_col_name": "",
-      "independently": false,
-      "without_none": false,
-      "equal_weight": false,
-      "blank_chance": 0
-    },
-    "last_name": {
-      "custom_col_name": "",
-      "double_name_chance": 0,
-      "equal_weight": false,
-      "unfit_to_gen": false,
-      "blank_chance": 0
-    },
-    "voivodeship": {
-      "custom_col_name": "",
-      "equal_weight": false,
-      "blank_chance": 0
-    },
-    "gender": {
-      "custom_col_name": "",
-      "equal_weight": false,
-      "blank_chance": 0
-    },
-    "sportdiscipline": {
-      "custom_col_name": "",
-      "without_none": false,
-      "equal_weight": false,
-      "blank_chance": 0
-    },
-    "languages": {
-      "custom_col_name": "",
-      "equal_weight": false,
-      "without_none": false,
-      "blank_chance": 0
-    },
-    "id": {
-      "custom_col_name": ""
-    },
-    "edu_level": {
-      "custom_col_name": "",
-      "equal_weight": false,
-      "without_none": false,
-      "ignore_age": false,
-      "blank_chance": 0
-    }
+    "id":{},
+    "gender":{},
+    "age":{},
+    "first_name":{},
+    "last_name":{},
+    "voivodeship":{},
+    "postcode":{},
+    "sportstatus":{},
+    "sportdiscipline":{},
+    "languages":{},
+    "edu_level":{}
   },
   "general": {
-    "rows": 15,
+    "rows": 1,
     "response_format": "json"
   }
 }
@@ -240,18 +186,6 @@ content-type: application/json
         "id":{
                 "custom_col_name": "moje id"
         },
-        "gender":{
-                "custom_col_name":"plec",
-                "equal_weight":true,
-                "blanck_chance":0
-                },
-        "age":{
-                    "custom_col_name":"Wiek",
-                    "low_lim":0,
-                    "up_lim":100,
-                    "equal_weight":true,
-                    "blanck_chance":0
-            },
         "first_name":{
                     "custom_col_name":"imiona",
                     "double_name_chance":15,
@@ -292,12 +226,12 @@ content-type: application/json
         "edu_level":{
                 "custom_col_name":null,
                 "equal_weight":false,
-                "without_none":false,
+                "without_none":true,
                 "blanck_chance":0
         }
         },
 "general":{
-        "rows":10,
+        "rows":500,
         "response_format":"to_latex" 
         }
 }

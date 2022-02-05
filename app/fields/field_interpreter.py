@@ -53,6 +53,7 @@ class FieldInterpreter:
                     for field_name in requested_data}
 
     def clean_and_refill(self, name, current_params):
+        print(name)
         clear = self.clean_field(name, current_params)
         refilled = self.refill_field(name, clear)
         return refilled
@@ -112,4 +113,4 @@ class FieldInterpreter:
         for field in self.available_fields:
             if field["name"] == name:
                 return field
-        raise KeyError(f"No {field} field in available field list")
+        raise KeyError(f"No {name} field in available field list")

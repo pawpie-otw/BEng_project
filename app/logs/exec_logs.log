@@ -2614,4 +2614,228 @@ Index: [], {'voivodeship'})kwargs:{}exe time:13392300###########################
 99998     MAZOWIECKIE
 99999     MAZOWIECKIE
 
-[100000 rows x 1 columns], {'age', 'first_name', 'languages', 'last_name', 'gender', 'sportstatus', 'sportdiscipline', 'id', 'voivodeship', 'postcode', 'edu_level'})kwargs:{}exe time:76611600##################################################
+[100000 rows x 1 columns], {'age', 'first_name', 'languages', 'last_name', 'gender', 'sportstatus', 'sportdiscipline', 'id', 'voivodeship', 'postcode', 'edu_level'})kwargs:{}exe time:76611600##################################################datetime:2022-02-03 05:49:36func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 100000, {'custom_col_name': '', 'equal_weight': False, 'blank_chance': 0},        gender  age            first_name            last_name     id
+0        male   18                 PAWE£  KUBASIEWICZ ANTOSIK      0
+1      female   30          HANNA MONIKA               RAJTAR      1
+2      female   33  MAGDALENA STANIS£AWA            BOBROWSKA      2
+3      female   26          MARIA DOROTA                PANEK      3
+4        male   22                   JAN             KUKULSKI      4
+...       ...  ...                   ...                  ...    ...
+99995  female   34                  ANNA            S£OMI—SKA  99995
+99996    male   25                 ROMAN           P£ASZEWSKI  99996
+99997    male   19                £UKASZ    ZI TARSKI MAZIARZ  99997
+99998  female   24               LILIANA           SZYMBORSKA  99998
+99999    male   29                MARCIN          ZARAå SOLAK  99999
+
+[100000 rows x 5 columns], {'age', 'last_name', 'languages', 'sportstatus', 'edu_level', 'voivodeship', 'first_name', 'gender', 'postcode', 'sportdiscipline', 'id'})kwargs:{}exe time:6634334200##################################################datetime:2022-02-03 05:49:36func name:complete_postcodeargs:(<class 'areas.Areas'>, 100000, {'custom_col_name': '', 'independently': False, 'blank_chance': 0},                voivodeship
+0             PODKARPACKIE
+1             PODKARPACKIE
+2              MAZOWIECKIE
+3                  åL•SKIE
+4             DOLNOåL•SKIE
+...                    ...
+99995            LUBELSKIE
+99996   ZACHODNIOPOMORSKIE
+99997   KUJAWSKO-POMORSKIE
+99998              åL•SKIE
+99999  WARMI—SKO-MAZURSKIE
+
+[100000 rows x 1 columns], {'age', 'last_name', 'languages', 'sportstatus', 'edu_level', 'voivodeship', 'first_name', 'gender', 'postcode', 'sportdiscipline', 'id'})kwargs:{}exe time:81576600##################################################datetime:2022-02-03 05:56:00func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': '', 'equal_weight': False, 'blank_chance': 0},    gender  age        first_name            last_name  id
+0  female   36  OLEKSANDRA IRENA        WIRKUS DURLAK   0
+1  female   35          WIES£AWA               BISKUP   1
+2    male   19         KRZYSZTOF          SZYNKIEWICZ   2
+3  female   30    EWA ALEKSANDRA                 PIEC   3
+4  female   28             IWONA               P KALA   4
+5    male   36      PAWE£ MACIEJ            NAZARENKO   5
+6    male   23   RADOS£AW MACIEJ  åWIEBODA WR”BLEWSKI   6
+7    male   35            PATRYK          LEWANDOWSKI   7
+8  female   35   ELWIRA DOMINIKA               BADURA   8
+9  female   16           BARBARA           SZA£KOWSKA   9, {'voivodeship', 'first_name', 'sportdiscipline', 'age', 'sportstatus', 'gender', 'last_name', 'languages', 'edu_level', 'postcode', 'id'})kwargs:{}exe time:15988400##################################################datetime:2022-02-03 05:56:00func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': '', 'independently': False, 'blank_chance': 0},           voivodeship
+0        DOLNOåL•SKIE
+1             £”DZKIE
+2           PODLASKIE
+3  KUJAWSKO-POMORSKIE
+4  ZACHODNIOPOMORSKIE
+5       WIELKOPOLSKIE
+6           POMORSKIE
+7         MA£OPOLSKIE
+8         MAZOWIECKIE
+9       WIELKOPOLSKIE, {'voivodeship', 'first_name', 'sportdiscipline', 'age', 'sportstatus', 'gender', 'last_name', 'languages', 'edu_level', 'postcode', 'id'})kwargs:{}exe time:8003300##################################################datetime:2022-02-03 05:56:47func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': '', 'equal_weight': False, 'blank_chance': 0},    gender  age          first_name              last_name  id
+0  female   29  AGNIESZKA KRYSTYNA              ZWOLI—SKA   0
+1  female   17     HANNA BOGUS£AWA              MAJCHRZAK   1
+2  female   21             WALERIA     LICHO— SZCZYPI—SKA   2
+3  female   34    KATARZYNA NIKOLA                  PATYK   3
+4    male   35      DANIEL ANDRZEJ          PO£E∆ ST PIE—   4
+5  female   22    ELØBIETA BARBARA  WIåNIEWSKA ORLIKOWSKA   5
+6  female   27                ANNA     MILCZANOWSKA SOCHA   6
+7    male   16     ZBIGNIEW EDWARD        DUCH FABIJA—SKI   7
+8  female   38      AGATA GERTRUDA            TUR KO—CZYK   8
+9  female   36        MARIA DOROTA                   BUDA   9, {'sportstatus', 'id', 'voivodeship', 'age', 'postcode', 'edu_level', 'gender', 'sportdiscipline', 'last_name', 'first_name', 'languages'})kwargs:{}exe time:10004200##################################################datetime:2022-02-03 05:56:47func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': '', 'independently': False, 'blank_chance': 0},       voivodeship
+0     MAZOWIECKIE
+1         åL•SKIE
+2        OPOLSKIE
+3         åL•SKIE
+4     MAZOWIECKIE
+5     MAZOWIECKIE
+6   WIELKOPOLSKIE
+7   WIELKOPOLSKIE
+8        LUBUSKIE
+9  åWI TOKRZYSKIE, {'sportstatus', 'id', 'voivodeship', 'age', 'postcode', 'edu_level', 'gender', 'sportdiscipline', 'last_name', 'first_name', 'languages'})kwargs:{}exe time:9999800##################################################datetime:2022-02-03 05:59:05func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 1000, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},      gender  age first_name    last_name
+0    female   32     HALINA     DOMA—SKA
+1    female   66   ISABELLE    B£ASZCZYK
+2    female   17      ANETA   MATUSEWICZ
+3    female   41      ANETA        KRZAK
+4    female   79   PATRYCJA  KOZAKIEWICZ
+..      ...  ...        ...          ...
+995  female   40     OLIWIA      OSI—SKA
+996    male   83  STANIS£AW     SZCZ SNY
+997    male   45     TOMASZ        KANIA
+998  female   74     SHENAY     KLIMCZAK
+999    male   49    MATEUSZ        GAMO—
+
+[1000 rows x 4 columns], {'sportdiscipline', 'last_name', 'edu_level', 'postcode', 'sportstatus', 'voivodeship', 'age', 'gender', 'first_name', 'languages'})kwargs:{}exe time:91998700##################################################datetime:2022-02-03 05:59:05func name:complete_postcodeargs:(<class 'areas.Areas'>, 1000, {'custom_col_name': None, 'independently': False, 'blank_chance': 0},              voivodeship
+0              LUBELSKIE
+1            MAZOWIECKIE
+2               LUBUSKIE
+3               OPOLSKIE
+4           DOLNOåL•SKIE
+..                   ...
+995         PODKARPACKIE
+996          MA£OPOLSKIE
+997  WARMI—SKO-MAZURSKIE
+998            POMORSKIE
+999  WARMI—SKO-MAZURSKIE
+
+[1000 rows x 1 columns], {'sportdiscipline', 'last_name', 'edu_level', 'postcode', 'sportstatus', 'voivodeship', 'age', 'gender', 'first_name', 'languages'})kwargs:{}exe time:6017500##################################################datetime:2022-02-03 05:59:33func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 1000, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},      gender  age first_name    last_name
+0    female   77        EWA       JAROSZ
+1    female   79     HALYNA  MACIEJEWSKA
+2      male   11      ROMAN     JANUSZEK
+3      male   27     KACPER       S£ONKA
+4      male   28   W£ADIMIR    BIELI—SKI
+..      ...  ...        ...          ...
+995    male   42     ANTONI       KAPICA
+996    male   10       ADAM     POMORSKI
+997  female   39     HELENA         KUSA
+998    male   45      PIOTR   CHOJNOWSKI
+999    male   61     LUCJAN    TARNAWSKI
+
+[1000 rows x 4 columns], {'age', 'voivodeship', 'gender', 'edu_level', 'last_name', 'sportstatus', 'postcode', 'languages', 'first_name', 'sportdiscipline'})kwargs:{}exe time:87218400##################################################datetime:2022-02-03 05:59:33func name:complete_postcodeargs:(<class 'areas.Areas'>, 1000, {'custom_col_name': None, 'independently': False, 'blank_chance': 0},             voivodeship
+0             LUBELSKIE
+1             LUBELSKIE
+2    KUJAWSKO-POMORSKIE
+3             PODLASKIE
+4    KUJAWSKO-POMORSKIE
+..                  ...
+995         MAZOWIECKIE
+996       WIELKOPOLSKIE
+997           POMORSKIE
+998        DOLNOåL•SKIE
+999           LUBELSKIE
+
+[1000 rows x 1 columns], {'age', 'voivodeship', 'gender', 'edu_level', 'last_name', 'sportstatus', 'postcode', 'languages', 'first_name', 'sportdiscipline'})kwargs:{}exe time:7006000##################################################datetime:2022-02-03 06:01:39func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 100000, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},        gender  age first_name   last_name
+0        male   18      JAKUB       ZI BA
+1      female   36      IWONA   NAPIERA£A
+2        male   27     LES£AW   KUSKOWSKI
+3      female   11   ELØBIETA     WOèNIAK
+4      female   36    NATALIA      CICHO—
+...       ...  ...        ...         ...
+99995  female   82   KRYSTYNA    SOSI—SKA
+99996  female    0   WIES£AWA   GRABOWSKA
+99997    male   41     KACPER  GROCHALSKI
+99998    male   35       ADAM   BANDURSKI
+99999  female   59      IRENA    ADAMCZYK
+
+[100000 rows x 4 columns], {'age', 'voivodeship', 'gender', 'edu_level', 'last_name', 'sportstatus', 'postcode', 'languages', 'first_name', 'sportdiscipline'})kwargs:{}exe time:5873386300##################################################datetime:2022-02-03 06:01:39func name:complete_postcodeargs:(<class 'areas.Areas'>, 100000, {'custom_col_name': None, 'independently': False, 'blank_chance': 0},         voivodeship
+0      DOLNOåL•SKIE
+1           åL•SKIE
+2         PODLASKIE
+3       MAZOWIECKIE
+4          OPOLSKIE
+...             ...
+99995  PODKARPACKIE
+99996  DOLNOåL•SKIE
+99997       åL•SKIE
+99998       åL•SKIE
+99999       £”DZKIE
+
+[100000 rows x 1 columns], {'age', 'voivodeship', 'gender', 'edu_level', 'last_name', 'sportstatus', 'postcode', 'languages', 'first_name', 'sportdiscipline'})kwargs:{}exe time:73166800##################################################datetime:2022-02-03 06:38:50func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},    gender  age       first_name         last_name  id
+0  female    9            JULIA              MAIK   0
+1    male   61         CRISTIAN            PIEKUT   1
+2    male   54        KRZYSZTOF            BIE—KO   2
+3  female   23            MIRZA        ZAKRZEWSKI   3
+4  female   90        ARKADIUSZ  GRUDZIE— SZUKA£A   4
+5  female   64  MILENA WIKTORIA         åWIDERSKI   5
+6  female   86            J”ZEF               MAJ   6
+7    male   76           MICHA£         MAS£OWSKA   7
+8    male   28            MAREK          MATYSIAK   8
+9    male   42          BARBARA            WO£OSZ   9, {'gender', 'languages', 'last_name', 'edu_level', 'first_name', 'age', 'voivodeship', 'sportstatus', 'postcode', 'id'})kwargs:{}exe time:14001900##################################################datetime:2022-02-03 06:38:50func name:complete_postcodeargs:(<class 'areas.Areas'>, 10, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},       voivodeship
+0        LUBUSKIE
+1       POMORSKIE
+2        LUBUSKIE
+3     MAZOWIECKIE
+4  åWI TOKRZYSKIE
+5       POMORSKIE
+6        OPOLSKIE
+7        LUBUSKIE
+8     MAZOWIECKIE
+9         åL•SKIE, {'gender', 'languages', 'last_name', 'edu_level', 'first_name', 'age', 'voivodeship', 'sportstatus', 'postcode', 'id'})kwargs:{}exe time:8997400##################################################datetime:2022-02-03 06:39:03func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 500, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},      gender  age      first_name            last_name   id
+0      male   54           JERZY   MACIEJEWSKI ADAMEK    0
+1    female   56          CYRYLA           STASIOWSKA    1
+2      male   75          BOGDAN              GRUSZKA    2
+3    female   86          ALICJA      OSTROWSKI SOK”£    3
+4    female   68       ARKADIUSZ  ØMIJEWSKI WODZY—SKI    4
+..      ...  ...             ...                  ...  ...
+495    male   44  LILIANA DANUTA            MARIA—SKI  495
+496  female   96           PIOTR    KRAWIEC ZIELI—SKA  496
+497    male   44          J”ZEFA                WICKI  497
+498    male   66         URSZULA           PIETROWSKI  498
+499    male   56           WANDA    CIESIELSKI S£OWIK  499
+
+[500 rows x 5 columns], {'gender', 'languages', 'last_name', 'edu_level', 'first_name', 'age', 'voivodeship', 'sportstatus', 'postcode', 'id'})kwargs:{}exe time:34979400##################################################datetime:2022-02-03 06:39:03func name:complete_postcodeargs:(<class 'areas.Areas'>, 500, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},        voivodeship
+0    WIELKOPOLSKIE
+1    WIELKOPOLSKIE
+2          £”DZKIE
+3    WIELKOPOLSKIE
+4     DOLNOåL•SKIE
+..             ...
+495   DOLNOåL•SKIE
+496    MA£OPOLSKIE
+497    MA£OPOLSKIE
+498  WIELKOPOLSKIE
+499    MA£OPOLSKIE
+
+[500 rows x 1 columns], {'gender', 'languages', 'last_name', 'edu_level', 'first_name', 'age', 'voivodeship', 'sportstatus', 'postcode', 'id'})kwargs:{}exe time:5999700##################################################datetime:2022-02-03 06:40:06func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 500, {'custom_col_name': 'Wojewodztwo', 'equal_weight': False, 'blank_chance': 0},      gender  age      first_name            last_name   id
+0    female   33  ANNA KATARZYNA              ZI CINA    0
+1      male   78      BART£OMIEJ         SO£TYS GLEBA    1
+2    female   53           JAKUB      £UCZAK CEGLAREK    2
+3    female   60           KINGA  NAROØNA CHMIELEWSKA    3
+4      male   26       MAGDALENA             GAJEWSKI    4
+..      ...  ...             ...                  ...  ...
+495  female   42         MIKO£AJ               KRAUZE  495
+496  female   26           RAFA£         PATER SIKORA  496
+497    male   69            ADAM          SZCZEPA—SKI  497
+498  female   83             EWA             MAJEWICZ  498
+499  female   64           £UCJA            D•BROWSKI  499
+
+[500 rows x 5 columns], {'gender', 'languages', 'last_name', 'edu_level', 'first_name', 'age', 'voivodeship', 'sportstatus', 'postcode', 'id'})kwargs:{}exe time:33193500##################################################datetime:2022-02-03 06:40:06func name:complete_postcodeargs:(<class 'areas.Areas'>, 500, {'custom_col_name': 'kod pocztowy', 'independently': False, 'blank_chance': 0},             voivodeship
+0          DOLNOåL•SKIE
+1           MA£OPOLSKIE
+2           MAZOWIECKIE
+3              OPOLSKIE
+4             PODLASKIE
+..                  ...
+495       WIELKOPOLSKIE
+496             åL•SKIE
+497         MAZOWIECKIE
+498  ZACHODNIOPOMORSKIE
+499             £”DZKIE
+
+[500 rows x 1 columns], {'gender', 'languages', 'last_name', 'edu_level', 'first_name', 'age', 'voivodeship', 'sportstatus', 'postcode', 'id'})kwargs:{}exe time:5999600##################################################datetime:2022-02-03 07:35:13func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},   gender  age first_name last_name  id
+0   male    0    MARIUSZ       LIS   0, {'age', 'sportstatus', 'id', 'sportdiscipline', 'first_name', 'last_name', 'voivodeship', 'languages', 'edu_level', 'postcode', 'gender'})kwargs:{}exe time:7009800##################################################datetime:2022-02-03 07:35:13func name:complete_postcodeargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'independently': False, 'blank_chance': 0},           voivodeship
+0  ZACHODNIOPOMORSKIE, {'age', 'sportstatus', 'id', 'sportdiscipline', 'first_name', 'last_name', 'voivodeship', 'languages', 'edu_level', 'postcode', 'gender'})kwargs:{}exe time:5989400##################################################datetime:2022-02-03 07:35:35func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},   gender  age first_name  last_name  id
+0   male   87    WIES£AW  WALENDZIK   0, {'age', 'sportstatus', 'id', 'sportdiscipline', 'first_name', 'last_name', 'voivodeship', 'languages', 'edu_level', 'postcode', 'gender'})kwargs:{}exe time:12006800##################################################datetime:2022-02-03 07:35:35func name:complete_postcodeargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'independently': False, 'blank_chance': 0},           voivodeship
+0  ZACHODNIOPOMORSKIE, {'age', 'sportstatus', 'id', 'sportdiscipline', 'first_name', 'last_name', 'voivodeship', 'languages', 'edu_level', 'postcode', 'gender'})kwargs:{}exe time:8996800##################################################datetime:2022-02-03 07:35:54func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},   gender  age first_name last_name  id
+0   male   55     ANDRII      MACH   0, {'postcode', 'last_name', 'languages', 'first_name', 'sportdiscipline', 'edu_level', 'voivodeship', 'gender', 'sportstatus', 'age', 'id'})kwargs:{}exe time:6001900##################################################datetime:2022-02-03 07:35:54func name:complete_postcodeargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'independently': False, 'blank_chance': 0},   voivodeship
+0   POMORSKIE, {'postcode', 'last_name', 'languages', 'first_name', 'sportdiscipline', 'edu_level', 'voivodeship', 'gender', 'sportstatus', 'age', 'id'})kwargs:{}exe time:9000000##################################################datetime:2022-02-03 07:58:22func name:complete_voivodeshipargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'equal_weight': False, 'blank_chance': 0},    gender  age  first_name last_name  id
+0  female   38  MA£GORZATA   KOSZELA   0, {'last_name', 'sportdiscipline', 'age', 'languages', 'edu_level', 'voivodeship', 'first_name', 'id', 'sportstatus', 'gender', 'postcode'})kwargs:{}exe time:9532100##################################################datetime:2022-02-03 07:58:23func name:complete_postcodeargs:(<class 'areas.Areas'>, 1, {'custom_col_name': None, 'independently': False, 'blank_chance': 0},    voivodeship
+0  MA£OPOLSKIE, {'last_name', 'sportdiscipline', 'age', 'languages', 'edu_level', 'voivodeship', 'first_name', 'id', 'sportstatus', 'gender', 'postcode'})kwargs:{}exe time:9425000##################################################
