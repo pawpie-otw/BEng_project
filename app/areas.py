@@ -77,7 +77,7 @@ class Areas:
             return "an error place"
 
     @classmethod
-    @loggers.timeit_and_log("logs/exec_logs.log")
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_postcode(cls, rows, postcode, base_df, required_cols):
         postcode_data = dict(
             load(open(cls.path_dict["postcodes"], encoding="utf8")))
@@ -91,7 +91,7 @@ class Areas:
                          for _ in range(rows))
 
     @classmethod
-    @loggers.timeit_and_log("logs/exec_logs.log")
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_voivodeship(cls, rows, voivodeship, base_df, required_cols):
 
         voivodeship_data = {"males": pd.read_csv(cls.path_dict["voivodeship_males"], index_col="index"),

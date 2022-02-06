@@ -77,7 +77,7 @@ class PredefinedTypes:
         Returns:
             dict: dict for blank chance.
         """
-        return cls.dict_range("blank_chance",
+        return cls.dict_range("blanck_chance",
                               "Szansa na brak wartości",
                               "Szansa na brak wartości przedstawiona w postaci procent.")
 

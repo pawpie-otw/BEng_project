@@ -4,8 +4,9 @@ import numpy as np
 from typing import Sequence
 from random import choices, choice
 
-from common_functions import extra_funcs
+from common_functions import extra_funcs, loggers
 from data.education.education_data import EDU_LEVELS, NUMBER_OF_LANGS
+
 
 
 class Education:
@@ -48,6 +49,7 @@ class Education:
         return result
 
     @classmethod
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_edu_level(cls,
                            rows,
                            edu_level,
@@ -112,6 +114,7 @@ class Education:
             return 0
 
     @classmethod
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_num_of_langs(cls, rows, num_of_langs, required_cols, base_df):
 
         if num_of_langs["equal_weight"] or not {"age", "gender"}.issubset(required_cols):

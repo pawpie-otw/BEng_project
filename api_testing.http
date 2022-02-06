@@ -2,7 +2,7 @@ GET http://localhost:8000/available_fields/
 
 ###
 
-POST http://localhost:8000/generate_dataset/ HTTP/1.1
+GET http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
 {
@@ -15,62 +15,72 @@ content-type: application/json
       "double_name_chance": 45,
       "equal_weight": false,
       "unfit_to_gen": false,
-      "blank_chance": 56
+      "blanck_chance": 56
     },
     "last_name": {
       "custom_col_name": "",
       "double_name_chance": 36,
       "equal_weight": false,
       "unfit_to_gen": false,
-      "blank_chance": 0
+      "blanck_chance": 0
+    },
+    "age": {
+      "custom_col_name": "nazwisko",
+      "low_lim": 0,
+      "up_lim": 100,
+      "equal_weight": false,
+      "blanck_chance": 0
+    },
+    "postcode": {
+      "custom_col_name": "",
+      "independently": false,
+      "blanck_chance": 0
     },
     "age": {
       "custom_col_name": "",
       "low_lim": 16,
       "up_lim": 39,
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "gender": {
       "custom_col_name": "",
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "voivodeship": {
       "custom_col_name": "",
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "postcode": {
       "custom_col_name": "",
       "independently": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "languages": {
       "custom_col_name": "",
       "equal_weight": false,
-      "without_none": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "edu_level": {
       "custom_col_name": "kolumna_1",
       "equal_weight": false,
       "without_none": false,
       "ignore_age": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "sportstatus": {
       "custom_col_name": "",
       "independently": false,
       "without_none": false,
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "sportdiscipline": {
       "custom_col_name": "",
       "without_none": false,
-      "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     }
   },
   "general": {
@@ -119,55 +129,55 @@ content-type: application/json
       "double_name_chance": 0,
       "equal_weight": false,
       "unfit_to_gen": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "last_name": {
       "custom_col_name": "",
       "double_name_chance": 0,
       "equal_weight": false,
       "unfit_to_gen": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "gender": {
       "custom_col_name": "",
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "age": {
       "custom_col_name": "",
       "low_lim": 31,
       "up_lim": 51,
       "equal_weight": true,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "postcode": {
       "custom_col_name": "",
       "independently": false,
-      "blank_chance": 35
+      "blanck_chance": 35
     },
     "sportdiscipline": {
       "custom_col_name": "",
       "without_none": false,
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "voivodeship": {
       "custom_col_name": "",
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "edu_level": {
       "custom_col_name": "",
       "equal_weight": false,
       "without_none": false,
       "ignore_age": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "languages": {
       "custom_col_name": "",
       "equal_weight": true,
       "without_none": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     }
   },
   "general": {
@@ -183,6 +193,7 @@ content-type: application/json
 
 {
 "fields":{
+<<<<<<< Updated upstream
         "id":{
                 "custom_col_name": "moje id"
         },
@@ -232,9 +243,28 @@ content-type: application/json
         },
 "general":{
         "rows":500,
+=======
+        "id":{},
+        "gender":{},
+        "age":{},
+        "first_name":{},
+        "last_name":{},
+        "voivodeship":{},
+        "postcode":{},
+        "sportstatus":{},
+        "sportdiscipline":{},
+        "languages":{},
+        "edu_level":{}
+        },
+"general":{
+        "rows":100000,
+>>>>>>> Stashed changes
         "response_format":"to_latex" 
         }
 }
+###
+
+GET http://localhost:8000/generate_dataset/ HTTP/1.1
 
 ###
 
@@ -243,11 +273,8 @@ content-type: application/json
 
 {
 "fields":{
-        "voivodeship":{
+        "voivodehip":{
                 "equal_weight":false
-        },
-        "age":{
-                "equweight":true
         }},
 "general":{
         "rows":3,
@@ -270,14 +297,14 @@ content-type: application/json
       "double_name_chance": 0,
       "equal_weight": false,
       "unfit_to_gen": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "age": {
       "custom_col_name": "12312",
       "low_lim": 0,
       "up_lim": 6,
       "equal_weight": true,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "edu_level":{
             "ignore_age":true
@@ -306,14 +333,14 @@ content-type: application/json
       "double_name_chance": 0,
       "equal_weight": false,
       "unfit_to_gen": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "age": {
       "custom_col_name": "as",
       "low_lim": 56,
       "up_lim": 67,
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "edu_level":{},
     "languages":{}
@@ -339,39 +366,39 @@ content-type: application/json
       "low_lim": 0,
       "up_lim": 6,
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "last_name": {
       "custom_col_name": "",
       "double_name_chance": 0,
       "equal_weight": false,
       "unfit_to_gen": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "postcode": {
       "custom_col_name": "",
       "independently": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "sportdiscipline": {
       "custom_col_name": "",
       "without_none": false,
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "sportstatus": {
       "custom_col_name": "",
       "independently": false,
       "without_none": false,
       "equal_weight": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     },
     "edu_level": {
       "custom_col_name": "",
       "equal_weight": false,
       "without_none": false,
       "ignore_age": false,
-      "blank_chance": 0
+      "blanck_chance": 0
     }
   },
   "general": {

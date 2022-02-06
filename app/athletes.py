@@ -43,6 +43,7 @@ class Athletes:
         return result
     
     @classmethod
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_sportdiscipline(cls, rows, sportdiscipline, base_df, required_cols):
         all_sports = pd.read_csv(cls.path_dict["all_sports"])
         
@@ -75,6 +76,7 @@ class Athletes:
             
     
     @classmethod
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_sportstatus(cls, rows, sportstatus, base_df, required_cols):
         if sportstatus["equal_weight"]:
             return tuple(cls.generate_sportstatus(equal_weight=True,

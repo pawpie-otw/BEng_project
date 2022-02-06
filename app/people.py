@@ -7,7 +7,7 @@ from typing import Any, Dict, Sequence, Annotated, Union
 
 from data.people.population import gender_enum
 from data.people import population as pop
-from common_functions import custom_draws, custom_exceptions, extra_funcs
+from common_functions import custom_draws, custom_exceptions, extra_funcs, loggers
 
 
 class People:
@@ -53,6 +53,7 @@ class People:
         return result
 
     @classmethod
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_name(cls, rows, name_params, paths_to_sets, base_df: pd.DataFrame):
         f_name_df = pd.read_csv(paths_to_sets[0])  # female first name
         m_name_df = pd.read_csv(paths_to_sets[1])  # male first name
@@ -74,6 +75,7 @@ class People:
                          for gender, num in zip(base_df.gender, num_of_names_gen))
 
     @classmethod
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_age(cls, rows: int, age: dict, required_cols=None, base_df: Union[pd.DataFrame, None] = None) -> Sequence[str]:
         if age.get("equal_weight"):
             return tuple(cls.generate_age(age["low_lim"], age["up_lim"], equal_weight=True)
@@ -84,6 +86,7 @@ class People:
                          for gender in base_df.gender)
 
     @classmethod
+    @loggers.timeit_and_log("./logs/generate.logs")
     def complete_gender(cls, rows: int, gender: Dict[str, bool], required_cols: dict) -> Sequence[str]:
         return tuple(cls.generate_gender(equal_weight=gender.get("equal_weight"))
                      for _ in range(rows))
