@@ -7,6 +7,32 @@ content-type: application/json
 
 {
   "fields": {
+    "gender": {
+      "custom_col_name": "",
+      "equal_weight": false,
+      "blanck_chance": 0
+    },
+    "age": {
+      "custom_col_name": "",
+      "low_lim": 0,
+      "up_lim": 100,
+      "equal_weight": false,
+      "blanck_chance": 0
+    }
+  },
+  "general": {
+    "rows": 1,
+    "response_format": "json"
+  }
+}
+
+###
+
+GET http://localhost:8000/generate_dataset/ HTTP/1.1
+content-type: application/json
+
+{
+  "fields": {
     "id": {
       "custom_col_name": ""
     },
@@ -91,7 +117,7 @@ content-type: application/json
 
 ###
 
-POST http://localhost:8000/generate_dataset/ HTTP/1.1
+GET http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
 {
@@ -116,7 +142,7 @@ content-type: application/json
 
 ###
 
-POST http://localhost:8000/generate_dataset/ HTTP/1.1
+GET http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
 {
@@ -188,62 +214,11 @@ content-type: application/json
 
 ###
 
-POST http://localhost:8000/generate_dataset/ HTTP/1.1
+GET http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
 {
 "fields":{
-<<<<<<< Updated upstream
-        "id":{
-                "custom_col_name": "moje id"
-        },
-        "first_name":{
-                    "custom_col_name":"imiona",
-                    "double_name_chance":15,
-                    "equal_weight":false,
-                    "unfit_to_gen":true,
-                    "blanck_chance":0
-                    },
-        "last_name":{
-                    "custom_col_name":"Nazwisko",
-                    "double_name_chance":15,
-                    "equal_weight":false,
-                    "unfit_to_gen":true,
-                    "blanck_chance":0
-                    },
-        "voivodeship":{
-                        "custom_col_name":"Wojewodztwo",
-                    "equal_weight": false,
-                    "blanck_chance":50
-                    },
-        "postcode":{
-                "custom_col_name":"kod pocztowy",
-                    "independently": false,
-                    "blanck_chance":0
-                    },
-        "sportstatus":{
-                    "custom_col_name":"status sportowca",
-                    "independently":false,
-                    "without_none":false,
-                    "equal_weight":false,
-                    "blanck_chance":0
-                    },
-        "languages":{
-                "custom_col_name":null,
-                "equal_weight":false,
-                "without_none":false,
-                "blanck_chance":0
-        },
-        "edu_level":{
-                "custom_col_name":null,
-                "equal_weight":false,
-                "without_none":true,
-                "blanck_chance":0
-        }
-        },
-"general":{
-        "rows":500,
-=======
         "id":{},
         "gender":{},
         "age":{},
@@ -258,7 +233,6 @@ content-type: application/json
         },
 "general":{
         "rows":100000,
->>>>>>> Stashed changes
         "response_format":"to_latex" 
         }
 }

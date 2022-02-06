@@ -4,8 +4,10 @@ from typing import Union
 from functools import wraps
 import time
 
+from nbformat import write
 
-def log_to_file(filename:Union[Path, str], **kwargs)->None:
+
+def log_to_file(filename:Union[Path, str], *args, **kwargs):
     """Log to file every param given as kwarg with current date and time.
 
     Args:
@@ -16,14 +18,14 @@ def log_to_file(filename:Union[Path, str], **kwargs)->None:
     now = datetime.now()
     
     with open(filename, "a") as file:
-        file.write("date:",today.strftime("%d/%m/%Y"))
-        file.write("time:",now.strftime("%H:%M:%S"))
-        for kwarg in kwargs:
-            file.write("arg_name:",kwarg)
-            file.write("value   :",kwargs[kwarg])
-        file.write(f"\n{'#'*50}\n")
+        file.write("date: ",today.strftime("%d/%m/%Y"))
+        file.write("time: ",now.strftime("%H:%M:%S"))
+        file.write("; ".join(args))
+        for kwarg, value in kwargs.items():
+            file.write(f"{kwarg}= {value};")
+        file.write(f"\n")
             
-def timeit_and_log(file_path, log_args=False, log_kwargs=False):
+def timeit_and_log(file_path, rows=None, log_args=False, log_kwargs=False):
     def wrapper(func):
         @wraps(func)
         def ins_wrapper(*args, **kwargs):
@@ -36,34 +38,18 @@ def timeit_and_log(file_path, log_args=False, log_kwargs=False):
                 
                 now = datetime.now()
                 f.write("\n")
-                f.write("func name:"+str(func.__name__)+"\n")
-                f.write("exe time:"+str(time_stop-time_start)+"\n")
-                f.write("datetime:"+str(now.strftime("%Y-%m-%d %H:%M:%S"))+"\n")
+                f.write("func name: "+str(func.__name__)+"\n")
+                if rows:
+                    f.write("rows number: "+str(rows))
+                f.write("exe time: "+str(time_stop-time_start)+"\n")
+                f.write("datetime: "+str(now.strftime("%Y-%m-%d %H:%M:%S"))+"\n")
                 if log_args:
-                    f.write("args:"+str(args)+"\n")
+                    f.write("args: "+str(args)+"\n")
                 if log_kwargs:
-                    f.write("kwargs:"+str(kwargs)+"\n")
+                    f.write("kwargs: "+str(kwargs)+"\n")
                 
                 f.write("\n")
                 f.write("#"*50)
             return result
         return ins_wrapper
     return wrapper
-    
-
-def timeit_and_save(path=None):
-    def timeit_wrapper(func):
-        def wrapper(*args, **kwargs):
-            start = time.time()    
-            x = func(*args, **kwargs)
-            stop = time.time()
-            exe_time =start - stop
-            if path is None:
-                print(exe_time)
-            else:
-                with open(path, "a+") as f:
-                    f.write(f"func name:      {func.__name__}")
-                    f.write(f"execution time: {exe_time}")
-            return x
-        return wrapper
-    return timeit_wrapper

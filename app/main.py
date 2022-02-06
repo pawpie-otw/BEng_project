@@ -16,6 +16,8 @@ from fields.field_interpreter import FieldInterpreter
 from response.response_interpreter import ResponseInterpreter
 from response.response_types import RESPONSE_PARAMS, RESPONSES_FOR_CONVERTER
 
+from common_functions.loggers import log_to_file
+
 from people import People
 from areas import Areas
 from athletes import Athletes
@@ -141,6 +143,8 @@ async def generate_dataset(request: Request) -> Union[str, 'JSON']:
 
     if (len(requested_cols := fields_data.keys()) == 10 and "id" not in requested_cols) or len(requested_cols) == 11:
         fixed_request = fi.fix_request(fields_data)
+    else:
+        fixed_request = fields_data
     cols_to_refill = fi.check_requested_cols_for_dependencies(fixed_request)
     refilled = fi.refill_multiple_fields(cols_to_refill)
     refilled.update(fixed_request)
@@ -204,6 +208,9 @@ async def generate_dataset(request: Request) -> Union[str, 'JSON']:
 
         x = ri.convert_df(cutted_df, response_form)
     except Exception as e:
+        log_to_file("./logs/data_gen_errors.log", general_data = "general data", **general_data,
+                                                fields_data = "fields data", **fields_data,
+                                                fixed_reques = "fixed request", **fixed_request)
         return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             content={"detail":"Server comes a cross en error while generates data. Try other settings of options."})
     return x
