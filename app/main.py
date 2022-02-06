@@ -46,7 +46,7 @@ def read_root():
     return {"Welcome to": "data generator."}
 
 
-@app.get("/generate_dataset")
+@app.post("/generate_dataset")
 async def generate_dataset(request: Request) -> Union[str, 'JSON']:
     """This is key method of `Generator danych z API` which returns synthetic generated data
     based on statistic from Poland. Let's check out our server dedicated web page for more
@@ -208,9 +208,11 @@ async def generate_dataset(request: Request) -> Union[str, 'JSON']:
 
         x = ri.convert_df(cutted_df, response_form)
     except Exception as e:
-        log_to_file("./logs/data_gen_errors.log", general_data = "general data", **general_data,
-                                                fields_data = "fields data", **fields_data,
-                                                fixed_reques = "fixed request", **fixed_request)
+        log_to_file("./logs/data_gen_errors.log",
+                    error_name = str(e),
+                    general_data = "general data", **general_data,
+                    fields_data = "fields data", **fields_data,
+                    fixed_reques = "fixed request", **fixed_request)
         return JSONResponse(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
                             content={"detail":"Server comes a cross en error while generates data. Try other settings of options."})
     return x
