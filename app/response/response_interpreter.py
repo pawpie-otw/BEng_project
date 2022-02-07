@@ -4,18 +4,21 @@ from common_functions import loggers
 
 
 class ResponseInterpreter:
-    
+
     @staticmethod
     @loggers.timeit_and_log("./logs/response.logs")
-    def convert_df(data, method_name)->StreamingResponse :
-        
+    def convert_df(data, method_name) -> StreamingResponse:
+
         if method_name == "json":
             return data.to_json(orient="records")
-        
+
+        print("\n")
+        print(method_name)
+        print("\n")
         stream = io.StringIO()
-        {"to_csv": data.to_csv(stream, index=False),
-        "to_html": data.to_html(stream, index=False),
-        "to_latex": data.to_latex(stream, index=False)}[method_name]
+        {"to_csv": data.to_csv,
+         "to_html": data.to_html,
+         "to_latex": data.to_latex}[method_name](stream, index=False)
 
         file_type = method_name.split("_")[1]
         response = StreamingResponse(

@@ -75,7 +75,7 @@ class PredefinedTypes:
     def blanck_chance(cls) -> dict:
         """
         Returns:
-            dict: dict for blank chance.
+            dict: dict for blanck chance.
         """
         return cls.dict_range("blanck_chance",
                               "Szansa na brak wartości",

@@ -2,6 +2,44 @@ GET http://localhost:8000/available_fields/
 
 ###
 
+POST http://localhost:8000/generate_dataset/ HTTP/1.1
+content-type: application/json
+
+{
+  "fields": {
+    "id": {
+      "custom_col_name": "id"
+    },
+    "first_name": {
+      "custom_col_name": "",
+      "double_name_chance": 0,
+      "equal_weight": false,
+      "unfit_to_gen": false,
+      "blanck_chance": 0
+    },
+    "age": {
+      "custom_col_name": "",
+      "low_lim": 0,
+      "up_lim": 100,
+      "equal_weight": false,
+      "blanck_chance": 0
+    },
+    "last_name": {
+      "custom_col_name": "",
+      "double_name_chance": 0,
+      "equal_weight": false,
+      "unfit_to_gen": false,
+      "blanck_chance": 0
+    }
+  },
+  "general": {
+    "rows": 1,
+    "response_format": "to_csv"
+  }
+}
+
+###
+
 GET http://localhost:8000/generate_dataset/ HTTP/1.1
 content-type: application/json
 
