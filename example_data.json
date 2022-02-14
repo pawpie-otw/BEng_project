@@ -1,0 +1,33 @@
+{
+    "fields": {
+        nazwa_pola1: {},
+        nazwa_pola2: {
+        nazwa_opcji: jej wartosc,
+        // (...)
+        }
+        // (...)
+    },
+    "general": {
+        "rows": ilosc_wierszy,
+        "response_format": zwracany_format
+    }
+}
+
+{
+    "fields": {
+      "gender": {
+        "custom_col_name": "Plec"
+      },
+      "age": {
+        "custom_col_name": "Wiek",
+        "low_lim": 0,
+        "up_lim": 100,
+        "equal_weight": false,
+        "blanck_chance": 0
+      }
+    },
+    "general": {
+      "rows": 100,
+      "response_format": "json"
+    }
+}

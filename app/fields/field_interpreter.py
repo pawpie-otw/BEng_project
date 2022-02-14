@@ -151,7 +151,7 @@ class FieldInterpreter:
         for requested_option, requested_value in options.items(): # wszystkie nazwy/klucze zadanych opcji
             option_params = self.find_option_by_name(requested_option, field_name)
             
-            x = {"checkbox":self.valid_checkbox,
+            {"checkbox":self.valid_checkbox,
             "range":self.valid_range,
             "text":self.valid_text
             }[option_params["input_type"]](requested_value, option_params)
